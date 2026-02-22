@@ -1,73 +1,96 @@
 import { getProgramById, getPrograms } from "@/lib/cms";
 import { notFound } from "next/navigation";
-import { Clock, BarChart, CheckCircle2, Calendar, BookOpen } from "lucide-react";
+import { Clock, BarChart2, CheckCircle2, Calendar, BookOpen, ArrowLeft, Shield } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RegistrationForm from "@/components/RegistrationForm";
+import Link from "next/link";
 
-// This is required for static site generation with dynamic routes
 export async function generateStaticParams() {
     const programs = await getPrograms();
-    return programs.map((program) => ({
-        id: program.id,
-    }));
+    return programs.map((program) => ({ id: program.id }));
 }
+
+const LEVEL_COLORS: Record<string, string> = {
+    "Beginner": "bg-emerald-100 text-emerald-700",
+    "Intermediate": "bg-amber-100 text-amber-700",
+    "Advanced": "bg-rose-100 text-rose-700",
+    "All Levels": "bg-sky-100 text-sky-700",
+};
 
 export default async function CoursePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const program = await getProgramById(id);
 
-    if (!program) {
-        notFound();
-    }
+    if (!program) notFound();
 
     return (
         <div className="flex min-h-screen flex-col font-sans">
             <Navbar />
             <main className="flex-1">
-                {/* Header Section */}
-                <section className="bg-muted/30 py-16 md:py-24">
-                    <div className="container mx-auto px-4 md:px-6">
-                        <div className="max-w-4xl">
-                            <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-6">
+
+                {/* ── Dark Hero ── */}
+                <section className="relative bg-dark-bg pt-36 pb-16 overflow-hidden">
+                    <div className="absolute inset-0">
+                        <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-primary/20 rounded-full blur-[120px] translate-x-1/4 -translate-y-1/4" />
+                        <div className="absolute inset-0 dot-pattern opacity-10" />
+                    </div>
+                    <div className="container relative z-10 mx-auto px-4 md:px-8">
+                        {/* Breadcrumb */}
+                        <Link href="/courses" className="inline-flex items-center gap-2 text-white/40 hover:text-white/70 text-sm mb-8 transition-colors">
+                            <ArrowLeft className="w-4 h-4" /> Back to all courses
+                        </Link>
+
+                        <div className="max-w-3xl">
+                            {/* Level badge */}
+                            <span className={`inline-block text-xs font-semibold px-3 py-1.5 rounded-full mb-5 ${LEVEL_COLORS[program.level] || LEVEL_COLORS["All Levels"]}`}>
                                 {program.level}
-                            </div>
-                            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl font-serif text-foreground mb-6">
+                            </span>
+
+                            <h1 className="text-4xl md:text-6xl font-serif font-light text-white mb-5 leading-tight">
                                 {program.title}
                             </h1>
-                            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
+                            <p className="text-white/55 text-lg font-light leading-relaxed max-w-2xl mb-8">
                                 {program.description}
                             </p>
 
-                            <div className="flex flex-wrap gap-6 mt-8">
-                                <div className="flex items-center gap-2 text-foreground/80">
-                                    <Clock className="w-5 h-5 text-primary" />
-                                    <span className="font-medium">{program.duration}</span>
+                            {/* Meta chips */}
+                            <div className="flex flex-wrap gap-4">
+                                <div className="glass flex items-center gap-2 px-4 py-2 rounded-full text-white/80 text-sm">
+                                    <Clock className="w-4 h-4 text-primary-light" />
+                                    {program.duration}
                                 </div>
-                                <div className="flex items-center gap-2 text-foreground/80">
-                                    <BarChart className="w-5 h-5 text-primary" />
-                                    <span>Certification Included</span>
+                                <div className="glass flex items-center gap-2 px-4 py-2 rounded-full text-white/80 text-sm">
+                                    <Shield className="w-4 h-4 text-primary-light" />
+                                    Yoga Alliance Certified
+                                </div>
+                                <div className="glass flex items-center gap-2 px-4 py-2 rounded-full text-white/80 text-sm">
+                                    <BarChart2 className="w-4 h-4 text-primary-light" />
+                                    Max 15 Students
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* Curriculum Distribution */}
+                {/* ── Curriculum Breakdown ── */}
                 {program.curriculumBreakdown && (
-                    <section className="py-16 bg-background">
-                        <div className="container mx-auto px-4 md:px-6">
-                            <h2 className="text-2xl font-bold font-serif mb-8 flex items-center gap-3">
-                                <BookOpen className="w-6 h-6 text-primary" />
-                                Curriculum Breakdown
-                            </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <section className="py-20 bg-background">
+                        <div className="container mx-auto px-4 md:px-8">
+                            <div className="flex items-center gap-3 mb-10">
+                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <BookOpen className="w-4 h-4 text-primary" />
+                                </div>
+                                <h2 className="text-2xl font-serif font-medium text-foreground">Curriculum Breakdown</h2>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 {program.curriculumBreakdown.map((item, idx) => (
-                                    <div key={idx} className="p-6 rounded-xl border border-muted bg-card hover:border-primary/30 transition-colors">
-                                        <div className="text-3xl font-bold text-primary mb-2">
-                                            {item.hours}<span className="text-base font-normal text-muted-foreground ml-1">hrs</span>
-                                        </div>
-                                        <h3 className="font-medium text-foreground">{item.topic}</h3>
+                                    <div key={idx} className="bg-card border border-muted rounded-2xl p-6 hover:border-primary/30 hover:shadow-md transition-all group">
+                                        <p className="text-4xl font-serif font-bold text-primary mb-1 group-hover:scale-105 transition-transform inline-block">
+                                            {item.hours}
+                                            <span className="text-base font-normal text-muted-foreground ml-1">hrs</span>
+                                        </p>
+                                        <p className="text-sm text-foreground/80 font-medium mt-1">{item.topic}</p>
                                     </div>
                                 ))}
                             </div>
@@ -75,68 +98,99 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
                     </section>
                 )}
 
-                {/* Weekly Schedule */}
+                {/* ── Weekly Schedule ── */}
                 {program.weeklySchedule && (
-                    <section className="py-16 bg-muted/20">
-                        <div className="container mx-auto px-4 md:px-6">
-                            <h2 className="text-2xl font-bold font-serif mb-12 flex items-center gap-3">
-                                <Calendar className="w-6 h-6 text-primary" />
-                                Weekly Timetable
-                            </h2>
-
-                            <div className="space-y-8 max-w-4xl">
+                    <section className="py-20 bg-muted/20">
+                        <div className="container mx-auto px-4 md:px-8">
+                            <div className="flex items-center gap-3 mb-10">
+                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <Calendar className="w-4 h-4 text-primary" />
+                                </div>
+                                <h2 className="text-2xl font-serif font-medium text-foreground">Weekly Timetable</h2>
+                            </div>
+                            <div className="space-y-5 max-w-4xl">
                                 {program.weeklySchedule.map((week, idx) => (
-                                    <div key={idx} className="bg-background rounded-2xl p-6 md:p-8 shadow-sm border border-muted">
-                                        <div className="mb-4">
-                                            <span className="text-sm font-bold tracking-wider text-primary uppercase">{week.week}</span>
-                                            <h3 className="text-xl font-bold text-foreground mt-1">{week.theme}</h3>
+                                    <div key={idx} className="bg-card border border-muted rounded-2xl overflow-hidden hover:border-primary/30 transition-colors">
+                                        <div className="flex items-center gap-4 px-6 py-4 bg-primary/5 border-b border-muted">
+                                            <span className="w-8 h-8 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center shrink-0">
+                                                {idx + 1}
+                                            </span>
+                                            <div>
+                                                <p className="text-xs text-primary font-semibold uppercase tracking-widest">{week.week}</p>
+                                                <h3 className="text-base font-serif font-semibold text-foreground">{week.theme}</h3>
+                                            </div>
                                         </div>
-                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-4">
-                                            {week.focus.map((item, i) => (
-                                                <li key={i} className="flex items-start gap-2 text-muted-foreground">
-                                                    <CheckCircle2 className="w-4 h-4 text-secondary shrink-0 mt-1" />
-                                                    <span className="text-sm">{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        <div className="p-6">
+                                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                {week.focus.map((item, i) => (
+                                                    <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                                                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                                                        {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </section>
                 )}
-                {/* Registration Section */}
-                <section className="py-16 md:py-24 bg-primary/5">
-                    <div className="container mx-auto px-4 md:px-6">
-                        <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-                            <div>
-                                <h2 className="text-3xl font-bold font-serif mb-6 text-foreground">
-                                    Ready to Begin Your Journey?
-                                </h2>
-                                <p className="text-lg text-muted-foreground mb-8">
-                                    Secure your spot in the upcoming batch. Our groups are small to ensuring personalized attention and mentorship.
-                                </p>
-                                <ul className="space-y-4">
-                                    <li className="flex items-center gap-3">
-                                        <div className="h-2 w-2 rounded-full bg-primary" />
-                                        <span>Limited seats available per batch</span>
-                                    </li>
-                                    <li className="flex items-center gap-3">
-                                        <div className="h-2 w-2 rounded-full bg-primary" />
-                                        <span>Early bird discounts available</span>
-                                    </li>
-                                    <li className="flex items-center gap-3">
-                                        <div className="h-2 w-2 rounded-full bg-primary" />
-                                        <span>Lifetime access to course materials</span>
-                                    </li>
-                                </ul>
+
+                {/* ── Registration Section ── */}
+                <section className="py-20 bg-dark-bg relative overflow-hidden">
+                    <div className="absolute inset-0">
+                        <div className="absolute left-0 bottom-0 w-[400px] h-[300px] bg-primary/15 rounded-full blur-[100px]" />
+                        <div className="absolute inset-0 dot-pattern opacity-10" />
+                    </div>
+                    <div className="container relative z-10 mx-auto px-4 md:px-8">
+                        <div className="grid md:grid-cols-2 gap-16 items-start max-w-5xl mx-auto">
+                            {/* Left info */}
+                            <div className="flex flex-col gap-6">
+                                <div>
+                                    <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-3">
+                                        Secure Your Spot
+                                    </p>
+                                    <h2 className="text-4xl font-serif font-light text-white mb-4 leading-tight">
+                                        Ready to Begin Your Journey?
+                                    </h2>
+                                    <p className="text-white/50 leading-relaxed">
+                                        Groups are small to ensure personalized attention and deep mentorship. Apply now for the June 2026 batch.
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-col gap-4">
+                                    {[
+                                        "Limited seats — maximum 15 students per batch",
+                                        "Early bird discounts available",
+                                        "Lifetime access to course materials",
+                                        "Ongoing alumni mentorship included",
+                                    ].map(item => (
+                                        <div key={item} className="flex items-start gap-3 text-sm text-white/70">
+                                            <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                                                <CheckCircle2 className="w-3 h-3 text-primary-light" />
+                                            </span>
+                                            {item}
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Certification badge */}
+                                <div className="glass rounded-2xl p-5 flex items-center gap-4">
+                                    <Shield className="w-8 h-8 text-primary-light shrink-0" />
+                                    <div>
+                                        <p className="text-white font-semibold text-sm">Yoga Alliance Certified</p>
+                                        <p className="text-white/50 text-xs mt-0.5">200H RYT upon successful completion</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <RegistrationForm courseTitle={program.title} />
-                            </div>
+
+                            {/* Form */}
+                            <RegistrationForm courseTitle={program.title} />
                         </div>
                     </div>
                 </section>
+
             </main>
             <Footer />
         </div>

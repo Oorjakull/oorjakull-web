@@ -5,31 +5,46 @@ export default async function Instructors() {
     const instructors = await getInstructors();
 
     return (
-        <section className="py-20 bg-background">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold tracking-tighter text-foreground font-serif sm:text-4xl">
-                        Meet Your Mentors
+        <section className="py-24 bg-muted/30">
+            <div className="container mx-auto px-4 md:px-8">
+                {/* Header */}
+                <div className="text-center max-w-2xl mx-auto mb-16">
+                    <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
+                        Your Guides
+                    </p>
+                    <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground mb-4">
+                        Meet the Acharyas
                     </h2>
-                    <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-                        Learn from experienced practitioners dedicated to preserving the tradition while embracing modern science.
+                    <p className="text-muted-foreground text-lg font-light leading-relaxed">
+                        Learn from practitioners who have spent decades embodying and
+                        teaching the full spectrum of yoga — from asana to samadhi.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                {/* Instructor cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     {instructors.map((instructor) => (
-                        <div key={instructor.id} className="flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
-                            <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-4 border-muted">
-                                {/* Placeholder Image */}
-                                <div className="w-full h-full bg-muted flex items-center justify-center text-4xl grayscale">
-                                    🧘
-                                </div>
+                        <div
+                            key={instructor.id}
+                            className="group bg-card border border-muted rounded-3xl p-8 flex flex-col sm:flex-row gap-6 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                        >
+                            {/* Avatar */}
+                            <div className="relative w-24 h-24 shrink-0 rounded-2xl overflow-hidden bg-primary/10 flex items-center justify-center text-5xl self-center sm:self-start">
+                                {/* If a real photo exists, show Image, otherwise emoji */}
+                                <span>🧘</span>
+                                {/* Gradient overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/10" />
                             </div>
 
-                            <div className="space-y-2">
-                                <h3 className="text-xl font-bold font-serif text-foreground">{instructor.name}</h3>
-                                <p className="text-sm font-medium text-primary uppercase tracking-wide">{instructor.role}</p>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
+                            {/* Content */}
+                            <div>
+                                <p className="text-xs text-primary font-semibold uppercase tracking-widest mb-1">
+                                    {instructor.role}
+                                </p>
+                                <h3 className="text-xl font-serif font-semibold text-foreground group-hover:text-primary transition-colors mb-3">
+                                    {instructor.name}
+                                </h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
                                     {instructor.bio}
                                 </p>
                             </div>

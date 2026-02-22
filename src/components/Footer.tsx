@@ -1,47 +1,103 @@
 import Link from "next/link";
+import { ArrowRight, Instagram, Facebook, Youtube, Mail } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer className="w-full border-t border-muted bg-muted/30 py-12">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-                    <div className="space-y-4">
-                        <h3 className="text-lg font-serif font-bold text-foreground">OorjaKull</h3>
-                        <p className="text-sm text-muted-foreground">
-                            Empowering the next generation of yoga teachers with ancient wisdom and modern techniques.
+        <footer className="bg-dark-bg text-white/70">
+            {/* Main footer content */}
+            <div className="container mx-auto px-4 md:px-8 py-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    {/* Brand */}
+                    <div className="lg:col-span-2 space-y-5 max-w-sm">
+                        <div>
+                            <h3 className="text-2xl font-serif font-semibold text-white tracking-tight">
+                                OorjaKull
+                            </h3>
+                            <p className="text-sm text-primary-light mt-1 font-medium uppercase tracking-widest">
+                                School of Yoga
+                            </p>
+                        </div>
+                        <p className="text-sm text-white/50 leading-relaxed">
+                            Empowering the next generation of yoga teachers with the depth of
+                            ancient wisdom and the clarity of modern pedagogy. From the heart of India.
                         </p>
+                        {/* Social */}
+                        <div className="flex gap-3 pt-2">
+                            {[
+                                { icon: Instagram, label: "Instagram", href: "#" },
+                                { icon: Facebook, label: "Facebook", href: "#" },
+                                { icon: Youtube, label: "YouTube", href: "#" },
+                                { icon: Mail, label: "Email", href: "/contact" },
+                            ].map(({ icon: Icon, label, href }) => (
+                                <Link
+                                    key={label}
+                                    href={href}
+                                    aria-label={label}
+                                    className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:border-primary hover:text-primary hover:bg-primary/10 transition-all"
+                                >
+                                    <Icon className="w-4 h-4" />
+                                </Link>
+                            ))}
+                        </div>
                     </div>
 
+                    {/* Programs */}
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">Programs</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link href="#" className="hover:text-primary">200H Teacher Training</Link></li>
-                            <li><Link href="#" className="hover:text-primary">300H Advanced Training</Link></li>
-                            <li><Link href="#" className="hover:text-primary">Weekend Workshops</Link></li>
+                        <h4 className="text-xs font-semibold text-white/30 uppercase tracking-[0.25em]">Programs</h4>
+                        <ul className="space-y-3 text-sm">
+                            {[
+                                ["200H Teacher Training", "/courses"],
+                                ["300H Advanced YTT", "/courses"],
+                                ["Weekend Intensives", "/courses"],
+                                ["Online Learning", "/courses"],
+                            ].map(([label, href]) => (
+                                <li key={label}>
+                                    <Link
+                                        href={href}
+                                        className="text-white/50 hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                                    >
+                                        {label}
+                                        <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
+                    {/* Company */}
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">Company</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link href="#" className="hover:text-primary">About Us</Link></li>
-                            <li><Link href="#" className="hover:text-primary">Our Instructors</Link></li>
-                            <li><Link href="#" className="hover:text-primary">Contact</Link></li>
-                        </ul>
-                    </div>
-
-                    <div className="space-y-4">
-                        <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">Connect</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link href="#" className="hover:text-primary">Instagram</Link></li>
-                            <li><Link href="#" className="hover:text-primary">Facebook</Link></li>
-                            <li><Link href="#" className="hover:text-primary">YouTube</Link></li>
+                        <h4 className="text-xs font-semibold text-white/30 uppercase tracking-[0.25em]">Navigate</h4>
+                        <ul className="space-y-3 text-sm">
+                            {[
+                                ["About OorjaKull", "/about"],
+                                ["Our Acharyas", "/about"],
+                                ["Insights Blog", "/blog"],
+                                ["Contact Us", "/contact"],
+                                ["Apply Now", "/register"],
+                            ].map(([label, href]) => (
+                                <li key={label}>
+                                    <Link
+                                        href={href}
+                                        className="text-white/50 hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                                    >
+                                        {label}
+                                        <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                <div className="mt-12 border-t border-muted pt-8 text-center text-sm text-muted-foreground">
-                    <p>&copy; {new Date().getFullYear()} OorjaKull. All rights reserved.</p>
+            {/* Bottom bar */}
+            <div className="border-t border-white/5">
+                <div className="container mx-auto px-4 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/25">
+                    <p>© {new Date().getFullYear()} OorjaKull School of Yoga. All rights reserved.</p>
+                    <div className="flex gap-6">
+                        <Link href="#" className="hover:text-white/50 transition-colors">Privacy Policy</Link>
+                        <Link href="#" className="hover:text-white/50 transition-colors">Terms of Use</Link>
+                    </div>
                 </div>
             </div>
         </footer>

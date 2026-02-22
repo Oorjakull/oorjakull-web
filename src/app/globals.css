@@ -1,53 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #fbfbf2;
-  /* Extracted Cream from Logo */
-  --foreground: #4A4A4A;
-  /* Charcoal */
+  --background: #faf8f4;
+  --foreground: #1a1a1a;
 
-  /* Custom Theme Colors */
-  --primary: #4e9d78;
-  /* Extracted Sage Green (Leaf) */
+  /* Primary: Deep Forest Green */
+  --primary: #2d6a4f;
+  --primary-light: #4e9d78;
   --primary-foreground: #FFFFFF;
 
-  --secondary: #ddb329;
-  /* Extracted Gold from Icon */
+  /* Secondary: Warm Gold */
+  --secondary: #c8922a;
   --secondary-foreground: #FFFFFF;
 
-  --accent: #9c5d10;
-  /* Extracted Deep Gold/Bronze */
+  /* Accent: Earth Bronze */
+  --accent: #8b5e3c;
   --accent-foreground: #FFFFFF;
 
-  --muted: #e6e0d8;
-  /* Extracted Muted Beige */
-  --muted-foreground: #6B7280;
+  /* Surfaces */
+  --muted: #e8e0d5;
+  --muted-foreground: #6e6158;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+
+  /* Dark Sections */
+  --dark-bg: #1a1e1b;
+  --dark-surface: #242b26;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
   --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
   --color-primary-foreground: var(--primary-foreground);
-
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-dark-bg: var(--dark-bg);
+  --color-dark-surface: var(--dark-surface);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
-
+* {
+  box-sizing: border-box;
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+/* Utility Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Section patterns */
+.dot-pattern {
+  background-image: radial-gradient(circle, rgba(45, 106, 79, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
 }

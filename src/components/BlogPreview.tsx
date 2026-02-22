@@ -1,86 +1,90 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, Calendar } from "lucide-react";
 
 const BLOG_POSTS = [
     {
         id: 1,
         title: "The Ancient Science of Breath",
-        excerpt: "Discover how Pranayama influences your nervous system and mental clarity.",
+        excerpt: "Discover how Pranayama influences your nervous system, mental clarity and the subtle pranic body.",
         date: "Feb 10, 2026",
-        image: "/placeholder-yoga-1.jpg",
-        slug: "ancient-science-breath"
+        tag: "Pranayama",
+        slug: "ancient-science-breath",
+        color: "from-primary/20 to-emerald-900/20",
+        emoji: "🌬️",
     },
     {
         id: 2,
-        title: "Building a career as a Yoga Trainer",
+        title: "Building a Career as a Yoga Teacher",
         excerpt: "Why the world needs authentic teachers more than ever in the age of digital wellness.",
         date: "Feb 05, 2026",
-        image: "/placeholder-yoga-2.jpg",
-        slug: "career-yoga-trainer"
+        tag: "Career",
+        slug: "career-yoga-trainer",
+        color: "from-secondary/20 to-amber-900/20",
+        emoji: "🎓",
     },
     {
         id: 3,
         title: "Integrating AI with Traditional Asanas",
-        excerpt: "How OorjaKull is pioneering the future of personalized posture correction.",
+        excerpt: "How OorjaKull is pioneering personalized posture correction while honouring tradition.",
         date: "Jan 28, 2026",
-        image: "/placeholder-yoga-3.jpg",
-        slug: "ai-traditional-asanas"
-    }
+        tag: "Innovation",
+        slug: "ai-traditional-asanas",
+        color: "from-accent/20 to-rose-900/20",
+        emoji: "🤖",
+    },
 ];
 
 export default function BlogPreview() {
     return (
-        <section className="py-20 bg-muted/30">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="flex flex-colmd:flex-row justify-between items-center mb-12 gap-6">
-                    <div className="text-center md:text-left">
-                        <h2 className="text-3xl font-bold tracking-tighter text-foreground font-serif sm:text-4xl">
-                            Latest Insights
-                        </h2>
-                        <p className="text-muted-foreground mt-2 max-w-xl">
-                            Wisdom from our master teachers and wellness experts.
+        <section className="py-24 bg-background">
+            <div className="container mx-auto px-4 md:px-8">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14">
+                    <div>
+                        <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
+                            Wisdom & Insights
                         </p>
+                        <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
+                            Latest from the Mat
+                        </h2>
                     </div>
-                    <Link href="/blog" className="hidden md:flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                        View All Articles <ArrowRight className="w-4 h-4" />
+                    <Link href="/blog" className="group inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all shrink-0">
+                        All Articles <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {BLOG_POSTS.map((post) => (
-                        <Link href={`/blog`} key={post.id} className="group cursor-pointer">
-                            <article className="bg-background rounded-2xl overflow-hidden shadow-sm border border-muted transition-all hover:shadow-md h-full flex flex-col">
-                                <div className="relative h-48 w-full bg-muted">
-                                    {/* Placeholder for blog image - using a div with gradient for now if image fails */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center text-muted-foreground/50">
-                                        <span className="text-4xl">📝</span>
-                                    </div>
+                        <Link key={post.id} href="/blog" className="group">
+                            <article className="bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
+                                {/* Image placeholder with gradient */}
+                                <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
+                                    <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
+                                    {/* Tag */}
+                                    <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
+                                        {post.tag}
+                                    </span>
                                 </div>
-                                <div className="p-6 flex-1 flex flex-col">
-                                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+
+                                <div className="p-6 flex-1 flex flex-col gap-3">
+                                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                         <Calendar className="w-3 h-3" />
                                         {post.date}
                                     </div>
-                                    <h3 className="text-xl font-serif font-bold mb-3 group-hover:text-primary transition-colors">
+                                    <h3 className="text-lg font-serif font-semibold group-hover:text-primary transition-colors leading-snug">
                                         {post.title}
                                     </h3>
-                                    <p className="text-muted-foreground text-sm line-clamp-3 mb-4 flex-1">
+                                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                                         {post.excerpt}
                                     </p>
-                                    <span className="text-sm font-semibold text-primary flex items-center gap-1 mt-auto">
-                                        Read More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-2">
+                                        Read More <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                                     </span>
                                 </div>
                             </article>
                         </Link>
                     ))}
-                </div>
-
-                <div className="mt-8 text-center md:hidden">
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold">
-                        View All Articles <ArrowRight className="w-4 h-4" />
-                    </Link>
                 </div>
             </div>
         </section>
