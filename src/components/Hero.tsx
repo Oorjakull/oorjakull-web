@@ -16,7 +16,7 @@ export default function Hero() {
     const [phraseIndex, setPhraseIndex] = useState(0);
     const [displayed, setDisplayed] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     useEffect(() => {
         const currentPhrase = HERO_PHRASES[phraseIndex];
