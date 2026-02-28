@@ -19,15 +19,15 @@ export default function RegisterPage() {
     return (
         <div className="flex min-h-screen flex-col font-sans">
             <Navbar />
-            <main className="flex-1 bg-dark-bg">
+            <main className="flex-1">
 
                 {/* Full-page dark registration layout */}
-                <section className="relative min-h-screen flex items-center overflow-hidden py-24 pt-32">
-                    {/* Background */}
+                <section className="relative min-h-screen flex items-center overflow-hidden py-24 pt-32 bg-background">
+                    {/* Warm parchment background */}
                     <div className="absolute inset-0">
-                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[140px] translate-x-1/3 -translate-y-1/3" />
-                        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px]" />
-                        <div className="absolute inset-0 dot-pattern opacity-10" />
+                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/20 rounded-full blur-[160px] translate-x-1/3 -translate-y-1/3" />
+                        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px]" />
+                        <div className="absolute inset-0 dot-pattern opacity-25" />
                     </div>
 
                     <div className="container relative z-10 mx-auto px-4 md:px-8">
@@ -36,15 +36,15 @@ export default function RegisterPage() {
                             {/* Left: Info */}
                             <div className="flex flex-col gap-8">
                                 <div>
-                                    <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-4">
+                                    <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-4">
                                         June 2026 Batch
                                     </p>
-                                    <h1 className="text-5xl md:text-6xl font-serif font-light text-white mb-5 leading-tight">
+                                    <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-5 leading-tight">
                                         Begin Your Teaching Journey
                                     </h1>
-                                    <p className="text-white/50 text-lg font-light leading-relaxed">
+                                    <p className="text-foreground/55 text-lg font-light leading-relaxed">
                                         Apply for the{" "}
-                                        <span className="text-primary-light font-medium">200-Hour Ashtanga Yoga Teacher Training</span>.
+                                        <span className="text-primary font-medium">200-Hour Ashtanga Yoga Teacher Training</span>.
                                         Seats are limited — join a community committed to authentic practice.
                                     </p>
                                 </div>
@@ -52,11 +52,11 @@ export default function RegisterPage() {
                                 {/* Perks */}
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     {PERKS.map(({ icon: Icon, title, desc }) => (
-                                        <div key={title} className="glass rounded-2xl p-5 flex flex-col gap-3">
-                                            <Icon className="w-6 h-6 text-primary-light" />
+                                        <div key={title} className="bg-card border border-muted rounded-2xl p-5 flex flex-col gap-3 hover:border-secondary/30 transition-all">
+                                            <Icon className="w-6 h-6 text-primary" />
                                             <div>
-                                                <p className="text-white font-semibold text-sm">{title}</p>
-                                                <p className="text-white/45 text-xs mt-1 leading-relaxed">{desc}</p>
+                                                <p className="text-foreground font-semibold text-sm">{title}</p>
+                                                <p className="text-muted-foreground text-xs mt-1 leading-relaxed">{desc}</p>
                                             </div>
                                         </div>
                                     ))}

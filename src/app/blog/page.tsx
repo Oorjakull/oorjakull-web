@@ -95,21 +95,18 @@ export default function BlogPage() {
             <main className="flex-1">
 
                 {/* ── Hero ── */}
-                <section className="relative bg-dark-bg pt-36 pb-24 flex items-center overflow-hidden min-h-[45vh]">
+                <section className="relative bg-background pt-36 pb-24 flex items-center overflow-hidden min-h-[45vh]">
                     <div className="absolute inset-0">
-                        <div className="absolute left-0 bottom-0 w-[500px] h-[300px] bg-secondary/10 rounded-full blur-[100px]" />
-                        <div className="absolute inset-0 dot-pattern opacity-15" />
+                        <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-secondary/20 rounded-full blur-[160px] -translate-y-1/3 translate-x-1/4" />
+                        <div className="absolute left-0 bottom-0 w-[500px] h-[300px] bg-primary/10 rounded-full blur-[120px]" />
+                        <div className="absolute inset-0 dot-pattern opacity-25" />
                     </div>
                     <div className="container relative z-10 mx-auto px-4 md:px-8 text-center">
-                        <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-4">
-                            Wisdom & Insights
-                        </p>
-                        <h1 className="text-5xl md:text-6xl font-serif font-light text-white mb-5">
-                            From the Mat & Beyond
-                        </h1>
-                        <p className="text-white/50 text-lg max-w-2xl mx-auto font-light leading-relaxed">
-                            Explore yoga philosophy, teaching methodologies, breathwork science,
-                            and the intersection of ancient tradition with modern living.
+                        <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-4">Wisdom &amp; Insights</p>
+                        <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-5">From the Mat &amp; Beyond</h1>
+                        <p className="text-foreground/55 text-lg font-light max-w-xl mx-auto leading-relaxed">
+                            Explore yoga philosophy, teaching methodologies, breathwork science, and the
+                            intersection of ancient tradition with modern living.
                         </p>
                     </div>
                 </section>
@@ -119,27 +116,27 @@ export default function BlogPage() {
                     <div className="container mx-auto px-4 md:px-8">
                         <p className="text-xs font-semibold text-primary uppercase tracking-[0.3em] mb-6">Featured</p>
                         <Link href="#" className="group block">
-                            <article className={`rounded-3xl overflow-hidden bg-gradient-to-br ${featured.color} bg-dark-surface border border-white/10 hover:border-primary/40 transition-all`}>
+                            <article className={`rounded-3xl overflow-hidden bg-gradient-to-br ${featured.color} border border-secondary/15 hover:border-primary/30 hover:shadow-xl hover:shadow-secondary/10 transition-all`}>
                                 <div className="grid md:grid-cols-2 items-center">
                                     <div className="flex items-center justify-center h-[280px] text-8xl">
                                         <span className="group-hover:scale-110 transition-transform duration-300">{featured.emoji}</span>
                                     </div>
-                                    <div className="p-10">
+                                    <div className="p-10 bg-card/80 backdrop-blur-sm">
                                         <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${CATEGORY_COLORS[featured.category] || "bg-primary/10 text-primary"}`}>
                                             {featured.category}
                                         </span>
-                                        <h2 className="text-3xl font-serif font-semibold text-white mt-4 mb-4 group-hover:text-primary-light transition-colors leading-snug">
+                                        <h2 className="text-3xl font-serif font-semibold text-foreground mt-4 mb-4 group-hover:text-primary transition-colors leading-snug">
                                             {featured.title}
                                         </h2>
-                                        <p className="text-white/60 leading-relaxed mb-6 text-sm">
+                                        <p className="text-foreground/60 leading-relaxed mb-6 text-sm">
                                             {featured.excerpt}
                                         </p>
                                         <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-4 text-xs text-white/40">
+                                            <div className="flex items-center gap-4 text-xs text-foreground/40">
                                                 <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" />{featured.date}</span>
                                                 <span className="flex items-center gap-1.5"><User className="w-3 h-3" />{featured.author}</span>
                                             </div>
-                                            <span className="text-sm font-semibold text-primary-light flex items-center gap-1 group-hover:gap-2 transition-all">
+                                            <span className="text-sm font-semibold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
                                                 Read <ArrowRight className="w-4 h-4" />
                                             </span>
                                         </div>
@@ -158,7 +155,7 @@ export default function BlogPage() {
                             {rest.map((post) => (
                                 <Link key={post.id} href="#" className="group">
                                     <article className="flex flex-col h-full bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300">
-                                        <div className={`h-48 bg-gradient-to-br ${post.color} bg-dark-surface flex items-center justify-center text-6xl relative`}>
+                                        <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
                                             <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
                                             <div className="absolute top-4 left-4">
                                                 <span className={`text-xs font-semibold px-3 py-1 rounded-full ${CATEGORY_COLORS[post.category] || "bg-primary/10 text-primary"}`}>

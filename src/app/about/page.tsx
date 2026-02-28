@@ -33,20 +33,21 @@ export default function AboutPage() {
             <main className="flex-1">
 
                 {/* ── Hero ── */}
-                <section className="relative min-h-[60vh] flex items-center bg-dark-bg overflow-hidden pt-36 pb-24">
+                <section className="relative min-h-[60vh] flex items-center bg-background overflow-hidden pt-36 pb-24">
                     <div className="absolute inset-0">
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -translate-y-1/4 translate-x-1/4" />
-                        <div className="absolute inset-0 dot-pattern opacity-15" />
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[160px] -translate-y-1/4 translate-x-1/4" />
+                        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px] translate-y-1/4" />
+                        <div className="absolute inset-0 dot-pattern opacity-25" />
                     </div>
                     <div className="container relative z-10 mx-auto px-4 md:px-8 py-24 text-center">
-                        <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-4">
+                        <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-4">
                             Our Story
                         </p>
-                        <h1 className="text-5xl md:text-7xl font-serif font-light text-white leading-[1.1] mb-6">
+                        <h1 className="text-5xl md:text-7xl font-serif font-light text-foreground leading-[1.1] mb-6">
                             Rooted in Tradition,<br />
-                            <span className="text-primary-light italic">Built for the Future</span>
+                            <span className="text-primary italic">Built for the Future</span>
                         </h1>
-                        <p className="text-white/55 text-xl font-light max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-foreground/55 text-xl font-light max-w-2xl mx-auto leading-relaxed">
                             OorjaKull is dedicated to preserving the authentic essence of Yoga
                             while empowering the next generation of world-class instructors.
                         </p>
@@ -59,11 +60,11 @@ export default function AboutPage() {
                         <div className="grid lg:grid-cols-2 gap-16 items-center">
                             {/* Visual side */}
                             <div className="relative">
-                                <div className="h-[420px] rounded-3xl bg-dark-surface flex items-center justify-center overflow-hidden">
+                                <div className="h-[420px] rounded-3xl bg-[#fdf5e4] border border-secondary/20 flex items-center justify-center overflow-hidden">
+                                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(184,131,42,0.12)_0%,_transparent_70%)]" />
                                     <div className="relative h-52 w-52">
-                                        <Image src="/logo_21.png" alt="OorjaKull" fill className="object-contain opacity-90" />
+                                        <Image src="/logo_21.png" alt="OorjaKull" fill className="object-contain opacity-95" />
                                     </div>
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent" />
                                 </div>
                                 {/* Floating quote */}
                                 <div className="absolute -bottom-5 -right-3 bg-primary text-white rounded-2xl p-5 max-w-[220px] shadow-xl">
@@ -113,31 +114,31 @@ export default function AboutPage() {
                 </section>
 
                 {/* ── Core Values ── */}
-                <section className="py-24 bg-dark-bg">
+                <section className="py-24 bg-muted">
                     <div className="container mx-auto px-4 md:px-8">
                         <div className="text-center max-w-xl mx-auto mb-16">
-                            <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-3">
+                            <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
                                 What We Stand For
                             </p>
-                            <h2 className="text-4xl md:text-5xl font-serif font-medium text-white">
+                            <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
                                 Our Core Values
                             </h2>
                         </div>
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {VALUES.map((v) => (
-                                <div key={v.title} className="group p-7 rounded-2xl border border-white/8 bg-dark-surface hover:border-primary/40 transition-all duration-300">
+                                <div key={v.title} className="group p-7 rounded-2xl border border-muted bg-card hover:border-secondary/30 hover:shadow-md transition-all duration-300">
                                     <div className="text-4xl mb-5">{v.icon}</div>
-                                    <h3 className="text-lg font-serif font-semibold text-white mb-3 group-hover:text-primary-light transition-colors">
+                                    <h3 className="text-lg font-serif font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                                         {v.title}
                                     </h3>
-                                    <p className="text-white/50 text-sm leading-relaxed">{v.desc}</p>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                {/* ── Timeline ── */}
+                {/* ── Timeline (disabled) ──
                 <section className="py-24 bg-background">
                     <div className="container mx-auto px-4 md:px-8 max-w-3xl">
                         <div className="text-center mb-16">
@@ -149,7 +150,6 @@ export default function AboutPage() {
                             </h2>
                         </div>
                         <div className="relative">
-                            {/* Vertical line */}
                             <div className="absolute left-6 top-0 bottom-0 w-px bg-muted" />
                             <div className="space-y-10">
                                 {TIMELINE.map((item, idx) => (
@@ -167,22 +167,24 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </section>
+                ── */}
 
                 {/* ── CTA ── */}
-                <section className="py-24 bg-dark-bg text-center relative overflow-hidden">
-                    <div className="absolute inset-0 dot-pattern opacity-10" />
+                <section className="py-24 bg-background text-center relative overflow-hidden">
+                    <div className="absolute inset-0 dot-pattern opacity-20" />
+                    <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-secondary/15 rounded-full blur-[100px]" />
                     <div className="relative container mx-auto px-4 md:px-8">
-                        <h2 className="text-4xl md:text-5xl font-serif font-light text-white mb-5">
+                        <h2 className="text-4xl md:text-5xl font-serif font-light text-foreground mb-5">
                             Ready to Join the Movement?
                         </h2>
-                        <p className="text-white/50 text-lg max-w-xl mx-auto mb-10">
+                        <p className="text-foreground/55 text-lg max-w-xl mx-auto mb-10">
                             Whether you want to deepen your practice or lead others, your journey starts here.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/register" className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 transition-all">
                                 Apply Now <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link href="/courses" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white/80 hover:border-white/50 hover:text-white transition-all">
+                            <Link href="/courses" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-foreground/20 text-foreground/70 hover:border-primary hover:text-primary transition-all">
                                 Browse Courses
                             </Link>
                         </div>

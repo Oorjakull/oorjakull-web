@@ -35,19 +35,20 @@ export default async function CoursesPage() {
             <main className="flex-1">
 
                 {/* ── Hero ── */}
-                <section className="relative bg-dark-bg pt-36 pb-24 flex items-center overflow-hidden min-h-[50vh]">
+                <section className="relative bg-background pt-36 pb-24 flex items-center overflow-hidden min-h-[50vh]">
                     <div className="absolute inset-0">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-primary/20 rounded-full blur-[120px] -translate-y-1/4" />
-                        <div className="absolute inset-0 dot-pattern opacity-15" />
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-secondary/20 rounded-full blur-[160px] -translate-y-1/4" />
+                        <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-primary/10 rounded-full blur-[120px]" />
+                        <div className="absolute inset-0 dot-pattern opacity-25" />
                     </div>
                     <div className="container relative z-10 mx-auto px-4 md:px-8 text-center">
-                        <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-4">
+                        <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-4">
                             Certification Programs
                         </p>
-                        <h1 className="text-5xl md:text-6xl font-serif font-light text-white mb-5">
+                        <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-5">
                             Choose Your Path
                         </h1>
-                        <p className="text-white/50 text-lg max-w-2xl mx-auto font-light leading-relaxed">
+                        <p className="text-foreground/70 text-lg max-w-2xl mx-auto font-light leading-relaxed">
                             From foundational 200H certifications to advanced specializations —
                             every program is designed to transform you from the inside out.
                         </p>
@@ -59,7 +60,7 @@ export default async function CoursesPage() {
                                 { label: "Max 15 Students", icon: "👥" },
                                 { label: "20+ Years Legacy", icon: "🌿" },
                             ].map(({ label, icon }) => (
-                                <div key={label} className="glass flex items-center gap-2 px-4 py-2 rounded-full text-white/70 text-sm">
+                                <div key={label} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-foreground/8 border border-foreground/12 text-foreground/70">
                                     {icon} {label}
                                 </div>
                             ))}
@@ -129,13 +130,14 @@ export default async function CoursesPage() {
                 </section>
 
                 {/* ── CTA ── */}
-                <section className="py-20 bg-dark-bg text-center relative overflow-hidden">
-                    <div className="absolute inset-0 dot-pattern opacity-10" />
+                <section className="py-20 bg-background text-center relative overflow-hidden">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-secondary/15 rounded-full blur-[120px]" />
+                    <div className="absolute inset-0 dot-pattern opacity-20" />
                     <div className="relative container mx-auto px-4 md:px-8">
-                        <h2 className="text-4xl font-serif font-light text-white mb-4">
+                        <h2 className="text-4xl font-serif font-light text-foreground mb-4">
                             Not sure which program is right for you?
                         </h2>
-                        <p className="text-white/50 text-lg mb-8 max-w-xl mx-auto">
+                        <p className="text-foreground/55 text-lg mb-8 max-w-xl mx-auto">
                             Talk to one of our Acharyas — we'll help you find the path that aligns with your journey.
                         </p>
                         <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 transition-all">

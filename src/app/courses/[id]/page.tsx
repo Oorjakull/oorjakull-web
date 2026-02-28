@@ -29,15 +29,15 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
             <Navbar />
             <main className="flex-1">
 
-                {/* ── Dark Hero ── */}
-                <section className="relative bg-dark-bg pt-36 pb-16 overflow-hidden">
+                {/* ── Hero ── */}
+                <section className="relative bg-background pt-36 pb-16 overflow-hidden">
                     <div className="absolute inset-0">
-                        <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-primary/20 rounded-full blur-[120px] translate-x-1/4 -translate-y-1/4" />
-                        <div className="absolute inset-0 dot-pattern opacity-10" />
+                        <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-secondary/20 rounded-full blur-[160px] translate-x-1/4 -translate-y-1/4" />
+                        <div className="absolute inset-0 dot-pattern opacity-25" />
                     </div>
                     <div className="container relative z-10 mx-auto px-4 md:px-8">
                         {/* Breadcrumb */}
-                        <Link href="/courses" className="inline-flex items-center gap-2 text-white/40 hover:text-white/70 text-sm mb-8 transition-colors">
+                        <Link href="/courses" className="inline-flex items-center gap-2 text-foreground/45 hover:text-primary text-sm mb-8 transition-colors">
                             <ArrowLeft className="w-4 h-4" /> Back to all courses
                         </Link>
 
@@ -47,25 +47,25 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
                                 {program.level}
                             </span>
 
-                            <h1 className="text-4xl md:text-6xl font-serif font-light text-white mb-5 leading-tight">
+                            <h1 className="text-4xl md:text-6xl font-serif font-light text-foreground mb-5 leading-tight">
                                 {program.title}
                             </h1>
-                            <p className="text-white/55 text-lg font-light leading-relaxed max-w-2xl mb-8">
+                            <p className="text-foreground/55 text-lg font-light leading-relaxed max-w-2xl mb-8">
                                 {program.description}
                             </p>
 
                             {/* Meta chips */}
                             <div className="flex flex-wrap gap-4">
-                                <div className="glass flex items-center gap-2 px-4 py-2 rounded-full text-white/80 text-sm">
-                                    <Clock className="w-4 h-4 text-primary-light" />
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full text-foreground/70 text-sm border border-muted bg-card">
+                                    <Clock className="w-4 h-4 text-primary" />
                                     {program.duration}
                                 </div>
-                                <div className="glass flex items-center gap-2 px-4 py-2 rounded-full text-white/80 text-sm">
-                                    <Shield className="w-4 h-4 text-primary-light" />
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full text-foreground/70 text-sm border border-muted bg-card">
+                                    <Shield className="w-4 h-4 text-primary" />
                                     Yoga Alliance Certified
                                 </div>
-                                <div className="glass flex items-center gap-2 px-4 py-2 rounded-full text-white/80 text-sm">
-                                    <BarChart2 className="w-4 h-4 text-primary-light" />
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full text-foreground/70 text-sm border border-muted bg-card">
+                                    <BarChart2 className="w-4 h-4 text-primary" />
                                     Max 15 Students
                                 </div>
                             </div>
@@ -138,23 +138,23 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
                 )}
 
                 {/* ── Registration Section ── */}
-                <section className="py-20 bg-dark-bg relative overflow-hidden">
+                <section className="py-20 bg-background relative overflow-hidden">
                     <div className="absolute inset-0">
-                        <div className="absolute left-0 bottom-0 w-[400px] h-[300px] bg-primary/15 rounded-full blur-[100px]" />
-                        <div className="absolute inset-0 dot-pattern opacity-10" />
+                        <div className="absolute left-0 bottom-0 w-[400px] h-[300px] bg-secondary/15 rounded-full blur-[120px]" />
+                        <div className="absolute inset-0 dot-pattern opacity-20" />
                     </div>
                     <div className="container relative z-10 mx-auto px-4 md:px-8">
                         <div className="grid md:grid-cols-2 gap-16 items-start max-w-5xl mx-auto">
                             {/* Left info */}
                             <div className="flex flex-col gap-6">
                                 <div>
-                                    <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-3">
+                                    <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
                                         Secure Your Spot
                                     </p>
-                                    <h2 className="text-4xl font-serif font-light text-white mb-4 leading-tight">
+                                    <h2 className="text-4xl font-serif font-light text-foreground mb-4 leading-tight">
                                         Ready to Begin Your Journey?
                                     </h2>
-                                    <p className="text-white/50 leading-relaxed">
+                                    <p className="text-foreground/55 leading-relaxed">
                                         Groups are small to ensure personalized attention and deep mentorship. Apply now for the June 2026 batch.
                                     </p>
                                 </div>
@@ -166,9 +166,9 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
                                         "Lifetime access to course materials",
                                         "Ongoing alumni mentorship included",
                                     ].map(item => (
-                                        <div key={item} className="flex items-start gap-3 text-sm text-white/70">
-                                            <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                                                <CheckCircle2 className="w-3 h-3 text-primary-light" />
+                                        <div key={item} className="flex items-start gap-3 text-sm text-foreground/70">
+                                            <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-primary/12 flex items-center justify-center">
+                                                <CheckCircle2 className="w-3 h-3 text-primary" />
                                             </span>
                                             {item}
                                         </div>
@@ -176,11 +176,11 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
                                 </div>
 
                                 {/* Certification badge */}
-                                <div className="glass rounded-2xl p-5 flex items-center gap-4">
-                                    <Shield className="w-8 h-8 text-primary-light shrink-0" />
+                                <div className="bg-card border border-secondary/20 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
+                                    <Shield className="w-8 h-8 text-primary shrink-0" />
                                     <div>
-                                        <p className="text-white font-semibold text-sm">Yoga Alliance Certified</p>
-                                        <p className="text-white/50 text-xs mt-0.5">200H RYT upon successful completion</p>
+                                        <p className="text-foreground font-semibold text-sm">Yoga Alliance Certified</p>
+                                        <p className="text-muted-foreground text-xs mt-0.5">200H RYT upon successful completion</p>
                                     </div>
                                 </div>
                             </div>

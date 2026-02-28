@@ -39,20 +39,17 @@ export default function ContactPage() {
             <main className="flex-1">
 
                 {/* ── Hero ── */}
-                <section className="relative bg-dark-bg pt-36 pb-24 flex items-center overflow-hidden min-h-[45vh]">
+                <section className="relative bg-background pt-36 pb-24 flex items-center overflow-hidden min-h-[45vh]">
                     <div className="absolute inset-0">
-                        <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-primary/20 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/3" />
-                        <div className="absolute inset-0 dot-pattern opacity-15" />
+                        <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[160px] translate-x-1/3 -translate-y-1/3" />
+                        <div className="absolute left-0 bottom-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[120px]" />
+                        <div className="absolute inset-0 dot-pattern opacity-25" />
                     </div>
                     <div className="container relative z-10 mx-auto px-4 md:px-8 text-center">
-                        <p className="text-primary-light text-sm font-semibold uppercase tracking-[0.3em] mb-4">
-                            Reach Out
-                        </p>
-                        <h1 className="text-5xl md:text-6xl font-serif font-light text-white mb-5">
-                            Let's Start a Conversation
-                        </h1>
-                        <p className="text-white/50 text-lg max-w-xl mx-auto font-light">
-                            Have questions about our programs? We're here to guide you every step of the way.
+                        <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-4">Reach Out</p>
+                        <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-5">Let&apos;s Start a Conversation</h1>
+                        <p className="text-foreground/55 text-lg font-light max-w-xl mx-auto leading-relaxed">
+                            Have questions about our programs? We&apos;re here to guide you every step of the way.
                         </p>
                     </div>
                 </section>
@@ -85,12 +82,12 @@ export default function ContactPage() {
                                 </div>
 
                                 {/* Office Hours card */}
-                                <div className="rounded-2xl bg-dark-surface p-6 border border-white/8">
+                                <div className="rounded-2xl bg-muted p-6 border border-secondary/20">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <Clock className="w-5 h-5 text-primary-light" />
-                                        <h3 className="text-white font-semibold">Office Hours</h3>
+                                        <Clock className="w-5 h-5 text-primary" />
+                                        <h3 className="text-foreground font-semibold">Office Hours</h3>
                                     </div>
-                                    <p className="text-white/50 text-sm leading-relaxed">
+                                    <p className="text-muted-foreground text-sm leading-relaxed">
                                         Monday – Saturday: 9:00 AM to 6:00 PM IST<br />
                                         Sunday: Closed (messages answered Monday)
                                     </p>

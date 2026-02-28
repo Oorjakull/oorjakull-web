@@ -2,31 +2,39 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf8f4;
-  --foreground: #1a1a1a;
+  /* ── Light surfaces ──────────────────── */
+  --background: #f5eedd;
+  /* warm parchment — from the logo canvas */
+  --foreground: #2c1f0e;
+  /* deep warm espresso for body text */
 
-  /* Primary: Deep Forest Green */
+  /* ── Primary: Deep Forest Green (kept from logo wordmark) ── */
   --primary: #2d6a4f;
   --primary-light: #4e9d78;
   --primary-foreground: #FFFFFF;
 
-  /* Secondary: Warm Gold */
-  --secondary: #c8922a;
+  /* ── Secondary: Warm Gold (the figure color in logo) ── */
+  --secondary: #b8832a;
   --secondary-foreground: #FFFFFF;
 
-  /* Accent: Earth Bronze */
+  /* ── Accent: Earthy Terracotta ── */
   --accent: #8b5e3c;
   --accent-foreground: #FFFFFF;
 
-  /* Surfaces */
-  --muted: #e8e0d5;
-  --muted-foreground: #6e6158;
-  --card: #ffffff;
-  --card-foreground: #1a1a1a;
+  /* ── Muted surfaces ── */
+  --muted: #e8dccc;
+  /* soft warm sand */
+  --muted-foreground: #7a6248;
+  /* warm taupe */
+  --card: #fdf8f0;
+  /* very light cream */
+  --card-foreground: #2c1f0e;
 
-  /* Dark Sections */
-  --dark-bg: #1a1e1b;
-  --dark-surface: #242b26;
+  /* ── "Dark" sections — warm walnut brown, not cold black ── */
+  --dark-bg: #2e1f0d;
+  /* rich warm espresso/walnut */
+  --dark-surface: #3d2a12;
+  /* slightly lighter warm walnut */
 }
 
 @theme inline {
@@ -78,7 +86,7 @@ h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: var(--secondary);
   border-radius: 3px;
 }
 
@@ -147,16 +155,19 @@ h3 {
   background-clip: text;
 }
 
-/* Glass effect */
+/* Glass effect — warm tinted for beige backgrounds */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 248, 235, 0.12);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 248, 235, 0.2);
 }
 
-/* Section patterns */
+/* Section patterns — warm gold dots instead of cold green */
 .dot-pattern {
-  background-image: radial-gradient(circle, rgba(45, 106, 79, 0.15) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(184, 131, 42, 0.2) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+/* Hide scrollbar while keeping scroll (tab strip) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
