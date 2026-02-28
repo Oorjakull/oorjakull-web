@@ -18,13 +18,14 @@ export default function WhySection() {
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
                     {/* Left: Visual */}
                     <div className="relative order-2 lg:order-1">
-                        <div className="relative h-[480px] rounded-3xl overflow-hidden bg-dark-surface flex items-center justify-center">
+                        <div className="relative h-[480px] rounded-3xl overflow-hidden bg-[#fdf5e4] border border-secondary/20 shadow-xl shadow-secondary/10 flex items-center justify-center">
                             {/* Logo large */}
-                            <div className="relative h-64 w-64 opacity-90">
+                            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(184,131,42,0.12)_0%,_transparent_70%)]" />
+                            <div className="relative h-64 w-64 opacity-95">
                                 <Image src="/logo_21.png" alt="OorjaKull" fill className="object-contain" />
                             </div>
-                            {/* Glow */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10" />
+                            {/* Warm vignette */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-secondary/8 via-transparent to-transparent" />
                         </div>
 
                         {/* Floating card */}

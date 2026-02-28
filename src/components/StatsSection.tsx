@@ -6,7 +6,6 @@ type StatItem = { value: number; suffix: string; label: string; };
 const STATS: StatItem[] = [
     { value: 200, suffix: "H", label: "Training Hours" },
     { value: 50, suffix: "+", label: "Certified Graduates" },
-    { value: 15, suffix: "+", label: "Years of Legacy" },
     { value: 98, suffix: "%", label: "Student Satisfaction" },
 ];
 
@@ -49,9 +48,9 @@ function StatCard({ item }: { item: StatItem }) {
 
 export default function StatsSection() {
     return (
-        <section className="py-16 bg-dark-bg border-t border-b border-white/5">
+        <section className="py-16 bg-muted">
             <div className="container mx-auto px-4 md:px-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
                     {STATS.map((stat) => (
                         <StatCard key={stat.label} item={stat} />
                     ))}
