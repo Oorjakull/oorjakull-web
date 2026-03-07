@@ -69,15 +69,20 @@ const YOGA_STYLES = [
 ];
 
 const SCHEDULE_ITEMS = [
-    { icon: User, label: "1:1 Private Sessions", desc: "Fully personalised — your pace, your goals", tag: "Private", tagColor: "bg-primary/15 text-primary" },
-    { icon: Users, label: "Group Classes", desc: "Community practice in small batches of max 12", tag: "Group", tagColor: "bg-secondary/15 text-secondary" },
-    { icon: Heart, label: "Prenatal Yoga", desc: "Safe, nurturing movement for expecting mothers", tag: "Specialist", tagColor: "bg-rose-400/15 text-rose-700" },
-    { icon: Baby, label: "Postnatal Recovery", desc: "Gentle restoration and core rebuilding post-birth", tag: "Specialist", tagColor: "bg-pink-400/15 text-pink-700" },
-    { icon: Briefcase, label: "Corporate Wellness", desc: "On-site or virtual yoga for teams and offices", tag: "Corporate", tagColor: "bg-sky-400/15 text-sky-700" },
-    { icon: Dumbbell, label: "Athletes & Sports Yoga", desc: "Mobility, recovery and injury prevention for athletes", tag: "Sport", tagColor: "bg-orange-400/15 text-orange-700" },
-    { icon: Leaf, label: "Seniors Yoga", desc: "Chair-assisted and gentle movement for all ages", tag: "Inclusive", tagColor: "bg-green-400/15 text-green-700" },
-    { icon: Star, label: "Kids Yoga", desc: "Playful, story-based yoga for ages 5–14", tag: "Kids", tagColor: "bg-violet-400/15 text-violet-700" },
+    { icon: User, label: "1:1 Private Sessions", desc: "Fully personalised — your pace, your goals", tag: "Private", tagColor: "bg-primary/15 text-primary", charge: "From ₹2,000/session" },
+    { icon: Users, label: "Group Classes", desc: "Community practice in small batches of max 12", tag: "Group", tagColor: "bg-secondary/15 text-secondary", charge: "From ₹500/class" },
+    { icon: Heart, label: "Prenatal Yoga", desc: "Safe, nurturing movement for expecting mothers", tag: "Specialist", tagColor: "bg-rose-400/15 text-rose-700", charge: "From ₹1,200/session" },
+    { icon: Baby, label: "Postnatal Recovery", desc: "Gentle restoration and core rebuilding post-birth", tag: "Specialist", tagColor: "bg-pink-400/15 text-pink-700", charge: "From ₹1,200/session" },
+    { icon: Briefcase, label: "Corporate Wellness", desc: "On-site or virtual yoga for teams and offices", tag: "Corporate", tagColor: "bg-sky-400/15 text-sky-700", charge: "Custom pricing" },
+    { icon: Dumbbell, label: "Athletes & Sports Yoga", desc: "Mobility, recovery and injury prevention for athletes", tag: "Sport", tagColor: "bg-orange-400/15 text-orange-700", charge: "From ₹1,500/session" },
+    { icon: Leaf, label: "Seniors Yoga", desc: "Chair-assisted and gentle movement for all ages", tag: "Inclusive", tagColor: "bg-green-400/15 text-green-700", charge: "From ₹600/class" },
+    { icon: Star, label: "Kids Yoga", desc: "Playful, story-based yoga for ages 5–14", tag: "Kids", tagColor: "bg-violet-400/15 text-violet-700", charge: "From ₹500/class" },
+    { icon: Heart, label: "Back Pain Yoga", desc: "Therapeutic sequences to decompress the spine and relieve chronic back pain", tag: "Therapeutic", tagColor: "bg-amber-400/15 text-amber-700", charge: "From ₹1,500/session" },
+    { icon: BookOpen, label: "Yoga for Spondylitis", desc: "Gentle, evidence-based poses to ease cervical and ankylosing spondylitis", tag: "Therapeutic", tagColor: "bg-amber-400/15 text-amber-700", charge: "From ₹1,500/session" },
+    { icon: Leaf, label: "Yoga for Knee Pain", desc: "Strengthen and stabilise the knee joint — reduce inflammation and improve mobility", tag: "Therapeutic", tagColor: "bg-teal-400/15 text-teal-700", charge: "From ₹1,500/session" },
+    { icon: Dumbbell, label: "Yoga for Sciatica", desc: "Targeted stretches and breath-work to relieve sciatic nerve compression and pain", tag: "Therapeutic", tagColor: "bg-teal-400/15 text-teal-700", charge: "From ₹1,500/session" },
 ];
+
 
 const INSTRUCTORS = [
     {
@@ -242,7 +247,7 @@ export default function YogaPage() {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                            {SCHEDULE_ITEMS.map(({ icon: Icon, label, desc, tag, tagColor }) => (
+                            {SCHEDULE_ITEMS.map(({ icon: Icon, label, desc, tag, tagColor, charge }) => (
                                 <Link
                                     key={label}
                                     href="/register"
@@ -259,6 +264,7 @@ export default function YogaPage() {
                                             {label}
                                         </h3>
                                         <p className="text-sm text-foreground/55 mt-1.5 leading-relaxed">{desc}</p>
+                                        <p className="text-xs text-secondary font-semibold mt-2">{charge}</p>
                                     </div>
                                     <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary mt-auto">
                                         Register <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />

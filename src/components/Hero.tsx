@@ -5,10 +5,21 @@ import { useEffect, useState, useRef } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const HERO_PHRASES = [
+    "Conscious Yoga",
     "Breath & Beyond",
     "Purposeful Living",
     "Ancient Wisdom",
-    "Mindful Teaching",
+];
+
+const MARQUEE_ITEMS = [
+    "Your daily space for yoga, mindfulness, and complete well-being",
+    "Welcome to a wellness journey designed for real life",
+    "Transform body, calm mind, elevate energy",
+    "Rooted in tradition · Alive for today",
+    "Your daily space for yoga, mindfulness, and complete well-being",
+    "Welcome to a wellness journey designed for real life",
+    "Transform body, calm mind, elevate energy",
+    "Rooted in tradition · Alive for today",
 ];
 
 export default function Hero() {
@@ -64,7 +75,7 @@ export default function Hero() {
                         OorjaKull School of Yoga
                     </p>
                     <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-light text-foreground leading-[1.08]">
-                        Step Into the World of{" "}
+                        Transform Your Life with{" "}
                         <br />
                         <span className="text-primary italic min-h-[1.2em] inline-block">
                             {displayed}
@@ -97,6 +108,17 @@ export default function Hero() {
                     >
                         Explore Programs
                     </Link>
+                </div>
+
+                {/* ── Animated marquee taglines ── */}
+                <div className="w-full max-w-2xl overflow-hidden border-y border-foreground/8 py-3 my-1">
+                    <div className="flex gap-12 animate-marquee whitespace-nowrap">
+                        {MARQUEE_ITEMS.map((item, i) => (
+                            <span key={i} className="text-xs text-foreground/40 uppercase tracking-[0.2em] font-medium shrink-0">
+                                {item}
+                            </span>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Trust indicators */}

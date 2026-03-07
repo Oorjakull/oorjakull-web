@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Play, Clock, Youtube } from "lucide-react";
+import Reveal, { StaggerReveal, StaggerItem } from "@/components/Reveal";
 
 const SESSIONS = [
     {
@@ -126,35 +127,39 @@ export default function VideoGrid() {
         <section className="py-24 bg-background">
             <div className="container mx-auto px-4 md:px-8">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14">
-                    <div>
-                        <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
-                            Free Sessions
-                        </p>
-                        <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
-                            Choose Your Style
-                        </h2>
-                        <p className="text-foreground/55 mt-3 max-w-lg text-base font-light leading-relaxed">
-                            Taste the OorjaKull approach before you commit. Four carefully chosen free classes — hit play and begin.
-                        </p>
+                <Reveal width="100%" delay={0} className="mb-14">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                        <div>
+                            <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
+                                Free Sessions
+                            </p>
+                            <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
+                                Choose Your Style
+                            </h2>
+                            <p className="text-foreground/55 mt-3 max-w-lg text-base font-light leading-relaxed">
+                                Taste the OorjaKull approach before you commit. Four carefully chosen free classes — hit play and begin.
+                            </p>
+                        </div>
+                        <a
+                            href="https://www.youtube.com/@oorjakull"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors shrink-0"
+                        >
+                            <Youtube className="w-4 h-4" />
+                            All Sessions on YouTube
+                        </a>
                     </div>
-                    <a
-                        href="https://www.youtube.com/@oorjakull"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors shrink-0"
-                    >
-                        <Youtube className="w-4 h-4" />
-                        All Sessions on YouTube
-                    </a>
-                </div>
+                </Reveal>
 
                 {/* 2×2 Video Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <StaggerReveal className="grid grid-cols-1 sm:grid-cols-2 gap-6" staggerDelay={0.12}>
                     {SESSIONS.map((session) => (
-                        <VideoCard key={session.id} session={session} />
+                        <StaggerItem key={session.id}>
+                            <VideoCard session={session} />
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerReveal>
             </div>
         </section>
     );

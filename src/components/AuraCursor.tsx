@@ -45,7 +45,7 @@ export default function AuraCursor() {
     return (
         <>
             <motion.div
-                className="pointer-events-none fixed left-0 top-0 z-50 mix-blend-difference hidden md:block"
+                className="pointer-events-none fixed left-0 top-0 z-50 hidden md:block"
                 style={{
                     x: springX,
                     y: springY,
@@ -53,18 +53,35 @@ export default function AuraCursor() {
                     translateY: "-50%",
                 }}
             >
+                {/* Outer soft aura — larger, more diffuse, expands on hover */}
                 <motion.div
                     animate={{
-                        scale: isHovering ? 2.5 : 1,
-                        opacity: isHovering ? 0.8 : 0.5,
+                        scale: isHovering ? 3.6 : 2.8,
+                        opacity: isHovering ? 0.32 : 0.22,
                     }}
-                    transition={{ duration: 0.2 }}
-                    className="h-8 w-8 text-primary" // Use primary color (gold) directly via Tailwind class if needed, or inline
-                >
-                    <div className="w-full h-full bg-primary/40 rounded-full blur-md animate-pulse"></div>
-                    <div className="absolute inset-0 bg-secondary/30 rounded-full blur-xl scale-150"></div>
-                </motion.div>
+                    transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    className="absolute h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                    style={{
+                        background: "radial-gradient(circle, rgba(45,106,79,0.9) 0%, rgba(45,106,79,0.3) 40%, transparent 70%)",
+                        filter: "blur(10px)",
+                    }}
+                />
+                {/* Inner tight aura — the actual cursor position indicator */}
+                <motion.div
+                    animate={{
+                        scale: isHovering ? 1.4 : 1,
+                        opacity: isHovering ? 0.60 : 0.50,
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                    style={{
+                        background: "radial-gradient(circle, rgba(29,74,55,0.85) 0%, rgba(45,106,79,0.4) 55%, transparent 80%)",
+                        filter: "blur(3px)",
+                    }}
+                />
             </motion.div>
         </>
     );
 }
+
+

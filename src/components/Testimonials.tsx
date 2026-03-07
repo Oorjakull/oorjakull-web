@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const TESTIMONIALS = [
     {
@@ -47,14 +48,14 @@ export default function Testimonials() {
     return (
         <section className="py-24 bg-background">
             <div className="container mx-auto px-4 md:px-8">
-                <div className="text-center max-w-xl mx-auto mb-16">
+                <Reveal width="100%" delay={0} className="text-center max-w-xl mx-auto mb-16">
                     <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
                         Student Stories
                     </p>
                     <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
                         Words from Our Graduates
                     </h2>
-                </div>
+                </Reveal>
 
                 <div className="max-w-3xl mx-auto">
                     {/* Main testimonial card */}
@@ -99,8 +100,8 @@ export default function Testimonials() {
                                     key={i}
                                     onClick={() => setCurrent(i)}
                                     className={`rounded-full transition-all ${i === current
-                                            ? "w-6 h-2 bg-primary"
-                                            : "w-2 h-2 bg-muted hover:bg-primary/40"
+                                        ? "w-6 h-2 bg-primary"
+                                        : "w-2 h-2 bg-muted hover:bg-primary/40"
                                         }`}
                                     aria-label={`Go to testimonial ${i + 1}`}
                                 />

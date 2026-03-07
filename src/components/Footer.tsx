@@ -33,7 +33,8 @@ export default function Footer() {
                     <div className="lg:col-span-2 space-y-5">
                         <div className="flex items-center gap-3">
                             <div className="relative h-10 w-10 shrink-0">
-                                <Image src="/logo_21.png" alt="OorjaKull" fill className="object-contain" />
+                                <Image src="/logo_21.png" alt="OorjaKull" fill sizes="120px" className="object-contain" />
+
                             </div>
                             <div>
                                 <h3 className="text-lg font-serif font-semibold text-foreground tracking-tight">OorjaKull</h3>
@@ -151,7 +152,8 @@ export default function Footer() {
                 <p>© {new Date().getFullYear()} OorjaKull School of Yoga. All rights reserved.</p>
                 <div className="flex gap-6">
                     <Link href="#" className="hover:text-foreground/60 transition-colors">Privacy Policy</Link>
-                    <Link href="#" className="hover:text-foreground/60 transition-colors">Terms of Use</Link>
+                    <Link href="#" className="hover:text-foreground/60 transition-colors">Terms & Conditions</Link>
+                    <Link href="/login" className="hover:text-foreground/60 transition-colors">Login</Link>
                 </div>
             </div>
         </footer>

@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
+import { StaggerReveal, StaggerItem } from "@/components/Reveal";
 
 type StatItem = { value: number; suffix: string; label: string; };
 
@@ -50,11 +51,13 @@ export default function StatsSection() {
     return (
         <section className="py-16 bg-muted">
             <div className="container mx-auto px-4 md:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
+                <StaggerReveal className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16" staggerDelay={0.15}>
                     {STATS.map((stat) => (
-                        <StatCard key={stat.label} item={stat} />
+                        <StaggerItem key={stat.label} yOffset={20} blur={6}>
+                            <StatCard item={stat} />
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerReveal>
             </div>
         </section>
     );
