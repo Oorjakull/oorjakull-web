@@ -155,15 +155,8 @@ export default function YogaPage() {
                         {/* CTA */}
                         <div className="flex flex-col sm:flex-row gap-4 pt-2">
                             <Link
-                                href="/register"
-                                className="group inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-primary text-white font-semibold text-base hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300"
-                            >
-                                Book a Class
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <Link
                                 href="#styles"
-                                className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full border border-foreground/20 text-foreground/70 font-medium text-base hover:border-primary/60 hover:text-primary transition-all duration-300"
+                                className="group inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-primary text-white font-semibold text-base hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300"
                             >
                                 Explore Styles
                             </Link>
@@ -220,7 +213,7 @@ export default function YogaPage() {
                                             {style.description}
                                         </p>
                                         <Link
-                                            href="/register"
+                                            href="/book-trial"
                                             className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-1 hover:gap-2.5 transition-all"
                                         >
                                             Learn More <ArrowRight className="w-3.5 h-3.5" />
@@ -250,7 +243,7 @@ export default function YogaPage() {
                             {SCHEDULE_ITEMS.map(({ icon: Icon, label, desc, tag, tagColor, charge }) => (
                                 <Link
                                     key={label}
-                                    href="/register"
+                                    href="/book-trial"
                                     className="group flex flex-col gap-4 bg-card rounded-2xl border border-muted p-6 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/8 transition-all duration-300"
                                 >
                                     <div className="flex items-start justify-between">
@@ -276,7 +269,7 @@ export default function YogaPage() {
                         {/* Master CTA row */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
-                                href="/register"
+                                href="/book-trial"
                                 className="group inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/30 transition-all"
                             >
                                 Book Your First Class
@@ -374,7 +367,7 @@ export default function YogaPage() {
                                         {/* Book CTA */}
                                         <div className="mt-auto pt-2">
                                             <Link
-                                                href="/register"
+                                                href="/book-trial"
                                                 className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
                                             >
                                                 Book with {instr.name.split(" ")[1]} <ArrowRight className="w-3.5 h-3.5" />
@@ -393,3 +386,4 @@ export default function YogaPage() {
         </div>
     );
 }
+

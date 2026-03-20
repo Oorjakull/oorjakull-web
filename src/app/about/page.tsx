@@ -234,7 +234,7 @@ export default function BreathBeyondPage() {
                                                 {prog.description}
                                             </p>
                                             <Link
-                                                href="/register"
+                                                href="/book-trial"
                                                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-2 hover:gap-2.5 transition-all group/btn"
                                             >
                                                 Start Practice
@@ -308,7 +308,7 @@ export default function BreathBeyondPage() {
                                             {/* Enroll CTA */}
                                             <div className="flex flex-col sm:flex-row gap-3 pt-2">
                                                 <Link
-                                                    href="/register"
+                                                    href="/book-trial"
                                                     className="group/cta inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 transition-all w-fit"
                                                 >
                                                     Enroll Now
@@ -335,3 +335,4 @@ export default function BreathBeyondPage() {
         </div>
     );
 }
+

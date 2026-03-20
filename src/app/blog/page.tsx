@@ -234,7 +234,7 @@ export default function PurposefulLivingPage() {
                                         <div className="p-6 flex flex-col flex-1 gap-3">
                                             <h3 className="font-serif font-semibold text-lg text-foreground group-hover:text-primary transition-colors leading-snug">{card.title}</h3>
                                             <p className="text-sm text-foreground/60 leading-relaxed flex-1">{card.description}</p>
-                                            <Link href="/register" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-2 hover:gap-2.5 transition-all group/btn">
+                                            <Link href="/book-trial" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-2 hover:gap-2.5 transition-all group/btn">
                                                 {card.action} <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
                                             </Link>
                                         </div>
@@ -248,7 +248,7 @@ export default function PurposefulLivingPage() {
                             <div className="inline-flex flex-col items-center gap-5">
                                 <p className="text-foreground/55 text-base font-light">Ready to join a community that walks the talk?</p>
                                 <div className="flex flex-col sm:flex-row gap-4">
-                                    <Link href="/register" className="group inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/25 transition-all">
+                                    <Link href="/book-trial" className="group inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/25 transition-all">
                                         Join the Community <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                     <Link href="/contact" className="inline-flex items-center gap-2 px-10 py-4 rounded-full border border-foreground/20 text-foreground/65 font-medium hover:border-primary/50 hover:text-primary transition-all">
@@ -265,3 +265,4 @@ export default function PurposefulLivingPage() {
         </div>
     );
 }
+

@@ -1,21 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowRight, Instagram, Facebook, Youtube, Mail, MapPin, Phone, Send } from "lucide-react";
+
+import { ArrowRight, Instagram, Facebook, Youtube } from "lucide-react";
 import Image from "next/image";
 
 export default function Footer() {
-    const [email, setEmail] = useState("");
-    const [subscribed, setSubscribed] = useState(false);
-
-    const handleSubscribe = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (email.trim()) {
-            setSubscribed(true);
-            setEmail("");
-        }
-    };
 
     return (
         <footer className="relative bg-muted text-foreground/70">
@@ -51,7 +41,6 @@ export default function Footer() {
                                 { icon: Instagram, label: "Instagram", href: "#" },
                                 { icon: Facebook, label: "Facebook", href: "#" },
                                 { icon: Youtube, label: "YouTube", href: "#" },
-                                { icon: Mail, label: "Email", href: "/contact" },
                             ].map(({ icon: Icon, label, href }) => (
                                 <Link
                                     key={label}
@@ -74,7 +63,7 @@ export default function Footer() {
                                 ["Goals", "/courses"],
                                 ["Purposeful Living", "/blog"],
                                 ["Business", "/contact"],
-                                ["Apply Now", "/register"],
+                                ["Book for Trial Session", "/book-trial"],
                             ].map(([label, href]) => (
                                 <li key={label}>
                                     <Link href={href} className="text-foreground/55 hover:text-primary transition-colors inline-flex items-center gap-1 group">
@@ -87,62 +76,8 @@ export default function Footer() {
                     </div>
 
                     {/* Contact Info */}
-                    <div className="space-y-4">
-                        <h4 className="text-xs font-semibold text-foreground/40 uppercase tracking-[0.25em]">Contact</h4>
-                        <ul className="space-y-4 text-sm">
-                            <li className="flex gap-3 text-foreground/55">
-                                <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-primary/60" />
-                                <span className="leading-relaxed">
-                                    OorjaKull Ashram,<br />
-                                    Mysore – 570 002,<br />
-                                    Karnataka, India
-                                </span>
-                            </li>
-                            <li>
-                                <a href="tel:+919876543210" className="flex gap-3 text-foreground/55 hover:text-primary transition-colors">
-                                    <Phone className="w-4 h-4 shrink-0 mt-0.5 text-primary/60" />
-                                    <span>+91 98765 43210</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="mailto:hello@oorjakull.com" className="flex gap-3 text-foreground/55 hover:text-primary transition-colors">
-                                    <Mail className="w-4 h-4 shrink-0 mt-0.5 text-primary/60" />
-                                    <span>hello@oorjakull.com</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
 
-                    {/* Newsletter */}
-                    <div className="space-y-4">
-                        <h4 className="text-xs font-semibold text-foreground/40 uppercase tracking-[0.25em]">Newsletter</h4>
-                        <p className="text-sm text-foreground/55 leading-relaxed">
-                            Teachings, class schedules and wellness insights — delivered gently to your inbox.
-                        </p>
-                        {subscribed ? (
-                            <div className="text-sm text-primary font-medium flex items-center gap-2">
-                                ✓ You're on the list. Namaste 🙏
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubscribe} className="flex gap-2 mt-2">
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="your@email.com"
-                                    required
-                                    className="flex-1 min-w-0 text-sm px-3 py-2 rounded-lg bg-background/60 border border-foreground/15 text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-primary/50 transition-colors"
-                                />
-                                <button
-                                    type="submit"
-                                    className="shrink-0 w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-white hover:bg-primary/90 transition-colors"
-                                    aria-label="Subscribe"
-                                >
-                                    <Send className="w-4 h-4" />
-                                </button>
-                            </form>
-                        )}
-                    </div>
+
                 </div>
             </div>
 

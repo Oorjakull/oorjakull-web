@@ -160,6 +160,13 @@ export default function VideoGrid() {
                         </StaggerItem>
                     ))}
                 </StaggerReveal>
+
+                {/* Ethical Credit */}
+                <Reveal width="100%" delay={0.4} className="mt-12 pt-8 border-t border-muted text-center">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-foreground/30 font-medium">
+                        Credits to the YouTube channel owners for providing these sessions and ensuring ethical yoga practices.
+                    </p>
+                </Reveal>
             </div>
         </section>
     );

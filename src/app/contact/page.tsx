@@ -2,25 +2,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
-import { MapPin, Phone, Mail, ShoppingBag, HelpCircle, Star, MessageSquare, ArrowRight, Package } from "lucide-react";
+import { HelpCircle, Star, MessageSquare, ArrowRight } from "lucide-react";
 
 export const metadata = {
-    title: "Business | OorjaKull — Shop, Support & Partnerships",
-    description: "OorjaKull Business hub — shop yoga merchandise, get beginner FAQs answered, find class recommendations and reach our support team.",
+    title: "Business | OorjaKull — Support & Partnerships",
+    description: "OorjaKull Business hub — get beginner FAQs answered, find class recommendations and reach our support team.",
 };
 
-const CONTACT_ITEMS = [
-    { icon: MapPin, title: "Our Studio", lines: ["123 Yoga Street, Serenity Nagar", "Rishikesh, Uttarakhand 249201"] },
-    { icon: Phone, title: "Phone", lines: ["+91 98765 43210", "Mon–Sat, 9am – 6pm IST"] },
-    { icon: Mail, title: "Email", lines: ["namaste@oorjakull.com"] },
-];
 
-const SHOP_ITEMS = [
-    { emoji: "🧘", title: "Yoga Mats & Props", description: "Eco-friendly cork and natural rubber mats, blocks, straps and bolsters sourced for authentic practice.", tag: "Equipment", tagColor: "bg-primary/15 text-primary", gradient: "from-primary/15 to-emerald-900/10", badge: "Coming Soon" },
-    { emoji: "💎", title: "Crystals & Sacred Objects", description: "Hand-selected crystals, malas and singing bowls to support your meditation and breathwork practice.", tag: "Wellness", tagColor: "bg-violet-400/15 text-violet-700", gradient: "from-violet-400/15 to-indigo-900/10", badge: "Coming Soon" },
-    { emoji: "📓", title: "Journals & Guides", description: "OorjaKull practice journals, yoga philosophy study guides and daily intention notebooks.", tag: "Stationery", tagColor: "bg-secondary/15 text-secondary", gradient: "from-secondary/15 to-amber-900/10", badge: "Coming Soon" },
-    { emoji: "🌿", title: "Wellness Essentials", description: "Ayurvedic oils, herbal teas, skincare and daily ritual kits curated to complement your yoga lifestyle.", tag: "Ayurveda", tagColor: "bg-green-400/15 text-green-700", gradient: "from-green-400/15 to-teal-900/10", badge: "Coming Soon" },
-];
+
+
 
 const FAQS = [
     { q: "I'm a complete beginner — where should I start?", a: "Start with our Beginner Foundations classes on the Yoga page. They run twice a week and require no prior experience — just comfortable clothing and an open mind." },
@@ -56,49 +47,11 @@ export default function BusinessPage() {
                         <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-4">Business Hub</p>
                         <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-5">Let&apos;s Start a Conversation</h1>
                         <p className="text-foreground/55 text-lg font-light max-w-xl mx-auto leading-relaxed">
-                            Shop wellness essentials, get your questions answered and find the perfect class recommendation — we&apos;re here to guide you.
+                            Find the perfect class recommendation, get your questions answered and reach our support team — we&apos;re here to guide you.
                         </p>
                     </div>
                 </section>
 
-                {/* ══════════════════════
-                    SHOP & MERCHANDISE
-                ══════════════════════ */}
-                <section className="py-20 bg-background">
-                    <div className="container mx-auto px-4 md:px-8">
-                        <div className="text-center mb-12">
-                            <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3 flex items-center justify-center gap-2">
-                                <ShoppingBag className="w-3.5 h-3.5" /> Shop
-                            </p>
-                            <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">Shop & Merchandise</h2>
-                            <p className="text-foreground/55 mt-3 max-w-lg mx-auto font-light leading-relaxed">
-                                Carefully curated products to complement and elevate your daily practice.
-                            </p>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                            {SHOP_ITEMS.map((item) => (
-                                <div key={item.title} className="group flex flex-col bg-card rounded-2xl border border-muted overflow-hidden hover:border-primary/25 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300">
-                                    <div className={`h-36 bg-gradient-to-br ${item.gradient} flex items-center justify-center relative`}>
-                                        <span className="text-5xl group-hover:scale-110 transition-transform duration-300">{item.emoji}</span>
-                                        <span className={`absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/75 ${item.tagColor}`}>{item.tag}</span>
-                                        {item.badge && (
-                                            <span className="absolute bottom-3 left-3 text-xs font-medium px-2.5 py-1 rounded-full bg-foreground/8 text-foreground/50 border border-foreground/15">
-                                                <Package className="w-2.5 h-2.5 inline mr-1" />{item.badge}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className="p-5 flex flex-col flex-1 gap-2">
-                                        <h3 className="font-serif font-semibold text-base text-foreground group-hover:text-primary transition-colors leading-snug">{item.title}</h3>
-                                        <p className="text-xs text-foreground/55 leading-relaxed flex-1">{item.description}</p>
-                                        <button className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground/40 mt-2 cursor-not-allowed" disabled>
-                                            Notify Me <ArrowRight className="w-3.5 h-3.5" />
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
 
                 {/* ══════════════════════
                     CLASS RECOMMENDATIONS
@@ -163,33 +116,18 @@ export default function BusinessPage() {
                 ══════════════════════ */}
                 <section className="py-20 bg-muted/40">
                     <div className="container mx-auto px-4 md:px-8">
-                        <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
-                            {/* Contact Info */}
-                            <div className="flex flex-col gap-8">
-                                <div>
-                                    <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
-                                        <MessageSquare className="w-3.5 h-3.5" /> Contact
-                                    </p>
-                                    <h2 className="text-3xl font-serif font-medium text-foreground mb-2">Contact Information</h2>
-                                    <p className="text-foreground/55 text-sm leading-relaxed">Reach out to us for program enquiries, partnership proposals or general questions.</p>
-                                </div>
-                                <div className="flex flex-col gap-5">
-                                    {CONTACT_ITEMS.map(({ icon: Icon, title, lines }) => (
-                                        <div key={title} className="flex items-start gap-4 group">
-                                            <div className="shrink-0 w-11 h-11 rounded-xl bg-primary/8 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                                                <Icon className="w-5 h-5" />
-                                            </div>
-                                            <div>
-                                                <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-1">{title}</p>
-                                                {lines.map((l) => <p key={l} className="text-foreground/75 text-sm">{l}</p>)}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                        <div className="max-w-2xl mx-auto">
+                            <div className="text-center mb-10">
+                                <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-4 flex items-center justify-center gap-2">
+                                    <MessageSquare className="w-3.5 h-3.5" /> Support
+                                </p>
+                                <h2 className="text-4xl font-serif font-medium text-foreground mb-3">Send us a Message</h2>
+                                <p className="text-foreground/55 text-sm leading-relaxed max-w-md mx-auto">
+                                    Reach out to us for program enquiries, partnership proposals or general questions. We&apos;ll get back to you within 24–48 hours.
+                                </p>
                             </div>
                             {/* Support Form */}
-                            <div className="bg-card rounded-2xl border border-muted p-8">
-                                <h3 className="text-xl font-serif font-semibold text-foreground mb-6">Support Form</h3>
+                            <div className="bg-card rounded-2xl border border-muted p-8 shadow-sm">
                                 <ContactForm />
                             </div>
                         </div>

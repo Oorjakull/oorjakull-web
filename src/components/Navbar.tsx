@@ -139,15 +139,6 @@ const NAV_LINKS: NavItem[] = [
                 ],
             },
             {
-                heading: "NUTRITION",
-                description: "Eat with the seasons, thrive every day.",
-                links: [
-                    { label: "Seasonal Eating Guides", href: "/blog" },
-                    { label: "Detox & Digestion", href: "/blog" },
-                    { label: "Morning Ritual Videos", href: "/blog" },
-                ],
-            },
-            {
                 heading: "COMMUNITY",
                 description: "Stories, challenges & transformation.",
                 links: [
@@ -162,16 +153,6 @@ const NAV_LINKS: NavItem[] = [
         href: "/contact",
         label: "Business",
         mega: [
-            {
-                heading: "SHOP",
-                description: "Premium yoga products & sacred objects.",
-                links: [
-                    { label: "Yoga Mats & Props", href: "/contact#shop" },
-                    { label: "Crystals & Sacred Objects", href: "/contact#shop" },
-                    { label: "Journals & Guides", href: "/contact#shop" },
-                    { label: "Wellness Essentials", href: "/contact#shop" },
-                ],
-            },
             {
                 heading: "PARTNERSHIPS",
                 description: "Collaborate with OorjaKull.",
@@ -331,15 +312,9 @@ export default function Navbar() {
                                         onMouseEnter={() => mega ? openMenu(label) : undefined}
                                         onMouseLeave={mega ? scheduleClose : undefined}
                                     >
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                if (mega) {
-                                                    setActiveMenu(isActive ? null : label);
-                                                } else {
-                                                    window.location.assign(href);
-                                                }
-                                            }}
+                                        <Link
+                                            href={href}
+                                            onClick={() => setActiveMenu(null)}
                                             className={`
                                                 inline-flex items-center gap-1 whitespace-nowrap font-medium transition-all duration-300 relative group
                                                 ${scrolled
@@ -357,7 +332,7 @@ export default function Navbar() {
                                             {scrolled && (
                                                 <span className={`absolute -bottom-0.5 left-0 h-0.5 bg-primary transition-all rounded-full ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
                                             )}
-                                        </button>
+                                        </Link>
                                     </div>
                                 );
                             })}
@@ -366,7 +341,7 @@ export default function Navbar() {
                         {/* Pill divider */}
                         <div className={`w-px h-5 bg-white/20 mx-2 shrink-0 transition-all duration-300 ${scrolled ? "opacity-0 w-0 mx-0" : "opacity-100"}`} />
 
-                        {/* Login + Apply Now */}
+                        {/* Login + Book Trial */}
                         <div className="flex items-center gap-2 shrink-0">
                             <Link
                                 href={LOGIN_LINK.href}
@@ -379,11 +354,11 @@ export default function Navbar() {
                                 Login
                             </Link>
                             <Link
-                                href="/register"
+                                href="/book-trial"
                                 onClick={() => setActiveMenu(null)}
-                                className="px-5 py-2 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 transition-all"
+                                className="px-5 py-2 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 transition-all whitespace-nowrap"
                             >
-                                Apply Now
+                                Book for Trial Session
                             </Link>
                         </div>
                     </div>
@@ -460,13 +435,21 @@ export default function Navbar() {
                             <div key={href}>
                                 {mega ? (
                                     <>
-                                        <button
-                                            className="w-full flex items-center justify-between text-base font-medium px-6 py-4 text-foreground/80 hover:text-primary hover:bg-primary/5 transition-colors"
-                                            onClick={() => setExpandedMobile(expandedMobile === label ? null : label)}
+                                    <div className="flex items-center text-base font-medium text-foreground/80 hover:bg-primary/5 transition-colors group">
+                                        <Link
+                                            href={href}
+                                            className="flex-1 px-6 py-4"
+                                            onClick={() => setIsOpen(false)}
                                         >
                                             {label}
-                                            <ChevronDown className={`w-4 h-4 transition-transform ${expandedMobile === label ? "rotate-180" : ""}`} />
+                                        </Link>
+                                        <button
+                                            className="px-6 py-4"
+                                            onClick={() => setExpandedMobile(expandedMobile === label ? null : label)}
+                                        >
+                                            <ChevronDown className={`w-4 h-4 transition-transform group-hover:text-primary ${expandedMobile === label ? "rotate-180" : ""}`} />
                                         </button>
+                                    </div>
                                         {expandedMobile === label && (
                                             <div className="px-6 pb-4 space-y-5 bg-primary/2">
                                                 {mega.map((col) => (
@@ -510,11 +493,11 @@ export default function Navbar() {
                         </Link>
                         <div className="p-4">
                             <Link
-                                href="/register"
+                                href="/book-trial"
                                 className="block text-center px-6 py-3 rounded-full text-base font-semibold bg-primary text-white hover:bg-primary/90 transition-all"
                                 onClick={() => setIsOpen(false)}
                             >
-                                Apply Now
+                                Book for Trial Session
                             </Link>
                         </div>
                     </div>

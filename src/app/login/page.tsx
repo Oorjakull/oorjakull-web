@@ -162,7 +162,7 @@ export default function LoginPage() {
                         <div className="text-center flex flex-col gap-3">
                             <p className="text-xs text-foreground/45">New to OorjaKull? Not sure where to start?</p>
                             <Link
-                                href="/register"
+                                href="/book-trial"
                                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-foreground/20 text-foreground/65 text-sm font-medium hover:border-primary/50 hover:text-primary transition-all"
                             >
                                 <Wind className="w-3.5 h-3.5" />
@@ -185,3 +185,4 @@ export default function LoginPage() {
         </div>
     );
 }
+

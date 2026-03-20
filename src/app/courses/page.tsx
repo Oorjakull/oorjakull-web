@@ -214,10 +214,10 @@ export default function GoalsPage() {
                                         {/* CTAs */}
                                         <div className="flex gap-3 pt-1 mt-auto">
                                             <Link
-                                                href="/register"
+                                                href="/book-trial"
                                                 className="flex-1 text-center py-2.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors"
                                             >
-                                                Apply Now
+                                                Book for Trial Session
                                             </Link>
                                             <Link
                                                 href="/contact"
