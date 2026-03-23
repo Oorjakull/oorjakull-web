@@ -3,21 +3,73 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Eye, EyeOff, ArrowRight, Wind } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function LoginPage() {
+    const router = useRouter();
     const [mode, setMode] = useState<"login" | "signup">("login");
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Placeholder — wire to auth backend when ready
-        alert(mode === "login" ? "Login coming soon 🙏" : "Account creation coming soon 🙏");
+        setError("");
+        setIsLoading(true);
+
+        try {
+            if (mode === "signup") {
+                const res = await fetch("/api/auth/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, password }),
+                });
+
+                if (!res.ok) {
+                    const data = await res.json();
+                    throw new Error(data.message || "Failed to register account.");
+                }
+
+                // Auto-login after successful registration
+                const signInRes = await signIn("credentials", {
+                    email,
+                    password,
+                    redirect: false,
+                });
+
+                if (signInRes?.error) {
+                    throw new Error("Registration successful, but automatic login failed. Please sign in manually.");
+                }
+
+                router.push("/");
+                router.refresh();
+            } else {
+                // Login Flow
+                const res = await signIn("credentials", {
+                    email,
+                    password,
+                    redirect: false,
+                });
+
+                if (res?.error) {
+                    throw new Error("Invalid email or password.");
+                }
+
+                router.push("/");
+                router.refresh();
+            }
+        } catch (err: any) {
+            setError(err.message || "Something went wrong.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -79,6 +131,12 @@ export default function LoginPage() {
 
                         {/* Form */}
                         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+                            {error && (
+                                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-sm mb-2 text-center">
+                                    {error}
+                                </div>
+                            )}
 
                             {mode === "signup" && (
                                 <div className="flex flex-col gap-1.5">
@@ -144,10 +202,11 @@ export default function LoginPage() {
 
                             <button
                                 type="submit"
-                                className="group mt-2 w-full py-3.5 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 transition-all flex items-center justify-center gap-2"
+                                disabled={isLoading}
+                                className="group mt-2 w-full py-3.5 rounded-full bg-primary text-white font-semibold text-sm hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
-                                {mode === "login" ? "Sign In" : "Create Account"}
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                {isLoading ? "Processing..." : mode === "login" ? "Sign In" : "Create Account"}
+                                {!isLoading && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
                             </button>
                         </form>
 
