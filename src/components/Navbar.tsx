@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, LogOut, User } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
 // ─── Mega-menu data ────────────────────────────────────────────────────────
 type MegaColumn = {
@@ -219,6 +220,25 @@ function MegaMenu({ columns, onClose }: { columns: MegaColumn[]; onClose: () => 
 // ─── Component ────────────────────────────────────────────────────────────
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const { data: session, status } = useSession();
+    const [profileOpen, setProfileOpen] = useState(false);
+    const profileRef = useRef<HTMLDivElement>(null);
+
+    // Close profile dropdown on outside click
+    useEffect(() => {
+        const handler = (e: MouseEvent) => {
+            if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
+                setProfileOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
+    }, []);
+
+    const userInitial = session?.user?.name?.[0]?.toUpperCase() ?? session?.user?.email?.[0]?.toUpperCase() ?? "U";
+    const userName = session?.user?.name ?? "Member";
+    const userEmail = session?.user?.email ?? "";
+
     const [scrolled, setScrolled] = useState(false);
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
@@ -341,25 +361,78 @@ export default function Navbar() {
                         {/* Pill divider */}
                         <div className={`w-px h-5 bg-white/20 mx-2 shrink-0 transition-all duration-300 ${scrolled ? "opacity-0 w-0 mx-0" : "opacity-100"}`} />
 
-                        {/* Login + Book Trial */}
+                        {/* Login + Book Trial / Profile */}
                         <div className="flex items-center gap-2 shrink-0">
-                            <Link
-                                href={LOGIN_LINK.href}
-                                onClick={() => setActiveMenu(null)}
-                                className={`whitespace-nowrap text-sm font-medium transition-all duration-300 ${scrolled
-                                    ? "text-foreground/70 hover:text-primary px-3 py-1.5 rounded-full border border-foreground/15 hover:border-primary/40"
-                                    : "text-white/80 hover:text-white px-3 py-1.5 rounded-full border border-white/20 hover:bg-white/12"
+                            {status === "loading" ? (
+                                <div className="w-8 h-8 rounded-full bg-white/10 animate-pulse" />
+                            ) : session ? (
+                                /* ── Logged in: Avatar + Dropdown ── */
+                                <div className="relative" ref={profileRef}>
+                                    <button
+                                        onClick={() => setProfileOpen(!profileOpen)}
+                                        className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
+                                            scrolled
+                                                ? "bg-primary text-white hover:bg-primary/85 ring-2 ring-primary/20"
+                                                : "bg-white/15 text-white hover:bg-white/25 border border-white/25"
+                                        }`}
+                                        aria-label="Profile menu"
+                                    >
+                                        {userInitial}
+                                    </button>
+
+                                    {profileOpen && (
+                                        <div className="absolute right-0 top-12 w-56 bg-card rounded-2xl border border-muted shadow-2xl shadow-black/15 z-50 overflow-hidden">
+                                            {/* User info */}
+                                            <div className="px-4 py-3.5 border-b border-muted">
+                                                <p className="text-sm font-semibold text-foreground truncate">{userName}</p>
+                                                <p className="text-xs text-foreground/45 truncate mt-0.5">{userEmail}</p>
+                                            </div>
+                                            {/* Menu items */}
+                                            <div className="py-1">
+                                                <Link
+                                                    href="/dashboard"
+                                                    onClick={() => setProfileOpen(false)}
+                                                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground/70 hover:text-primary hover:bg-primary/5 transition-colors"
+                                                >
+                                                    <User className="w-4 h-4" />
+                                                    My Dashboard
+                                                </Link>
+                                            </div>
+                                            <div className="border-t border-muted py-1">
+                                                <button
+                                                    onClick={() => { setProfileOpen(false); signOut({ callbackUrl: "/" }); }}
+                                                    className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-500/5 transition-colors"
+                                                >
+                                                    <LogOut className="w-4 h-4" />
+                                                    Sign Out
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                /* ── Logged out: Login + Book Trial ── */
+                                <Link
+                                    href={LOGIN_LINK.href}
+                                    onClick={() => setActiveMenu(null)}
+                                    className={`whitespace-nowrap text-sm font-medium transition-all duration-300 ${
+                                        scrolled
+                                            ? "text-foreground/70 hover:text-primary px-3 py-1.5 rounded-full border border-foreground/15 hover:border-primary/40"
+                                            : "text-white/80 hover:text-white px-3 py-1.5 rounded-full border border-white/20 hover:bg-white/12"
                                     }`}
-                            >
-                                Login
-                            </Link>
-                            <Link
-                                href="/book-trial"
-                                onClick={() => setActiveMenu(null)}
-                                className="px-5 py-2 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 transition-all whitespace-nowrap"
-                            >
-                                Book for Trial Session
-                            </Link>
+                                >
+                                    Login
+                                </Link>
+                            )}
+                            {!session && (
+                                <Link
+                                    href="/book-trial"
+                                    onClick={() => setActiveMenu(null)}
+                                    className="px-5 py-2 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 transition-all whitespace-nowrap"
+                                >
+                                    Book for Trial Session
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -484,22 +557,51 @@ export default function Navbar() {
                                 )}
                             </div>
                         ))}
-                        <Link
-                            href={LOGIN_LINK.href}
-                            className="block text-base font-medium px-6 py-4 text-foreground/80 hover:text-primary hover:bg-primary/5 transition-colors"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            Login
-                        </Link>
-                        <div className="p-4">
-                            <Link
-                                href="/book-trial"
-                                className="block text-center px-6 py-3 rounded-full text-base font-semibold bg-primary text-white hover:bg-primary/90 transition-all"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                Book for Trial Session
-                            </Link>
-                        </div>
+                        {session ? (
+                            <>
+                                <div className="px-6 py-3.5 border-t border-muted/60 flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm shrink-0">
+                                        {userInitial}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="text-sm font-semibold text-foreground truncate">{userName}</p>
+                                        <p className="text-xs text-foreground/45 truncate">{userEmail}</p>
+                                    </div>
+                                </div>
+                                <Link
+                                    href="/dashboard"
+                                    className="flex items-center gap-2 text-base font-medium px-6 py-3.5 text-foreground/80 hover:text-primary hover:bg-primary/5 transition-colors"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <User className="w-4 h-4" /> My Dashboard
+                                </Link>
+                                <button
+                                    onClick={() => { setIsOpen(false); signOut({ callbackUrl: "/" }); }}
+                                    className="flex w-full items-center gap-2 text-base font-medium px-6 py-3.5 text-red-500 hover:bg-red-500/5 transition-colors"
+                                >
+                                    <LogOut className="w-4 h-4" /> Sign Out
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    href={LOGIN_LINK.href}
+                                    className="block text-base font-medium px-6 py-4 text-foreground/80 hover:text-primary hover:bg-primary/5 transition-colors"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Login
+                                </Link>
+                                <div className="p-4">
+                                    <Link
+                                        href="/book-trial"
+                                        className="block text-center px-6 py-3 rounded-full text-base font-semibold bg-primary text-white hover:bg-primary/90 transition-all"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        Book for Trial Session
+                                    </Link>
+                                </div>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

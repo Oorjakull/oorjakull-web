@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuraCursor from "@/components/AuraCursor";
 import SmoothScroll from "@/components/SmoothScroll";
+import Providers from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +25,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SmoothScroll>
-          <AuraCursor />
-          {children}
-        </SmoothScroll>
+        <Providers>
+          <SmoothScroll>
+            <AuraCursor />
+            {children}
+          </SmoothScroll>
+        </Providers>
       </body>
     </html>
   );
