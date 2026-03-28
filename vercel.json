@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/ai", "destination": "https://oorjakull-six.vercel.app/ai" },
+    { "source": "/ai/:path*", "destination": "https://oorjakull-six.vercel.app/ai/:path*" },
+    { "source": "/api/:path*", "destination": "https://oorjakull-backend.vercel.app/api/:path*" }
+  ]
+}
