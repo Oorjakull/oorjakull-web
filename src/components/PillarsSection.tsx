@@ -4,34 +4,34 @@ import Reveal, { StaggerReveal, StaggerItem } from "@/components/Reveal";
 
 const PILLARS = [
     {
-        emoji: "🕉️",
-        title: "Asana Science",
-        description: "Deep anatomical understanding of postures — alignment, adjustments and therapeutic applications.",
+        emoji: "🤖",
+        title: "AI Pose Intelligence",
+        description: "Real-time camera-based pose detection powered by Madhu — millisecond feedback on alignment, depth, and transitions rooted in Asana Science.",
     },
     {
         emoji: "🌬️",
-        title: "Pranayama",
-        description: "Master the breath. From Nadi Shodhana to Kapalabhati, learn the energetic language of life.",
+        title: "Adaptive Breathwork",
+        description: "AI-guided Pranayama protocols — Nadi Shodhana, Kapalbhati, NSDR and 4-7-8 — paced dynamically to your nervous system state.",
     },
     {
         emoji: "🧘",
-        title: "Meditation",
-        description: "Explore Dharana, Dhyana and beyond. Develop a personal practice you can share with others.",
+        title: "Generative Meditation",
+        description: "Madhu adapts your meditation session in real time: Dharana, Dhyana and guided body-scan sequences that respond to your practice history.",
     },
     {
         emoji: "📖",
         title: "Yoga Philosophy",
-        description: "Study the Yoga Sutras, Upanishads, Bhagavad Gita and the full eight-limbed path of Ashtanga.",
+        description: "Study the Yoga Sutras, Upanishads and the full eight-limbed path of Ashtanga — the timeless foundation that no AI replaces.",
     },
     {
         emoji: "🌿",
-        title: "Ayurveda & Lifestyle",
-        description: "Discover how dosha balancing, seasonal living and daily rituals amplify your yoga practice.",
+        title: "Personalised Wellness",
+        description: "Dosha-aware daily rituals and lifestyle guidance, surfaced intelligently by Madhu based on your active session data.",
     },
     {
         emoji: "🎓",
-        title: "Teaching Methodology",
-        description: "Practical skills for sequencing, cueing, voice modulation, ethics and building your community.",
+        title: "Train the Trainer",
+        description: "Become a certified yoga teacher equipped to teach both in-person and AI-assisted classes — sequencing, ethics, cueing and community.",
     },
 ];
 
@@ -41,13 +41,13 @@ export default function PillarsSection() {
             <div className="container mx-auto px-4 md:px-8">
                 <Reveal width="100%" delay={0} className="text-center max-w-2xl mx-auto mb-16">
                     <p className="text-secondary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
-                        What You&apos;ll Learn
+                        What You&apos;ll Experience
                     </p>
                     <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground mb-4">
-                        Six Pillars of Complete Yoga Education
+                        Six Pillars of AI-Enhanced Yoga
                     </h2>
                     <p className="text-muted-foreground text-lg font-light">
-                        Our curriculum is rooted in tradition and refined for the modern teacher.
+                        Ancient wisdom amplified by modern intelligence — built for practitioners and future teachers alike.
                     </p>
                 </Reveal>
 

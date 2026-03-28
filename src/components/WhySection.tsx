@@ -6,12 +6,12 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
 const REASONS = [
-    "Yoga Alliance certified 200H & 300H programs",
-    "Taught by Acharyas with 20+ years of active practice",
-    "Small batch sizes — maximum 15 students",
-    "Full curriculum: Asana, Pranayama, Philosophy & Teaching Methodology",
-    "Lifetime alumni community and mentorship access",
-    "Career support: help building your class and community",
+    "Madhu — your always-on AI yoga companion, tracking every session",
+    "Real-time camera-based pose detection with millisecond feedback",
+    "Adaptive flows: AI curates Surya Namaskar, Core & Balance and more to your level",
+    "Integrated breathwork protocols: NSDR, 4-7-8, Anulom Vilom and Kapalbhati",
+    "AI voice guidance synced with each pose — no screen-watching needed",
+    "Ancient lineage powered by a modern intelligence layer",
 ];
 
 export default function WhySection() {
@@ -32,9 +32,9 @@ export default function WhySection() {
                             </div>
                             {/* Floating card */}
                             <div className="absolute -bottom-6 -right-4 bg-white border border-muted rounded-2xl shadow-xl p-5 max-w-[200px]">
-                                <p className="text-3xl font-serif font-bold text-primary">200H</p>
+                                <p className="text-3xl font-serif font-bold text-primary">AI</p>
                                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-1">
-                                    Yoga Alliance<br />Certified
+                                    Madhu &mdash;<br />Your Yoga Guide
                                 </p>
                             </div>
                             <div className="absolute -top-6 -left-6 w-32 h-32 dot-pattern rounded-2xl opacity-40" />
@@ -46,16 +46,16 @@ export default function WhySection() {
                         <div className="order-1 lg:order-2 flex flex-col gap-7">
                             <div>
                                 <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
-                                    Why OorjaKull?
+                                    Why OorjaKull AI?
                                 </p>
                                 <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground mb-5 leading-tight">
-                                    More than a certification — a{" "}
-                                    <span className="text-primary">Transformation</span>
+                                    Ancient wisdom meets{" "}
+                                    <span className="text-primary">Modern Intelligence</span>
                                 </h2>
                                 <p className="text-muted-foreground text-lg font-light leading-relaxed">
-                                    We believe yoga teacher training must reach the root of who you are.
-                                    Our programs are rigorous, intimate, and structured to produce
-                                    teachers who genuinely embody what they teach.
+                                    OorjaKull is reimagining yoga for the AI era. Madhu, our intelligent
+                                    companion, watches your form in real time, adapts each sequence to
+                                    your body, and guides every breath — so tradition truly comes alive.
                                 </p>
                             </div>
 
@@ -74,7 +74,7 @@ export default function WhySection() {
                                 href="/about"
                                 className="group mt-2 inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all"
                             >
-                                Learn more about our philosophy
+                                Explore our AI-powered programs
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Link>
                         </div>

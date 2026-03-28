@@ -5,9 +5,9 @@ import { StaggerReveal, StaggerItem } from "@/components/Reveal";
 type StatItem = { value: number; suffix: string; label: string; };
 
 const STATS: StatItem[] = [
-    { value: 200, suffix: "H", label: "Training Hours" },
-    { value: 50, suffix: "+", label: "Certified Graduates" },
-    { value: 98, suffix: "%", label: "Student Satisfaction" },
+    { value: 2, suffix: "M+", label: "AI Poses Analyzed" },
+    { value: 16, suffix: "ms", label: "Analysis Latency" },
+    { value: 10, suffix: "k+", label: "Active AI Sessions" },
 ];
 
 function useCountUp(target: number, active: boolean, duration = 1600) {

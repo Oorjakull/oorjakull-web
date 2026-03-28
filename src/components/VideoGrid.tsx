@@ -8,7 +8,7 @@ const SESSIONS = [
     {
         id: "v7AYKMP6rOE",
         title: "Morning Pranayama Flow",
-        description: "A gentle 20-minute breathwork session to energise your morning and centre the mind before the day begins.",
+        description: "A gentle 20-minute AI-guided breathwork session to energise your morning with real-time feedback.",
         duration: "20 min",
         level: "All Levels",
         tag: "Pranayama",
@@ -16,7 +16,7 @@ const SESSIONS = [
     {
         id: "Eml2xnoLpYE",
         title: "Sun Salutation Mastery",
-        description: "Break down each vinyasa with anatomical precision — perfect for teachers wanting to cue Surya Namaskar with confidence.",
+        description: "Break down each vinyasa with anatomical precision — guided by Madhu and real-time pose validation.",
         duration: "35 min",
         level: "Beginner",
         tag: "Asana",
@@ -24,15 +24,15 @@ const SESSIONS = [
     {
         id: "sTANio_2E0Q",
         title: "Yoga Nidra for Deep Rest",
-        description: "A profound 30-minute guided body-scan to release muscular tension, still the nervous system and restore inner calm.",
+        description: "A profound 30-minute generative body-scan adapted to your nervous system state to restore inner calm.",
         duration: "30 min",
         level: "All Levels",
         tag: "Meditation",
     },
     {
         id: "4pKly2JojMw",
-        title: "Foundational Ayurvedic Breath",
-        description: "Explore Nadi Shodhana and Bhramari — two ancient balancing techniques taught step by step for everyday practice.",
+        title: "Foundational AI Breath",
+        description: "Explore Nadi Shodhana and Bhramari — optimized with adaptive audio pacing and instructions.",
         duration: "25 min",
         level: "Beginner",
         tag: "Pranayama",
@@ -131,13 +131,13 @@ export default function VideoGrid() {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                         <div>
                             <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
-                                Free Sessions
+                                AI-Guided Sequences
                             </p>
                             <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
                                 Choose Your Style
                             </h2>
                             <p className="text-foreground/55 mt-3 max-w-lg text-base font-light leading-relaxed">
-                                Taste the OorjaKull approach before you commit. Four carefully chosen free classes — hit play and begin.
+                                Taste the OorjaKull AI approach. Dive into dynamically generated sequences validated by real-time camera tracking.
                             </p>
                         </div>
                         <a

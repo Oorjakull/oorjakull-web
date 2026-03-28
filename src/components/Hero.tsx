@@ -6,10 +6,10 @@ import { useEffect, useState, useRef } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const HERO_PHRASES = [
-    "Conscious Yoga",
-    "Breath & Beyond",
-    "Purposeful Living",
-    "Ancient Wisdom",
+    "AI-Powered Yoga",
+    "Precision Posture Tracking",
+    "Adaptive Practice",
+    "Meet Madhu, Your AI Guide",
 ];
 
 export default function Hero() {
@@ -69,7 +69,7 @@ export default function Hero() {
                     {/* Eyebrow badge */}
                     <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/15 text-white/85">
                         <Sparkles className="w-3.5 h-3.5 text-secondary" />
-                        Yoga Teacher Training · June 2026 Batch Open
+                        OorjaKull AI Platform · Powered by Madhu · Now Live
                     </div>
 
                     {/* Primary Headline */}
@@ -89,8 +89,7 @@ export default function Hero() {
 
                     {/* Subheading */}
                     <p className="text-white/70 text-xl font-light leading-relaxed max-w-2xl drop-shadow-md">
-                        Transform your practice into a calling. Join India's most intentional yoga
-                        teacher training — rooted in tradition, alive in the modern world.
+                        Join India's first AI-driven wellness platform — ancient tradition powered by modern AI tracking. Transform your practice with real-time feedback and generative sessions.
                     </p>
 
                     {/* CTA row */}
@@ -134,7 +133,7 @@ export default function Hero() {
                                 key={`t1-${i}`}
                                 className="text-foreground/35 text-sm uppercase tracking-[0.25em] font-medium shrink-0"
                             >
-                                Your daily space for yoga, mindfulness, and complete well-being…
+                                Real-time AI pose tracking · Adaptive breathwork · Ancient wisdom, modern intelligence…
                             </span>
                         ))}
                     </div>
@@ -148,7 +147,7 @@ export default function Hero() {
                                 key={`t2-${i}`}
                                 className="text-foreground/30 text-sm uppercase tracking-[0.25em] font-light shrink-0"
                             >
-                                Welcome to a wellness journey designed for real life…
+                                Meet Madhu · Your AI yoga companion · Practice smarter, not harder…
                             </span>
                         ))}
                     </div>

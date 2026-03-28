@@ -28,23 +28,23 @@ export interface Instructor {
 const programs: Program[] = [
     {
         id: "ashtanga-ytt-200",
-        title: "Ashtanga Yoga Teacher Training (200 Hours)",
-        description: "This 200-Hour Ashtanga-based Yoga Teacher Training Course provides a strong foundation in classical Ashtanga Vinyasa Yoga practice, teaching methodology, yoga philosophy, anatomy, pranayama, meditation, and professional teaching practicum.",
+        title: "AI Yoga Teacher Training (200H · Yoga Alliance Certified)",
+        description: "India's first AI-enhanced 200-Hour Teacher Training. Master classical Ashtanga Vinyasa guided by Madhu — real-time pose detection, adaptive breathwork, and AI voice coaching — while earning your internationally recognised Yoga Alliance certification.",
         duration: "4 Weeks (Intensive)",
         level: "Beginner / Intermediate",
         features: [
-            "Classical Ashtanga Vinyasa Yoga",
-            "Teaching Methodology & Practicum",
-            "Anatomy, Pranayama & Meditation",
-            "Professional Certification"
+            "Real-time AI Corrections",
+            "Interactive AI Chatbot (Madhu)",
+            "Personalized Breathwork Protocols",
+            "Professional AI Yoga Certification"
         ],
         curriculumBreakdown: [
-            { topic: "Techniques, Training & Practice (Asana, Pranayama, Meditation)", hours: 100 },
-            { topic: "Teaching Methodology & Practicum", hours: 25 },
-            { topic: "Anatomy & Physiology", hours: 20 },
+            { topic: "AI-Guided Asana, Pranayama & Meditation (Madhu Live Sessions)", hours: 100 },
+            { topic: "AI-Assisted Teaching Methodology & Practicum", hours: 25 },
+            { topic: "Anatomy, Physiology & Biomechanics", hours: 20 },
             { topic: "Yoga Humanities (Philosophy, Sutras, Lifestyle)", hours: 30 },
-            { topic: "Professional Essentials & Ethics", hours: 10 },
-            { topic: "Electives / Self Study / Workshops", hours: 15 },
+            { topic: "Professional Essentials, Ethics & Hybrid Teaching", hours: 10 },
+            { topic: "Adaptive Breathwork Workshops & Self Study", hours: 15 },
         ],
         weeklySchedule: [
             {

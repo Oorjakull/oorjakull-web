@@ -32,7 +32,7 @@ export default function Footer() {
                             </div>
                         </div>
                         <p className="text-sm text-foreground/55 leading-relaxed max-w-xs">
-                            Empowering the next generation of yoga teachers with the depth of ancient wisdom and the clarity of modern pedagogy. From the heart of India.
+                            India&apos;s first AI-powered yoga platform — real-time pose guidance, adaptive breathwork, and a 200H certified teacher training. Ancient wisdom, modern intelligence.
                         </p>
 
                         {/* Social icons */}
