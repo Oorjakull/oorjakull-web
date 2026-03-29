@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown, LogOut, User } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // ─── Mega-menu data ────────────────────────────────────────────────────────
 type MegaColumn = {
@@ -182,36 +183,42 @@ const LOGIN_LINK = { href: "/login", label: "Login" };
 function MegaMenu({ columns, onClose }: { columns: MegaColumn[]; onClose: () => void }) {
     return (
         <div
-            className="absolute top-full left-0 right-0 z-40 bg-white border-t-2 border-primary border-b border-b-foreground/10 shadow-xl shadow-black/12 animate-in fade-in slide-in-from-top-2 duration-200"
-            onMouseLeave={onClose}
+            className="absolute top-full left-0 right-0 z-40 flex justify-center pt-3 px-6"
         >
-            <div className="container mx-auto px-8 py-10">
-                <div className={`grid gap-12 ${columns.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
-                    {columns.map((col) => (
-                        <div key={col.heading}>
-                            <div className="mb-3">
-                                <p className="text-xs font-extrabold tracking-[0.25em] text-foreground mb-1.5">{col.heading}</p>
-                                {col.description && (
-                                    <p className="text-xs text-foreground/55 leading-snug max-w-[220px]">{col.description}</p>
-                                )}
+            <div
+                className="w-full max-w-5xl bg-card/95 backdrop-blur-3xl border border-foreground/5 rounded-[2rem] shadow-2xl shadow-black/10 overflow-hidden pointer-events-auto"
+                onMouseLeave={onClose}
+            >
+                <div className="px-10 py-10">
+                    <div className={`grid gap-12 ${columns.length === 2 ? "grid-cols-2 max-w-2xl mx-auto" : "grid-cols-3"}`}>
+                        {columns.map((col) => (
+                            <div key={col.heading} className="flex flex-col">
+                                <div className="mb-6">
+                                    <p className="text-[11px] font-bold tracking-[0.2em] text-primary/90 mb-2.5 uppercase">{col.heading}</p>
+                                    {col.description && (
+                                        <p className="text-sm font-light text-foreground/60 leading-relaxed pr-4">{col.description}</p>
+                                    )}
+                                </div>
+                                <ul className="space-y-1 flex-1">
+                                    {col.links.map((link) => (
+                                        <li key={link.label}>
+                                            <Link
+                                                href={link.href}
+                                                onClick={onClose}
+                                                className="group flex items-center gap-3 px-3 py-2.5 -mx-3 rounded-xl text-sm font-medium text-foreground/75 hover:text-primary hover:bg-primary/5 transition-all duration-200"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-foreground/15 group-hover:bg-primary group-hover:scale-125 transition-all duration-200" />
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-                            <div className="w-full h-px bg-foreground/15 mb-4" />
-                            <ul className="space-y-3">
-                                {col.links.map((link) => (
-                                    <li key={link.label}>
-                                        <Link
-                                            href={link.href}
-                                            onClick={onClose}
-                                            className="text-sm font-normal text-foreground/75 hover:text-primary hover:translate-x-0.5 inline-block transition-all duration-150"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+                {/* Subtle bottom highlight */}
+                <div className="h-1 w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-60" />
             </div>
         </div>
     );
@@ -438,19 +445,26 @@ export default function Navbar() {
                 </div>
 
                 {/* Mega-menu panel — rendered in the fixed desktop wrapper so it stays below the bar */}
-                {activeItem?.mega && (
-                    <div
-                        onMouseEnter={cancelClose}
-                        onMouseLeave={scheduleClose}
-                        onClick={(e) => e.stopPropagation()}
-                        className={scrolled ? "" : "pt-5 px-6"}
-                    >
-                        <MegaMenu
-                            columns={activeItem.mega}
-                            onClose={() => setActiveMenu(null)}
-                        />
-                    </div>
-                )}
+                <AnimatePresence>
+                    {activeItem?.mega && (
+                        <motion.div
+                            key="mega-menu"
+                            initial={{ opacity: 0, y: 6, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, y: 2, filter: "blur(2px)" }}
+                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            onMouseEnter={cancelClose}
+                            onMouseLeave={scheduleClose}
+                            onClick={(e) => e.stopPropagation()}
+                            className={scrolled ? "" : "pt-5 px-6"}
+                        >
+                            <MegaMenu
+                                columns={activeItem.mega}
+                                onClose={() => setActiveMenu(null)}
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* ── Mobile ── */}
