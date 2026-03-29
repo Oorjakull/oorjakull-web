@@ -46,7 +46,7 @@ export default function Hero() {
 
                 {/* ── Background image ── */}
                 <Image
-                    src="/hero-bg.png"
+                    src="/Yoga_Surya_Namaskara_9_My2gSC.webp"
                     alt="Yoga practitioner"
                     fill
                     className="object-cover object-[30%_25%]"
@@ -80,10 +80,12 @@ export default function Hero() {
                         <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-light text-white leading-[1.08] drop-shadow-lg">
                             Transform Your Life with{" "}
                             <br />
-                            <span className="text-[#c8e6c9] italic min-h-[1.2em] inline-block">
+                            <span className="text-[#c8e6c9] italic min-h-[1.2em] inline-block" aria-hidden="true">
                                 {displayed}
                                 <span className="animate-pulse text-white/40 not-italic">|</span>
                             </span>
+                            {/* Static keyword text visible to crawlers, visually hidden */}
+                            <span className="sr-only">AI-Powered Yoga, Precision Posture Tracking, and Personalised Wellness</span>
                         </h1>
                     </div>
 

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /dashboard
+
+Sitemap: https://www.oorjakull.com/sitemap.xml

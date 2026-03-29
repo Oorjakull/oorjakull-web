@@ -4,9 +4,18 @@ import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
 import { HelpCircle, Star, MessageSquare, ArrowRight } from "lucide-react";
 
-export const metadata = {
-    title: "Business | OorjaKull — Support & Partnerships",
-    description: "OorjaKull Business hub — get beginner FAQs answered, find class recommendations and reach our support team.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Contact OorjaKull — Support, FAQs & Partnerships",
+    description: "Get class recommendations, beginner FAQs answered and reach OorjaKull's support team. Enquire about corporate wellness, studio partnerships and brand collaborations.",
+    alternates: { canonical: "https://www.oorjakull.com/contact" },
+    openGraph: {
+        title: "Contact OorjaKull — Support & Partnerships",
+        description: "Class recommendations, FAQs and partnership enquiries at OorjaKull.",
+        url: "https://www.oorjakull.com/contact",
+        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
 };
 
 

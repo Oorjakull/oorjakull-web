@@ -3,9 +3,18 @@ import Footer from "@/components/Footer";
 import RegistrationForm from "@/components/RegistrationForm";
 import { Shield, Users, Clock, Star } from "lucide-react";
 
-export const metadata = {
-    title: "Book a Trial Session | OorjaKull Yoga",
-    description: "Apply for OorjaKull's 200H Yoga Alliance certified Teacher Training. Limited seats for the June 2026 batch. Begin your transformation today.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Book a Trial Session — 200H Yoga Teacher Training",
+    description: "Apply for OorjaKull's AI-enhanced 200H Yoga Alliance certified Teacher Training. Limited seats, AI-powered practice with Madhu, and lifetime alumni community.",
+    alternates: { canonical: "https://www.oorjakull.com/book-trial" },
+    openGraph: {
+        title: "Book a Trial — OorjaKull 200H Teacher Training",
+        description: "Apply for India's first AI-enhanced 200H Yoga Teacher Training. Limited seats for the next batch.",
+        url: "https://www.oorjakull.com/book-trial",
+        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
 };
 
 const PERKS = [

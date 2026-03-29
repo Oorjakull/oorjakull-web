@@ -66,9 +66,9 @@ export default function BlogPreview() {
                 <StaggerReveal className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.13}>
                     {BLOG_POSTS.map((post) => (
                         <StaggerItem key={post.id}>
-                            <div
-                                className="group cursor-pointer"
-                                onClick={() => window.location.assign("/blog")}
+                            <Link
+                                href={`/blog/${post.slug}`}
+                                className="group cursor-pointer block"
                             >
                                 <article className="bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
                                     <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
@@ -106,7 +106,7 @@ export default function BlogPreview() {
                                         </span>
                                     </div>
                                 </article>
-                            </div>
+                            </Link>
                         </StaggerItem>
                     ))}
                 </StaggerReveal>

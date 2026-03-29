@@ -3,9 +3,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowRight, Clock, Target, CheckCircle2, Sparkles } from "lucide-react";
 
-export const metadata = {
-    title: "Goals | OorjaKull — Choose Your Transformation",
-    description: "Choose your goal and commit to your transformation. OorjaKull offers 200H & 300H teacher training, therapeutic yoga programs, and 12-week wellness intensives.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "AI Wellness Programs & Yoga Teacher Training — 200H, 300H YTT",
+    description: "Certified 200H & 300H Yoga Teacher Training, 12-week PCOD yoga, weight loss, sciatica, IBS and stress relief programs. AI-guided and Yoga Alliance certified at OorjaKull.",
+    alternates: { canonical: "https://www.oorjakull.com/courses" },
+    openGraph: {
+        title: "Yoga Programs & Teacher Training at OorjaKull",
+        description: "200H & 300H YTT, therapeutic yoga, AI-guided wellness programs. Certified by Yoga Alliance.",
+        url: "https://www.oorjakull.com/courses",
+        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
 };
 
 const GOALS = [

@@ -3,9 +3,18 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ArrowRight, Wind, Moon, Sun, Brain, Volume2, BookOpen, Sparkles, Play } from "lucide-react";
 
-export const metadata = {
-    title: "Breath & Beyond | OorjaKull",
-    description: "Explore OorjaKull's breathwork and meditation programs — Yoga Nidra, Pranayama, breathwork for anxiety, morning resets, bedtime breath and guided meditation series.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "AI Breathwork & Meditation — Pranayama, Yoga Nidra, NSDR",
+    description: "AI-guided breathwork at OorjaKull — Yoga Nidra, Pranayama, breathwork for anxiety, NSDR, morning resets and guided meditation series. Adaptive pacing powered by Madhu.",
+    alternates: { canonical: "https://www.oorjakull.com/about" },
+    openGraph: {
+        title: "AI Breathwork & Meditation at OorjaKull",
+        description: "AI-adaptive Pranayama, Yoga Nidra, guided meditation and breathwork for anxiety. Ancient breath sciences, modern AI pacing.",
+        url: "https://www.oorjakull.com/about",
+        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
 };
 
 // ── Data ─────────────────────────────────────────────────────────

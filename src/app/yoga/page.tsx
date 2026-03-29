@@ -3,9 +3,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowRight, Calendar, Clock, User, Star, BookOpen, Dumbbell, Heart, Baby, Briefcase, Users, Leaf } from "lucide-react";
 
-export const metadata = {
-    title: "Yoga | OorjaKull School of Yoga",
-    description: "Explore yoga styles from beginner foundations to advanced practice. Book 1:1 sessions, group classes, prenatal, corporate and more at OorjaKull.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Yoga Classes — Hatha, Ashtanga, Vinyasa, Yin & More",
+    description: "Explore 7 yoga styles at OorjaKull — Beginner Foundations, Hatha, Ashtanga Vinyasa, Yin, Strength & Core, and advanced poses. Private 1:1, group, prenatal, corporate and therapeutic sessions.",
+    alternates: { canonical: "https://www.oorjakull.com/yoga" },
+    openGraph: {
+        title: "Yoga Classes at OorjaKull — All Styles, All Levels",
+        description: "From beginner foundations to advanced Ashtanga — 7 yoga styles, expert Acharyas and AI-enhanced sessions.",
+        url: "https://www.oorjakull.com/yoga",
+        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
 };
 
 // ── Data ──────────────────────────────────────────────────────────

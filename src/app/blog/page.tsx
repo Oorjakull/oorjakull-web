@@ -3,9 +3,18 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Leaf, Users, Trophy, Play, Heart } from "lucide-react";
 
-export const metadata = {
-    title: "Purposeful Living | OorjaKull",
-    description: "Live with intention and flow with purpose. Explore OorjaKull's wisdom library, nutrition guides and community programs for a holistic, mindful lifestyle.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Wellness Insights — Yoga Tips, Ayurveda & AI Wellness Guides",
+    description: "OorjaKull's wellness library — yoga pose guides, Ayurvedic nutrition, daily rituals, AI wellness insights and community transformation stories.",
+    alternates: { canonical: "https://www.oorjakull.com/blog" },
+    openGraph: {
+        title: "Wellness Insights & Community at OorjaKull",
+        description: "Yoga tips, Ayurvedic nutrition, AI wellness guides and transformation stories from the OorjaKull community.",
+        url: "https://www.oorjakull.com/blog",
+        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
 };
 
 // ── Wisdom Section ──────────────────────────────────────────────────────

@@ -66,7 +66,7 @@ const NAV_LINKS: NavItem[] = [
     },
     {
         href: "/about",
-        label: "Breath & Beyond",
+        label: "Breathwork",
         mega: [
             {
                 heading: "PROGRAMS",
@@ -93,7 +93,7 @@ const NAV_LINKS: NavItem[] = [
     },
     {
         href: "/courses",
-        label: "Goals",
+        label: "Programs",
         mega: [
             {
                 heading: "CERTIFICATIONS",
@@ -128,7 +128,7 @@ const NAV_LINKS: NavItem[] = [
     },
     {
         href: "/blog",
-        label: "Purposeful Living",
+        label: "Wellness",
         mega: [
             {
                 heading: "WISDOM",
@@ -152,7 +152,7 @@ const NAV_LINKS: NavItem[] = [
     },
     {
         href: "/contact",
-        label: "Business",
+        label: "Contact",
         mega: [
             {
                 heading: "PARTNERSHIPS",

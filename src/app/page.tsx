@@ -4,9 +4,20 @@ import VideoGrid from "@/components/VideoGrid";
 import BlogPreview from "@/components/BlogPreview";
 import Footer from "@/components/Footer";
 
-export const metadata = {
-  title: "OorjaKull | Yoga Teacher Training — Transform Your Practice",
-  description: "Join OorjaKull's 200H Yoga Alliance certified Teacher Training. Learn from Acharyas with 20+ years experience. Small batches, holistic curriculum, lifelong community.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "OorjaKull — India's First AI Yoga Platform | 200H Teacher Training",
+  description:
+    "OorjaKull combines AI-powered pose detection, adaptive breathwork and the Madhu AI companion with certified 200H Yoga Alliance teacher training. Classes, courses and personalised wellness — from the heart of India.",
+  alternates: { canonical: "https://www.oorjakull.com" },
+  openGraph: {
+    title: "OorjaKull — India's First AI Yoga Platform",
+    description:
+      "Real-time AI pose tracking, adaptive breathwork, certified 200H teacher training. Ancient wisdom, modern intelligence.",
+    url: "https://www.oorjakull.com",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 export default function Home() {
