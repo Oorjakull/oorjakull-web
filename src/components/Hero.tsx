@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 const HERO_PHRASES = [
     "AI-Powered Yoga",
@@ -14,28 +15,13 @@ const HERO_PHRASES = [
 
 export default function Hero() {
     const [phraseIndex, setPhraseIndex] = useState(0);
-    const [displayed, setDisplayed] = useState("");
-    const [isDeleting, setIsDeleting] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     useEffect(() => {
-        const currentPhrase = HERO_PHRASES[phraseIndex];
-        if (!isDeleting && displayed === currentPhrase) {
-            timerRef.current = setTimeout(() => setIsDeleting(true), 2400);
-        } else if (isDeleting && displayed === "") {
-            setIsDeleting(false);
+        const interval = setInterval(() => {
             setPhraseIndex((i) => (i + 1) % HERO_PHRASES.length);
-        } else {
-            const speed = isDeleting ? 38 : 68;
-            timerRef.current = setTimeout(() => {
-                setDisplayed(isDeleting
-                    ? currentPhrase.slice(0, displayed.length - 1)
-                    : currentPhrase.slice(0, displayed.length + 1)
-                );
-            }, speed);
-        }
-        return () => clearTimeout(timerRef.current);
-    }, [displayed, isDeleting, phraseIndex]);
+        }, 4500); // 4.5 seconds per phrase
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
@@ -80,9 +66,23 @@ export default function Hero() {
                         <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-light text-white leading-[1.08] drop-shadow-lg">
                             Transform Your Life with{" "}
                             <br />
-                            <span className="text-[#c8e6c9] italic min-h-[1.2em] inline-block" aria-hidden="true">
-                                {displayed}
-                                <span className="animate-pulse text-white/40 not-italic">|</span>
+                            <span className="text-[#c8e6c9] italic inline-grid items-center justify-items-center translate-y-[-0.05em]" aria-hidden="true">
+                                {HERO_PHRASES.map((phrase, idx) => (
+                                    <motion.span
+                                        key={phrase}
+                                        initial={false}
+                                        animate={{
+                                            opacity: phraseIndex === idx ? 1 : 0,
+                                            filter: phraseIndex === idx ? "blur(0px)" : "blur(8px)",
+                                            y: phraseIndex === idx ? 0 : 5,
+                                        }}
+                                        transition={{ duration: 1.4, ease: "easeInOut" }}
+                                        className="col-start-1 row-start-1"
+                                        style={{ pointerEvents: phraseIndex === idx ? "auto" : "none" }}
+                                    >
+                                        {phrase}
+                                    </motion.span>
+                                ))}
                             </span>
                             {/* Static keyword text visible to crawlers, visually hidden */}
                             <span className="sr-only">AI-Powered Yoga, Precision Posture Tracking, and Personalised Wellness</span>

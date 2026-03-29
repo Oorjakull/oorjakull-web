@@ -7,6 +7,7 @@ import "./globals.css";
 import AuraCursor from "@/components/AuraCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers from "@/components/Providers";
+import ViewportBlur from "@/components/ViewportBlur";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -96,6 +97,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
+          <ViewportBlur />
           <SmoothScroll>
             <AuraCursor />
             {children}
