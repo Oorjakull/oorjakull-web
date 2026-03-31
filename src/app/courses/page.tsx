@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         title: "Yoga Programs & Teacher Training at OorjaKull",
         description: "200H & 300H YTT, therapeutic yoga, AI-guided wellness programs. Certified by Yoga Alliance.",
         url: "https://www.oorjakull.com/courses",
-        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+        images: [{ url: "/api/og?title=Yoga%20Programs%20%26%20Teacher%20Training&subtitle=200H%20%26%20300H%20YTT%2C%20therapeutic%20yoga%2C%20AI-guided%20wellness.&tag=COURSES", width: 1200, height: 630 }],
     },
 };
 

@@ -95,17 +95,24 @@ export default function Hero() {
                     </p>
 
                     {/* CTA row */}
-                    <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                    <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 pt-4">
+                        <Link
+                            href="/ai"
+                            className="group inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-white text-primary font-bold text-base hover:bg-white/90 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] transition-all duration-300 ring-4 ring-white/10"
+                        >
+                            <Sparkles className="w-4 h-4 text-emerald-500 group-hover:text-emerald-400 group-hover:rotate-12 transition-all" />
+                            Try Madhu — Free
+                        </Link>
                         <Link
                             href="/about"
-                            className="group inline-flex items-center justify-center gap-2.5 px-10 py-4.5 rounded-full bg-primary text-white font-semibold text-base hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300"
+                            className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-primary/90 text-white font-semibold text-base hover:bg-primary hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 backdrop-blur-sm"
                         >
                             Start Your Journey
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link
                             href="/courses"
-                            className="inline-flex items-center justify-center gap-2 px-10 py-4.5 rounded-full border border-white/25 text-white/80 font-medium text-base hover:border-white/50 hover:text-white backdrop-blur-sm transition-all duration-300"
+                            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/25 text-white/80 font-medium text-base hover:border-white/50 hover:text-white backdrop-blur-sm transition-all duration-300"
                         >
                             Explore Programs
                         </Link>

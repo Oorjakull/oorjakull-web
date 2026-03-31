@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Leaf, Users, Trophy, Play, Heart } from "lucide-react";
+import { ArrowRight, BookOpen, Leaf, Users, Trophy, Play, Heart, Calendar, Instagram } from "lucide-react";
+import { BLOG_POSTS } from "@/data/blogPosts";
 
 import type { Metadata } from "next";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
         title: "Wellness Insights & Community at OorjaKull",
         description: "Yoga tips, Ayurvedic nutrition, AI wellness guides and transformation stories from the OorjaKull community.",
         url: "https://www.oorjakull.com/blog",
-        images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+        images: [{ url: "/api/og?title=Wellness%20%26%20Community%20Insights&subtitle=Yoga%20tips%2C%20Ayurvedic%20nutrition%2C%20and%20AI%20updates.&tag=LIBRARY", width: 1200, height: 630 }],
     },
 };
 
@@ -140,6 +141,66 @@ export default function PurposefulLivingPage() {
                         <p className="text-foreground/60 text-lg max-w-2xl mx-auto font-light leading-relaxed">
                             Wisdom, nutrition science and a living community — your complete guide to a life aligned with health, clarity and meaningful practice.
                         </p>
+                    </div>
+                </section>
+
+                {/* ══════════════════════════════
+                    LATEST ARTICLES (From Homepage)
+                ══════════════════════════════ */}
+                <section className="py-20 bg-background border-b border-muted">
+                    <div className="container mx-auto px-4 md:px-8">
+                        <div className="text-center mb-12">
+                            <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">Latest from the Mat</p>
+                            <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">Wisdom & Insights</h2>
+                            <p className="text-foreground/55 mt-3 max-w-lg mx-auto font-light leading-relaxed">
+                                Our most recent thoughts on AI integration, yoga science, and adaptive practice.
+                            </p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {BLOG_POSTS.map((post) => (
+                                <Link
+                                    key={post.id}
+                                    href={`/blog/${post.slug}`}
+                                    className="group cursor-pointer block"
+                                >
+                                    <article className="bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
+                                        <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
+                                            <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
+                                            <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
+                                                {post.tag}
+                                            </span>
+                                        </div>
+
+                                        <div className="p-6 flex-1 flex flex-col gap-3">
+                                            <div className="flex items-center justify-between gap-2">
+                                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                    <Calendar className="w-3 h-3" />
+                                                    {post.date}
+                                                </div>
+                                                <a
+                                                    href={`https://instagram.com/${post.instagramId.replace('@', '')}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-1 text-xs text-foreground/40 hover:text-rose-500 transition-colors z-10 relative"
+                                                >
+                                                    <Instagram className="w-3 h-3" />
+                                                    {post.instagramId}
+                                                </a>
+                                            </div>
+                                            <h3 className="text-lg font-serif font-semibold group-hover:text-primary transition-colors leading-snug">
+                                                {post.title}
+                                            </h3>
+                                            <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                                                {post.excerpt}
+                                            </p>
+                                            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-2">
+                                                Read More <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                                            </span>
+                                        </div>
+                                    </article>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
                 </section>
 

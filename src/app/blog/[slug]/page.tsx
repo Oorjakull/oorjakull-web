@@ -26,7 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             url: `https://www.oorjakull.com/blog/${post.slug}`,
             type: "article",
             publishedTime: post.date,
-            images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+            images: [{ 
+                url: `/api/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.excerpt)}&tag=${encodeURIComponent(post.tag)}`, 
+                width: 1200, 
+                height: 630 
+            }],
         },
     };
 }

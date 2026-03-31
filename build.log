@@ -1,0 +1,19 @@
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local, .env
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 3.1s
+  Running TypeScript ...
+  Collecting page data using 15 workers ...
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+  Generating static pages using 15 workers (0/20) ...
+  Generating static pages using 15 workers (5/20) 
+Error occurred prerendering page "/blog". Read more: https://nextjs.org/docs/messages/prerender-error
+TypeError: p.BLOG_POSTS.map is not a function
+    at t (W:\OK\oorjakull-web\.next\server\chunks\ssr\src_app_blog_page_tsx_73b7a7c5._.js:1:6043)
+    at stringify (<anonymous>) {
+  digest: '3492044443'
+}
+Export encountered an error on /blog/page: /blog, exiting the build.
+Γ¿» Next.js build worker exited with code: 1 and signal: null

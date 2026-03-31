@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "Real-time AI pose tracking, adaptive breathwork, certified 200H teacher training. Ancient wisdom, modern intelligence.",
     url: "https://www.oorjakull.com",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/api/og?title=AI%20Yoga%20%26%20Teacher%20Training&subtitle=Real-time%20pose%20tracking%20and%20certified%20guidance.&tag=OORJAKULL%20STUDIO", width: 1200, height: 630 }],
   },
 };
 

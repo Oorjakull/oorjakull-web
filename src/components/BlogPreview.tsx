@@ -4,41 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Calendar, Instagram } from "lucide-react";
 import Reveal, { StaggerReveal, StaggerItem } from "@/components/Reveal";
 
-const BLOG_POSTS = [
-    {
-        id: 1,
-        title: "Meet Madhu: Your AI Yoga Companion",
-        excerpt: "How OorjaKull's AI companion uses real-time camera pose detection to give you personalised feedback — and why it doesn't replace a teacher.",
-        date: "Mar 20, 2026",
-        tag: "AI Innovation",
-        slug: "meet-madhu-ai-companion",
-        color: "from-primary/20 to-emerald-900/20",
-        emoji: "🤖",
-        instagramId: "@oorjakull",
-    },
-    {
-        id: 2,
-        title: "Train the Trainer: Teaching in the AI Era",
-        excerpt: "Why the world needs certified yoga teachers who understand AI — and how OorjaKull's 200H programme prepares you for hybrid studios.",
-        date: "Mar 12, 2026",
-        tag: "Career",
-        slug: "train-the-trainer-ai-era",
-        color: "from-secondary/20 to-amber-900/20",
-        emoji: "🎓",
-        instagramId: "@oorjakull.school",
-    },
-    {
-        id: 3,
-        title: "The Science of Adaptive Breathwork",
-        excerpt: "Discover how AI-driven protocols like NSDR, 4-7-8 and Anulom Vilom are dynamically paced to your nervous system in real time.",
-        date: "Mar 05, 2026",
-        tag: "Pranayama",
-        slug: "adaptive-breathwork-science",
-        color: "from-accent/20 to-rose-900/20",
-        emoji: "🌬️",
-        instagramId: "@oorjakull.wellness",
-    },
-];
+import { BLOG_POSTS } from "@/data/blogPosts";
 
 export default function BlogPreview() {
     return (
