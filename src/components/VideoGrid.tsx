@@ -21,7 +21,7 @@ const AI_SEQUENCES = [
         duration: "25 min",
         level: "All Levels",
         tag: "Restorative",
-        image: "/relaxation_recovery_v2.png",
+        image: "/relaxation_recovery_v3.png",
     },
     {
         id: "back-body-strength",

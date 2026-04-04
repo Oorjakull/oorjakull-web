@@ -72,14 +72,11 @@ export default function Hero() {
                     {/* Eyebrow badge */}
                     <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/15 text-white/85">
                         <Sparkles className="w-3.5 h-3.5 text-secondary" />
-                        OorjaKull AI Platform · Powered by Madhu · Now Live
+                        OorjaKull Yoga - Powered by AI · Madhu · Now Live
                     </div>
 
                     {/* Primary Headline */}
                     <div className="space-y-3 max-w-4xl">
-                        <p className="text-white/50 text-sm font-medium uppercase tracking-[0.35em]">
-                            OorjaKull School of Yoga
-                        </p>
                         <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-light text-white leading-[1.08] drop-shadow-lg">
                             Transform Your Life with{" "}
                             <br />
