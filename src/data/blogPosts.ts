@@ -9,17 +9,7 @@ export const BLOG_POSTS = [
         color: "from-primary/20 to-emerald-900/20",
         emoji: "🤖",
         instagramId: "@oorjakull",
-    },
-    {
-        id: 2,
-        title: "Train the Trainer: Teaching in the AI Era",
-        excerpt: "Why the world needs certified yoga teachers who understand AI — and how OorjaKull's 200H programme prepares you for hybrid studios.",
-        date: "Mar 12, 2026",
-        tag: "Career",
-        slug: "train-the-trainer-ai-era",
-        color: "from-secondary/20 to-amber-900/20",
-        emoji: "🎓",
-        instagramId: "@oorjakull.school",
+        image: "/ai_companion.png",
     },
     {
         id: 3,
@@ -31,5 +21,6 @@ export const BLOG_POSTS = [
         color: "from-accent/20 to-rose-900/20",
         emoji: "🌬️",
         instagramId: "@oorjakull.wellness",
+        image: "/adaptive_breathwork.png",
     },
 ];

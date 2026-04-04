@@ -1,124 +1,106 @@
 "use client";
 
-import { useState } from "react";
-import { Play, Clock, Youtube } from "lucide-react";
+import Link from "next/link";
+import { Clock, Sparkles } from "lucide-react";
 import Reveal, { StaggerReveal, StaggerItem } from "@/components/Reveal";
 
-const SESSIONS = [
+const AI_SEQUENCES = [
     {
-        id: "v7AYKMP6rOE",
-        title: "Morning Pranayama Flow",
-        description: "A gentle 20-minute AI-guided breathwork session to energise your morning with real-time feedback.",
+        id: "hip-opening-flow",
+        title: "Hip Opening Flow",
+        description: "A dynamic sequence targeting hip mobility and flexibility with Madhu's real-time alignment feedback.",
         duration: "20 min",
         level: "All Levels",
-        tag: "Pranayama",
+        tag: "Mobility",
+        image: "/hip_opening_flow.png",
     },
     {
-        id: "Eml2xnoLpYE",
-        title: "Sun Salutation Mastery",
-        description: "Break down each vinyasa with anatomical precision — guided by Madhu and real-time pose validation.",
-        duration: "35 min",
-        level: "Beginner",
-        tag: "Asana",
-    },
-    {
-        id: "sTANio_2E0Q",
-        title: "Yoga Nidra for Deep Rest",
-        description: "A profound 30-minute generative body-scan adapted to your nervous system state to restore inner calm.",
-        duration: "30 min",
-        level: "All Levels",
-        tag: "Meditation",
-    },
-    {
-        id: "4pKly2JojMw",
-        title: "Foundational AI Breath",
-        description: "Explore Nadi Shodhana and Bhramari — optimized with adaptive audio pacing and instructions.",
+        id: "relaxation-recovery",
+        title: "Relaxation & Recovery",
+        description: "Gentle restorative poses guided by Madhu to aid muscle recovery and calm the nervous system.",
         duration: "25 min",
+        level: "All Levels",
+        tag: "Restorative",
+        image: "/relaxation_recovery_v2.png",
+    },
+    {
+        id: "back-body-strength",
+        title: "Back Body Strength",
+        description: "Build posterior chain strength through AI-corrected postures for a pain-free, resilient back.",
+        duration: "30 min",
+        level: "Intermediate",
+        tag: "Strength",
+        image: "/back_body_strength_v2.png",
+    },
+    {
+        id: "seated-flexibility-flow",
+        title: "Seated Flexibility Flow",
+        description: "Unlock deep flexibility with seated postures validated by real-time camera tracking.",
+        duration: "20 min",
         level: "Beginner",
-        tag: "Pranayama",
+        tag: "Flexibility",
+        image: "/seated_flexibility_flow_v2.png",
     },
 ];
 
 const TAG_COLORS: Record<string, string> = {
-    Pranayama: "bg-primary/15 text-primary",
-    Asana: "bg-secondary/15 text-secondary",
-    Meditation: "bg-accent/15 text-accent",
+    Mobility: "bg-primary/15 text-primary",
+    Restorative: "bg-secondary/15 text-secondary",
+    Strength: "bg-accent/15 text-accent",
+    Flexibility: "bg-emerald-500/15 text-emerald-600",
 };
 
-function VideoCard({ session }: { session: typeof SESSIONS[number] }) {
-    const [hovered, setHovered] = useState(false);
-    const [playing, setPlaying] = useState(false);
-    const thumb = `https://img.youtube.com/vi/${session.id}/maxresdefault.jpg`;
-
+function SequenceCard({ sequence }: { sequence: typeof AI_SEQUENCES[number] }) {
     return (
-        <div
-            className="group relative rounded-2xl overflow-hidden border border-muted shadow-lg hover:shadow-2xl hover:shadow-foreground/10 transition-all duration-500 cursor-pointer"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onClick={() => setPlaying(true)}
-        >
-            {playing ? (
-                /* ── Embedded player ── */
-                <div className="aspect-video w-full">
-                    <iframe
-                        className="w-full h-full"
-                        src={`https://www.youtube.com/embed/${session.id}?autoplay=1&rel=0`}
-                        title={session.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    />
-                </div>
-            ) : (
-                /* ── Thumbnail + hover overlay ── */
-                <div className="relative aspect-video w-full bg-muted">
-                    {/* Thumbnail */}
+        <Link href="/ai" className="group block">
+            <div className="relative rounded-2xl overflow-hidden border border-muted shadow-lg hover:shadow-2xl hover:shadow-foreground/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer">
+                {/* Image */}
+                <div className="relative aspect-video w-full bg-muted overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                        src={thumb}
-                        alt={session.title}
+                        src={sequence.image}
+                        alt={sequence.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         onError={(e) => {
-                            // fallback gradient if thumbnail fails
                             (e.target as HTMLImageElement).style.display = "none";
                         }}
                     />
 
-                    {/* Fallback gradient (always rendered underneath) */}
+                    {/* Fallback gradient */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-muted to-secondary/20 -z-10" />
 
-                    {/* Always-visible bottom scrim with title */}
+                    {/* Bottom scrim with title */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent">
                         <div className="flex items-center justify-between">
-                            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${TAG_COLORS[session.tag] || 'bg-muted text-foreground/70'} backdrop-blur-sm`}>
-                                {session.tag}
+                            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${TAG_COLORS[sequence.tag] || "bg-muted text-foreground/70"} backdrop-blur-sm`}>
+                                {sequence.tag}
                             </span>
                             <div className="flex items-center gap-1 text-white/80 text-xs">
                                 <Clock className="w-3 h-3" />
-                                {session.duration}
+                                {sequence.duration}
                             </div>
                         </div>
                         <h3 className="text-white font-serif font-medium text-lg mt-2 leading-snug">
-                            {session.title}
+                            {sequence.title}
                         </h3>
                     </div>
 
-                    {/* Hover overlay: description slides up */}
-                    <div
-                        className={`absolute inset-0 bg-foreground/88 backdrop-blur-sm flex flex-col justify-center items-center gap-4 px-6 text-center transition-all duration-400 ${hovered ? "opacity-100" : "opacity-0 pointer-events-none"
-                            }`}
-                    >
-                        {/* Play button */}
-                        <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-xl shadow-primary/40 group-hover:scale-110 transition-transform duration-300">
-                            <Play className="w-7 h-7 text-white fill-white translate-x-0.5" />
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-foreground/88 backdrop-blur-sm flex flex-col justify-center items-center gap-4 px-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none">
+                        <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-xl shadow-primary/40 group-hover:scale-110 transition-transform duration-300">
+                            <Sparkles className="w-6 h-6 text-white" />
                         </div>
                         <p className="text-white/85 text-sm leading-relaxed max-w-xs">
-                            {session.description}
+                            {sequence.description}
                         </p>
-                        <span className="text-xs text-white/50 uppercase tracking-widest">{session.level}</span>
+                        <span className="text-xs font-semibold px-4 py-2 rounded-full bg-primary text-white">
+                            Start with AI →
+                        </span>
+                        <span className="text-xs text-white/50 uppercase tracking-widest">{sequence.level}</span>
                     </div>
                 </div>
-            )}
-        </div>
+            </div>
+        </Link>
     );
 }
 
@@ -140,33 +122,24 @@ export default function VideoGrid() {
                                 Taste the OorjaKull AI approach. Dive into dynamically generated sequences validated by real-time camera tracking.
                             </p>
                         </div>
-                        <a
-                            href="https://www.youtube.com/@oorjakull"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <Link
+                            href="/ai"
                             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors shrink-0"
                         >
-                            <Youtube className="w-4 h-4" />
-                            All Sessions on YouTube
-                        </a>
+                            <Sparkles className="w-4 h-4" />
+                            Try All in AI App
+                        </Link>
                     </div>
                 </Reveal>
 
-                {/* 2×2 Video Grid */}
+                {/* 2×2 Sequence Grid */}
                 <StaggerReveal className="grid grid-cols-1 sm:grid-cols-2 gap-6" staggerDelay={0.12}>
-                    {SESSIONS.map((session) => (
-                        <StaggerItem key={session.id}>
-                            <VideoCard session={session} />
+                    {AI_SEQUENCES.map((sequence) => (
+                        <StaggerItem key={sequence.id}>
+                            <SequenceCard sequence={sequence} />
                         </StaggerItem>
                     ))}
                 </StaggerReveal>
-
-                {/* Ethical Credit */}
-                <Reveal width="100%" delay={0.4} className="mt-12 pt-8 border-t border-muted text-center">
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-foreground/30 font-medium">
-                        Credits to the YouTube channel owners for providing these sessions and ensuring ethical yoga practices.
-                    </p>
-                </Reveal>
             </div>
         </section>
     );

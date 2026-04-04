@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Calendar, Instagram } from "lucide-react";
+import { ArrowRight, Calendar, ExternalLink } from "lucide-react";
 import Reveal, { StaggerReveal, StaggerItem } from "@/components/Reveal";
 
 import { BLOG_POSTS } from "@/data/blogPosts";
@@ -28,8 +28,8 @@ export default function BlogPreview() {
                     </div>
                 </Reveal>
 
-                {/* Cards */}
-                <StaggerReveal className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.13}>
+                {/* Cards — 2-column grid */}
+                <StaggerReveal className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto" staggerDelay={0.13}>
                     {BLOG_POSTS.map((post) => (
                         <StaggerItem key={post.id}>
                             <Link
@@ -37,12 +37,27 @@ export default function BlogPreview() {
                                 className="group cursor-pointer block"
                             >
                                 <article className="bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
-                                    <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
-                                        <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
-                                        <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
-                                            {post.tag}
-                                        </span>
-                                    </div>
+                                    {/* Card header — photo if available, else emoji + gradient */}
+                                    {post.image ? (
+                                        <div className="h-48 overflow-hidden relative">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img
+                                                src={post.image}
+                                                alt={post.title}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                            <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
+                                                {post.tag}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
+                                            <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
+                                            <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
+                                                {post.tag}
+                                            </span>
+                                        </div>
+                                    )}
 
                                     <div className="p-6 flex-1 flex flex-col gap-3">
                                         <div className="flex items-center justify-between gap-2">
@@ -57,7 +72,7 @@ export default function BlogPreview() {
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="flex items-center gap-1 text-xs text-foreground/40 hover:text-rose-500 transition-colors"
                                             >
-                                                <Instagram className="w-3 h-3" />
+                                                <ExternalLink className="w-3 h-3" />
                                                 {post.instagramId}
                                             </a>
                                         </div>

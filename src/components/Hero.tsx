@@ -13,13 +13,26 @@ const HERO_PHRASES = [
     "Meet Madhu, Your AI Guide",
 ];
 
+const HERO_IMAGES = [
+    "/Yoga_Surya_Namaskara_9_My2gSC.webp",
+    "/ai_hero_overlay_v2.png",
+];
+
 export default function Hero() {
     const [phraseIndex, setPhraseIndex] = useState(0);
+    const [imageIndex, setImageIndex] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setPhraseIndex((i) => (i + 1) % HERO_PHRASES.length);
-        }, 4500); // 4.5 seconds per phrase
+        }, 4500);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setImageIndex((i) => (i + 1) % HERO_IMAGES.length);
+        }, 6000);
         return () => clearInterval(interval);
     }, []);
 
@@ -30,15 +43,19 @@ export default function Hero() {
             ═══════════════════════════════════════════════════════════ */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
-                {/* ── Background image ── */}
-                <Image
-                    src="/Yoga_Surya_Namaskara_9_My2gSC.webp"
-                    alt="Yoga practitioner"
-                    fill
-                    className="object-cover object-[30%_25%]"
-                    priority
-                    sizes="100vw"
-                />
+                {/* ── Background images — crossfade slideshow ── */}
+                {HERO_IMAGES.map((src, i) => (
+                    <Image
+                        key={src}
+                        src={src}
+                        alt="Yoga practitioner"
+                        fill
+                        className="object-cover object-[30%_25%] transition-opacity duration-[1500ms] ease-in-out"
+                        style={{ opacity: imageIndex === i ? 1 : 0 }}
+                        priority={i === 0}
+                        sizes="100vw"
+                    />
+                ))}
 
                 {/* ── Overlay: dark gradient for text legibility ── */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/60 z-[1]" />
@@ -96,25 +113,19 @@ export default function Hero() {
 
                     {/* CTA row */}
                     <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 pt-4">
-                        <Link
+                        {/* <Link
                             href="/ai"
                             className="group inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-white text-primary font-bold text-base hover:bg-white/90 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] transition-all duration-300 ring-4 ring-white/10"
                         >
                             <Sparkles className="w-4 h-4 text-emerald-500 group-hover:text-emerald-400 group-hover:rotate-12 transition-all" />
                             Try Madhu — Free
-                        </Link>
+                        </Link> */}
                         <Link
-                            href="/about"
+                            href="/yoga"
                             className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-primary/90 text-white font-semibold text-base hover:bg-primary hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 backdrop-blur-sm"
                         >
-                            Start Your Journey
+                            Start Your Journey with AI
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <Link
-                            href="/courses"
-                            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/25 text-white/80 font-medium text-base hover:border-white/50 hover:text-white backdrop-blur-sm transition-all duration-300"
-                        >
-                            Explore Programs
                         </Link>
                     </div>
 

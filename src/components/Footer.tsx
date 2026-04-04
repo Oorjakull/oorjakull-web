@@ -32,7 +32,7 @@ export default function Footer() {
                             </div>
                         </div>
                         <p className="text-sm text-foreground/55 leading-relaxed max-w-xs">
-                            India&apos;s first AI-powered yoga platform — real-time pose guidance, adaptive breathwork, and a 200H certified teacher training. Ancient wisdom, modern intelligence.
+                            India&apos;s first AI-powered yoga platform — real-time pose guidance, adaptive breathwork, and generative wellness sessions. Ancient wisdom, modern intelligence.
                         </p>
 
                         {/* Social icons */}
@@ -59,11 +59,9 @@ export default function Footer() {
                         <h4 className="text-xs font-semibold text-foreground/40 uppercase tracking-[0.25em]">Quick Links</h4>
                         <ul className="space-y-3 text-sm">
                             {[
-                                ["Breath & Beyond", "/about"],
-                                ["Goals", "/courses"],
-                                ["Purposeful Living", "/blog"],
-                                ["Business", "/contact"],
-                                ["Book for Trial Session", "/book-trial"],
+                                ["Breath & Beyond", "/ai"],
+                                ["Program", "/ai"],
+                                ["Try a Free AI Session", "/ai"],
                             ].map(([label, href]) => (
                                 <li key={label}>
                                     <Link href={href} className="text-foreground/55 hover:text-primary transition-colors inline-flex items-center gap-1 group">

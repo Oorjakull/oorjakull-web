@@ -8,6 +8,7 @@ import AuraCursor from "@/components/AuraCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers from "@/components/Providers";
 import ViewportBlur from "@/components/ViewportBlur";
+import MadhuChatbot from "@/components/MadhuChatbot";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -104,6 +105,7 @@ export default function RootLayout({
             <AuraCursor />
             {children}
           </SmoothScroll>
+          <MadhuChatbot />
         </Providers>
         <Analytics />
         <SpeedInsights />

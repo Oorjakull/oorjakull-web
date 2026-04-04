@@ -26,41 +26,17 @@ const NAV_LINKS: NavItem[] = [
         label: "Yoga",
         mega: [
             {
-                heading: "CLASSES",
-                description: "Find the perfect yoga style to match your mood.",
+                heading: "AI CLASSES",
+                description: "AI-guided sessions for every level.",
                 links: [
-                    { label: "All Yoga Classes", href: "/yoga#styles" },
-                    { label: "Beginner Foundations", href: "/yoga#styles" },
-                    { label: "Hatha", href: "/yoga#styles" },
-                    { label: "Ashtanga", href: "/yoga#styles" },
-                    { label: "Vinyasa", href: "/yoga#styles" },
-                    { label: "Yin", href: "/yoga#styles" },
-                    { label: "Strength & Core", href: "/yoga#styles" },
-                    { label: "Skilled Poses", href: "/yoga#styles" },
-                ],
-            },
-            {
-                heading: "SCHEDULE",
-                description: "Book a session that fits your life.",
-                links: [
-                    { label: "1:1 Private Sessions", href: "/yoga#schedule" },
-                    { label: "Group Classes", href: "/yoga#schedule" },
-                    { label: "Prenatal Yoga", href: "/yoga#schedule" },
-                    { label: "Postnatal Yoga", href: "/yoga#schedule" },
-                    { label: "Corporate Wellness", href: "/yoga#schedule" },
-                    { label: "Yoga for Athletes", href: "/yoga#schedule" },
-                    { label: "Seniors Yoga", href: "/yoga#schedule" },
-                    { label: "Kids Yoga", href: "/yoga#schedule" },
-                ],
-            },
-            {
-                heading: "INSTRUCTORS",
-                description: "Meet the Acharyas who guide your journey.",
-                links: [
-                    { label: "All Instructors", href: "/yoga#instructors" },
-                    { label: "Back Pain Specialists", href: "/yoga#schedule" },
-                    { label: "Knee & Joint Care", href: "/yoga#schedule" },
-                    { label: "Therapeutic Yoga", href: "/yoga#schedule" },
+                    { label: "All Yoga Classes", href: "/ai" },
+                    { label: "Beginner Foundation", href: "/ai" },
+                    { label: "Yoga Sequences", href: "/ai" },
+                    { label: "Strength & Core", href: "/ai" },
+                    { label: "Surya Namaskar", href: "/ai" },
+                    { label: "Restorative Yoga", href: "/ai" },
+                    { label: "Yoga for Back Pain", href: "/ai" },
+                    { label: "Yoga for Sciatica", href: "/ai" },
                 ],
             },
         ],
@@ -86,43 +62,7 @@ const NAV_LINKS: NavItem[] = [
                 links: [
                     { label: "Sound Meditation", href: "/about#meditation" },
                     { label: "Meditation for Stress Relief", href: "/about#programs" },
-                    { label: "Structured Courses", href: "/about#meditation" },
                     { label: "Guided Series", href: "/about#meditation" },
-                ],
-            },
-        ],
-    },
-    {
-        href: "/courses",
-        label: "Programs",
-        mega: [
-            {
-                heading: "CERTIFICATIONS",
-                description: "Internationally recognised training programs.",
-                links: [
-                    { label: "200-Hour YTT", href: "/courses" },
-                    { label: "300-Hour YTT", href: "/courses" },
-                ],
-            },
-            {
-                heading: "WELLNESS PROGRAMS",
-                description: "12-week and short-form transformation goals.",
-                links: [
-                    { label: "Weight Loss — 12 Weeks", href: "/courses" },
-                    { label: "PCOD / PCOS Yoga", href: "/courses" },
-                    { label: "Holistic Weight Gain", href: "/courses" },
-                    { label: "Stress Relief — 21 Days", href: "/courses" },
-                    { label: "Better Sleep — 4 Weeks", href: "/courses" },
-                    { label: "Menopause Yoga", href: "/courses" },
-                ],
-            },
-            {
-                heading: "THERAPEUTIC",
-                description: "Targeted programs for pain & recovery.",
-                links: [
-                    { label: "Yoga for Sciatica", href: "/courses" },
-                    { label: "Lower Back Pain", href: "/courses" },
-                    { label: "Yoga for IBS", href: "/courses" },
                 ],
             },
         ],
@@ -142,11 +82,9 @@ const NAV_LINKS: NavItem[] = [
             },
             {
                 heading: "COMMUNITY",
-                description: "Stories, challenges & transformation.",
+                description: "Stories & insights.",
                 links: [
                     { label: "Member Q&A", href: "/blog" },
-                    { label: "Monthly Challenges", href: "/blog" },
-                    { label: "Transformation Stories", href: "/blog" },
                 ],
             },
         ],
@@ -155,15 +93,6 @@ const NAV_LINKS: NavItem[] = [
         href: "/contact",
         label: "Contact",
         mega: [
-            {
-                heading: "PARTNERSHIPS",
-                description: "Collaborate with OorjaKull.",
-                links: [
-                    { label: "Corporate Wellness", href: "/contact" },
-                    { label: "Studio Partnerships", href: "/contact" },
-                    { label: "Brand Collaborations", href: "/contact" },
-                ],
-            },
             {
                 heading: "SUPPORT",
                 description: "We're here to help.",
@@ -433,11 +362,11 @@ export default function Navbar() {
                             )}
                             {!session && (
                                 <Link
-                                    href="/book-trial"
+                                    href="/ai"
                                     onClick={() => setActiveMenu(null)}
                                     className="px-5 py-2 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 transition-all whitespace-nowrap"
                                 >
-                                    Book for Trial Session
+                                    Try a Free AI Session
                                 </Link>
                             )}
                         </div>
@@ -607,11 +536,11 @@ export default function Navbar() {
                                 </Link>
                                 <div className="p-4">
                                     <Link
-                                        href="/book-trial"
+                                        href="/ai"
                                         className="block text-center px-6 py-3 rounded-full text-base font-semibold bg-primary text-white hover:bg-primary/90 transition-all"
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        Book for Trial Session
+                                        Try a Free AI Session
                                     </Link>
                                 </div>
                             </>
