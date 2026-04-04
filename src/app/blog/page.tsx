@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Leaf, Users, Trophy, Play, Heart, Calendar, Instagram } from "lucide-react";
+import { ArrowRight, BookOpen, Leaf, Users, Trophy, Play, Heart, Calendar, ExternalLink } from "lucide-react";
 import { BLOG_POSTS } from "@/data/blogPosts";
 
 import type { Metadata } from "next";
@@ -164,12 +164,26 @@ export default function PurposefulLivingPage() {
                                     className="group cursor-pointer block"
                                 >
                                     <article className="bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
-                                        <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
-                                            <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
-                                            <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
-                                                {post.tag}
-                                            </span>
-                                        </div>
+                                        {post.image ? (
+                                            <div className="aspect-[4/3] overflow-hidden relative">
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                <img
+                                                    src={post.image}
+                                                    alt={post.title}
+                                                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                                />
+                                                <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
+                                                    {post.tag}
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className={`aspect-[4/3] bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
+                                                <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
+                                                <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
+                                                    {post.tag}
+                                                </span>
+                                            </div>
+                                        )}
 
                                         <div className="p-6 flex-1 flex flex-col gap-3">
                                             <div className="flex items-center justify-between gap-2">
@@ -183,7 +197,7 @@ export default function PurposefulLivingPage() {
                                                     rel="noopener noreferrer"
                                                     className="flex items-center gap-1 text-xs text-foreground/40 hover:text-rose-500 transition-colors z-10 relative"
                                                 >
-                                                    <Instagram className="w-3 h-3" />
+                                                    <ExternalLink className="w-3 h-3" />
                                                     {post.instagramId}
                                                 </a>
                                             </div>

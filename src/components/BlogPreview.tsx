@@ -39,19 +39,19 @@ export default function BlogPreview() {
                                 <article className="bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
                                     {/* Card header — photo if available, else emoji + gradient */}
                                     {post.image ? (
-                                        <div className="h-48 overflow-hidden relative">
+                                        <div className="aspect-[4/3] overflow-hidden relative">
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img
                                                 src={post.image}
                                                 alt={post.title}
-                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                                             />
                                             <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
                                                 {post.tag}
                                             </span>
                                         </div>
                                     ) : (
-                                        <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
+                                        <div className={`aspect-[4/3] bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
                                             <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
                                             <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
                                                 {post.tag}
