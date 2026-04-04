@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Leaf, Users, Trophy, Play, Heart, Calendar, ExternalLink } from "lucide-react";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { ArrowRight, BookOpen, Leaf, Users, Trophy, Play, Heart } from "lucide-react";
+import BlogCardsClient from "@/components/BlogCardsClient";
 
 import type { Metadata } from "next";
 
@@ -156,65 +156,7 @@ export default function PurposefulLivingPage() {
                                 Our most recent thoughts on AI integration, yoga science, and adaptive practice.
                             </p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {BLOG_POSTS.map((post) => (
-                                <Link
-                                    key={post.id}
-                                    href={`/blog/${post.slug}`}
-                                    className="group cursor-pointer block"
-                                >
-                                    <article className="bg-card border border-muted rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full flex flex-col">
-                                        {post.image ? (
-                                            <div className="aspect-[4/3] overflow-hidden relative">
-                                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                <img
-                                                    src={post.image}
-                                                    alt={post.title}
-                                                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                                                />
-                                                <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
-                                                    {post.tag}
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <div className={`aspect-[4/3] bg-gradient-to-br ${post.color} flex items-center justify-center text-6xl relative`}>
-                                                <span className="group-hover:scale-110 transition-transform duration-300">{post.emoji}</span>
-                                                <span className="absolute top-4 left-4 text-xs font-semibold bg-white/90 text-primary px-3 py-1 rounded-full">
-                                                    {post.tag}
-                                                </span>
-                                            </div>
-                                        )}
-
-                                        <div className="p-6 flex-1 flex flex-col gap-3">
-                                            <div className="flex items-center justify-between gap-2">
-                                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                                    <Calendar className="w-3 h-3" />
-                                                    {post.date}
-                                                </div>
-                                                <a
-                                                    href={`https://instagram.com/${post.instagramId.replace('@', '')}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex items-center gap-1 text-xs text-foreground/40 hover:text-rose-500 transition-colors z-10 relative"
-                                                >
-                                                    <ExternalLink className="w-3 h-3" />
-                                                    {post.instagramId}
-                                                </a>
-                                            </div>
-                                            <h3 className="text-lg font-serif font-semibold group-hover:text-primary transition-colors leading-snug">
-                                                {post.title}
-                                            </h3>
-                                            <p className="text-sm text-muted-foreground leading-relaxed flex-1">
-                                                {post.excerpt}
-                                            </p>
-                                            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-2">
-                                                Read More <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                                            </span>
-                                        </div>
-                                    </article>
-                                </Link>
-                            ))}
-                        </div>
+                        <BlogCardsClient />
                     </div>
                 </section>
 
