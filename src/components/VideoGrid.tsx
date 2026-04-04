@@ -55,12 +55,12 @@ function SequenceCard({ sequence }: { sequence: typeof AI_SEQUENCES[number] }) {
         <Link href="/ai" className="group block">
             <div className="relative rounded-2xl overflow-hidden border border-muted shadow-lg hover:shadow-2xl hover:shadow-foreground/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer">
                 {/* Image */}
-                <div className="relative aspect-video w-full bg-muted overflow-hidden">
+                <div className="relative aspect-[4/3] w-full bg-muted overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={sequence.image}
                         alt={sequence.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                         onError={(e) => {
                             (e.target as HTMLImageElement).style.display = "none";
                         }}
