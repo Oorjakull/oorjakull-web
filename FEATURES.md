@@ -1,7 +1,7 @@
 # OorjaKull — Feature List
 
 > India's first AI-powered yoga platform combining ancient wisdom with modern AI technology.
-> **Stack**: Next.js 16 · Tailwind CSS 4 · Prisma ORM · PostgreSQL · NextAuth · Framer Motion
+> **Stack**: Next.js 16 · Tailwind CSS 4 · Prisma ORM · PostgreSQL · Framer Motion
 
 ---
 
@@ -18,16 +18,15 @@
 | `/blog/[slug]` | Individual blog post with structured markdown content |
 | `/book-trial` | Free trial class registration form |
 | `/register` | 200H YTT application form |
-| `/login` | Authentication page (login + signup in one view) |
+| `/ai` (proxied) | AI companion (Madhu) — handles login and all auth |
 | `/contact` | Contact form, class recommendations, and FAQ |
 | `/ai` | AI companion (Madhu) — proxied to external backend |
 
 ### Navigation
 
 - **Mega-menu Navbar** with responsive breakpoints
-- Tabs: **Yoga | Breathwork | Wellness | Contact | Login | Try a Free AI Session**
-- Programs tab disabled (v1.1)
-- Authentication-aware: shows profile dropdown for logged-in users
+- Tabs: **Yoga | Breathwork | Wellness | Contact | Try a Free AI Session**
+- No login/auth UI — authentication is handled by the AI app at `/ai`
 - **Madhu chatbot FAB** — floating bottom-right button on all pages, links to `/ai`
 
 ---
@@ -146,17 +145,6 @@ All Yoga Classes · Beginner Foundation · Yoga Sequences · Strength & Core · 
 
 ---
 
-## Authentication & User Accounts
-
-- Email + password authentication via NextAuth v4
-- Secure password hashing with bcryptjs (work factor 12)
-- Input validation: email format, minimum 8-character password
-- Duplicate account prevention
-- Session-aware UI (profile dropdown when logged in)
-- Register & login in a unified `/login` view
-
----
-
 ## Forms & Lead Capture
 
 | Form | Location | Fields |
@@ -208,10 +196,9 @@ All form submissions are stored in PostgreSQL and handled via Next.js Server Act
 
 | Model | Purpose |
 |---|---|
-| `User` | Auth accounts (id, name, email, hashed password) |
 | `Registration` | Course/trial sign-up leads (name, email, phone, course) |
 | `ContactSubmission` | Contact form inquiries (name, email, message) |
 
 ---
 
-*Last updated: 2026-04-05 — reflects Website v1.1 (AI-first redesign), follow-up polish commits, and hero responsive slideshow images*
+*Last updated: 2026-04-05 — reflects Website v1.1 (AI-first redesign), follow-up polish commits, hero responsive slideshow images, and auth removal*

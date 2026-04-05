@@ -45,7 +45,6 @@ src/
 │   ├── login/page.tsx          # Unified login + signup
 │   ├── contact/page.tsx        # Contact form + FAQs
 │   └── api/
-│       ├── auth/register/route.ts   # POST: create user account
 │       └── og/route.tsx             # GET: dynamic OG image (Edge runtime)
 ├── components/
 │   ├── Navbar.tsx              # Mega-menu, auth state, responsive
@@ -57,7 +56,6 @@ src/
 │   ├── MadhuChatbot.tsx        # Floating bottom-right chatbot FAB → /ai
 │   ├── RegistrationForm.tsx    # Course lead form
 │   ├── ContactForm.tsx         # Contact form
-│   ├── Providers.tsx           # NextAuth SessionProvider
 │   ├── AuraCursor.tsx          # Custom cursor with aura glow
 │   ├── SmoothScroll.tsx        # Lenis smooth scroll wrapper
 │   ├── PageTransition.tsx      # Framer Motion page animation
@@ -78,15 +76,6 @@ src/
 ## Database Schema (Prisma)
 
 ```prisma
-model User {
-  id        String   @id @default(uuid())
-  name      String?
-  email     String   @unique
-  password  String   // bcrypt hashed, factor 12
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model Registration {
   id        Int      @id @autoincrement()
   fullName  String
@@ -187,17 +176,13 @@ Both use `useFormState`-compatible signatures: `(prevState, formData) => Promise
 /ai/*   →  https://oorjakull-six.vercel.app/ai/*       (AI companion backend)
 /api/*  →  https://oorjakull-backend.vercel.app/api/*  (General backend API)
 ```
-> Note: `/api/auth` and `/api/og` are local routes — Next.js local routes always take precedence over rewrites.
+> Note: `/api/og` is a local route — Next.js local routes always take precedence over rewrites.
 
 ---
 
-## Authentication Flow
+## Authentication
 
-1. **Signup**: `POST /api/auth/register` → creates `User` in DB → auto-login via NextAuth
-2. **Login**: NextAuth credentials provider → verifies bcrypt hash → creates session
-3. **Session**: JWT-based, managed by NextAuth
-4. **UI state**: `useSession()` from `next-auth/react` (wrapped in `Providers.tsx`)
-5. **Protected routes**: Add `getServerSession()` checks in page/layout server components as needed
+Authentication has been **removed from this website**. Login, signup, and session management are handled entirely by the AI app at `/ai` (proxied to the external backend). The `next-auth`, `bcryptjs`, and related code/routes have been deleted. The `User` Prisma model has also been removed. Forms (Registration, ContactSubmission) remain and use Prisma directly.
 
 ---
 
@@ -298,7 +283,7 @@ npx prisma db seed          # Run prisma/seed.ts
 
 ## Known Architecture Notes
 
-- **Two Prisma singleton files** exist: `src/lib/prisma.ts` and `src/lib/db.ts`. Both serve the same purpose. `db.ts` is used in `actions.ts`; `prisma.ts` may be legacy. Consolidate to one if refactoring.
+- **Two Prisma singleton files** exist: `src/lib/prisma.ts` and `src/lib/db.ts`. Both serve the same purpose. `db.ts` is used in `actions.ts`. Consolidate to one if refactoring.
 - **Blog data is split**: `src/lib/blog.ts` (full post content, 5 posts) and `src/data/blogPosts.ts` (preview metadata, currently 2 posts). Keep both in sync when adding posts.
 - **CMS is mocked** in `src/lib/cms.ts` — no real CMS integration yet. All course content is static.
 - **AI companion (Madhu)** functionality lives in the external backend at `oorjakull-six.vercel.app` — proxied via Next.js rewrites, not in this repo.
@@ -310,6 +295,7 @@ npx prisma db seed          # Run prisma/seed.ts
 
 | Date | Change |
 |---|---|
+| 2026-04-05 | Removed all login/signup auth — `/login`, `/api/auth/*`, `Providers.tsx`, NextAuth, bcryptjs, `User` model; auth handled by `/ai` app |
 | 2026-04-05 | Hero slide 2: portrait image (`hero_portrait_mobile.png`) served on mobile via dual `<Image>` per slide with Tailwind breakpoint visibility |
 | 2026-04-05 | Updated DEV_REFERENCE & FEATURES to reflect v1.1 and follow-up commits |
 | 2026-04-04 | `BlogCardsClient.tsx` — paginated blog cards (3/page, keyboard nav, dot indicators) on Wellness page |
