@@ -28,7 +28,7 @@ export default function Footer() {
                             </div>
                             <div>
                                 <h3 className="text-lg font-serif font-semibold text-foreground tracking-tight">OorjaKull</h3>
-                                <p className="text-xs text-primary font-medium uppercase tracking-widest">School of Yoga</p>
+                                <p className="text-xs text-primary font-medium uppercase tracking-widest">AI Yoga Platform</p>
                             </div>
                         </div>
                         <p className="text-sm text-foreground/55 leading-relaxed max-w-xs">
@@ -82,7 +82,7 @@ export default function Footer() {
             {/* ── Copyright bar ── */}
             <div className="relative mx-8 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent mb-2" />
             <div className="relative z-10 container mx-auto px-4 md:px-8 pb-6 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-foreground/30">
-                <p>© {new Date().getFullYear()} OorjaKull School of Yoga. All rights reserved.</p>
+                <p>© {new Date().getFullYear()} OorjaKull AI Yoga Platform. All rights reserved.</p>
                 <div className="flex gap-6">
                     <Link href="#" className="hover:text-foreground/60 transition-colors">Privacy Policy</Link>
                     <Link href="#" className="hover:text-foreground/60 transition-colors">Terms & Conditions</Link>
