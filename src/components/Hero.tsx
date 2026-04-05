@@ -50,15 +50,15 @@ export default function Hero() {
                         src={src}
                         alt="Yoga practitioner"
                         fill
-                        className="object-cover object-[30%_25%] transition-opacity duration-[1500ms] ease-in-out"
+                        className="object-cover object-center md:object-[30%_25%] transition-opacity duration-[1500ms] ease-in-out"
                         style={{ opacity: imageIndex === i ? 1 : 0 }}
                         priority={i === 0}
                         sizes="100vw"
                     />
                 ))}
 
-                {/* ── Overlay: dark gradient for text legibility ── */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/60 z-[1]" />
+                {/* ── Overlay: balanced — image visible but text always legible ── */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/55 z-[1]" />
 
                 {/* ── Soft ambient glows on top of overlay ── */}
                 <div className="absolute inset-0 z-[2] pointer-events-none">
@@ -70,14 +70,14 @@ export default function Hero() {
                 <div className="container relative z-10 mx-auto px-4 md:px-8 pt-32 pb-24 flex flex-col items-center text-center gap-8">
 
                     {/* Eyebrow badge */}
-                    <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/15 text-white/85">
-                        <Sparkles className="w-3.5 h-3.5 text-secondary" />
-                        OorjaKull Yoga Platform - Powered by AI · Madhu · Now Live
+                    <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/15 text-white/85 text-center">
+                        <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-secondary shrink-0" />
+                        <span>OorjaKull Yoga · Powered by AI · Now Live</span>
                     </div>
 
                     {/* Primary Headline */}
                     <div className="space-y-3 max-w-4xl">
-                        <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-light text-white leading-[1.08] drop-shadow-lg">
+                        <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-light text-white leading-[1.08] [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
                             Transform Your Life with{" "}
                             <br />
                             <span className="text-[#c8e6c9] italic inline-grid items-center justify-items-center translate-y-[-0.05em]" aria-hidden="true">
@@ -104,7 +104,7 @@ export default function Hero() {
                     </div>
 
                     {/* Subheading */}
-                    <p className="text-white/70 text-xl font-light leading-relaxed max-w-2xl drop-shadow-md">
+                    <p className="text-white/80 text-xl font-light leading-relaxed max-w-2xl [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
                         Join India's first AI-driven wellness platform — ancient tradition powered by modern AI tracking. Transform your practice with real-time feedback and generative sessions.
                     </p>
 
