@@ -52,7 +52,7 @@
 
 ## Hero Section
 
-- **Crossfade image slideshow** — two background images alternate every 6 seconds
+- **Crossfade image slideshow** — two background images alternate every 6 seconds; slide 2 serves a portrait-optimised image (`hero_portrait_mobile.png`) on mobile and the AI overlay image on desktop via dual `<Image>` per slide with Tailwind breakpoint visibility
 - Rotating animated headline phrases (AI-Powered Yoga, Precision Posture Tracking, Adaptive Practice, Meet Madhu)
 - CTAs: **"Try Madhu — Free"** → `/ai`, **"Start Your Journey with AI"** → `/yoga`
 - Scrolling marquee taglines below hero
@@ -214,4 +214,4 @@ All form submissions are stored in PostgreSQL and handled via Next.js Server Act
 
 ---
 
-*Last updated: 2026-04-05 — reflects Website v1.1 (AI-first redesign) and follow-up polish commits*
+*Last updated: 2026-04-05 — reflects Website v1.1 (AI-first redesign), follow-up polish commits, and hero responsive slideshow images*

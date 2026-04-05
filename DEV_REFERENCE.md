@@ -227,6 +227,7 @@ Both use `useFormState`-compatible signatures: `(prevState, formData) => Promise
 - **Gradients**: `from-primary/20 to-emerald-900/20`
 - **Border radius**: `2xl`, `3xl` for cards/sections
 - **Image framing**: Cards use `aspect-[4/3]` with `object-cover object-center` (not fixed heights)
+- **Hero slideshow images**: Each slide in `HERO_IMAGES` has `{ desktop, mobile, desktopPosition, mobilePosition }`. Two `<Image fill>` are rendered per slide — mobile (`md:hidden`) and desktop (`hidden md:block`) — sharing the same opacity-animated wrapper div. `objectPosition` is set via inline style per image for precise subject framing at each breakpoint.
 - **Animations**:
   - Scroll reveal: `<Reveal>` component (Framer Motion)
   - Page transitions: `template.tsx` + `PageTransition` component
@@ -309,6 +310,7 @@ npx prisma db seed          # Run prisma/seed.ts
 
 | Date | Change |
 |---|---|
+| 2026-04-05 | Hero slide 2: portrait image (`hero_portrait_mobile.png`) served on mobile via dual `<Image>` per slide with Tailwind breakpoint visibility |
 | 2026-04-05 | Updated DEV_REFERENCE & FEATURES to reflect v1.1 and follow-up commits |
 | 2026-04-04 | `BlogCardsClient.tsx` — paginated blog cards (3/page, keyboard nav, dot indicators) on Wellness page |
 | 2026-04-04 | Blog card image framing standardised to `aspect-[4/3] object-center` across homepage + Wellness page |
