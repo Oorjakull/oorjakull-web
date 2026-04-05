@@ -9,37 +9,71 @@
 
 | Route | Description |
 |---|---|
-| `/` | Homepage with hero, free video sessions, and blog preview |
+| `/` | Homepage with hero slideshow, AI sequence cards, and blog preview |
 | `/yoga` | Yoga styles, live class formats, instructor profiles, and booking |
 | `/about` | Breathwork & meditation programs ("Breath & Beyond") |
 | `/courses` | Full course catalog (11 programs) |
 | `/courses/[id]` | Individual course detail with curriculum and weekly schedule |
-| `/blog` | Blog listing across multiple content categories |
+| `/blog` | Wellness page — paginated blog cards, wisdom, nutrition, community sections |
 | `/blog/[slug]` | Individual blog post with structured markdown content |
 | `/book-trial` | Free trial class registration form |
 | `/register` | 200H YTT application form |
 | `/login` | Authentication page (login + signup in one view) |
 | `/contact` | Contact form, class recommendations, and FAQ |
+| `/ai` | AI companion (Madhu) — proxied to external backend |
 
 ### Navigation
 
 - **Mega-menu Navbar** with responsive breakpoints
-- Active route highlighting
+- Tabs: **Yoga | Breathwork | Wellness | Contact | Login | Try a Free AI Session**
+- Programs tab disabled (v1.1)
 - Authentication-aware: shows profile dropdown for logged-in users
-- Password visibility toggle on auth forms
+- **Madhu chatbot FAB** — floating bottom-right button on all pages, links to `/ai`
 
 ---
 
 ## AI Features
 
 ### Madhu — AI Yoga Companion
-
 - Real-time yoga pose detection using 33-point skeletal landmark tracking
 - Powered by MoveNet + WebAssembly (runs fully on-device)
 - Adaptive breathwork pacing based on individual capacity
 - No user data sent to servers — privacy-first design
 - Web Audio API integration for guided breathwork sounds
-- AI-guided sessions: 100H included in 200H YTT curriculum
+- Accessible via floating chatbot button on every page
+
+### Madhu Chatbot FAB
+- Fixed bottom-right floating button, site-wide
+- Tooltip: "Madhu · Your AI Yoga Companion"
+- Pulse animation on idle, scale on hover
+- Links directly to `/ai`
+
+---
+
+## Hero Section
+
+- **Crossfade image slideshow** — two background images alternate every 6 seconds
+- Rotating animated headline phrases (AI-Powered Yoga, Precision Posture Tracking, Adaptive Practice, Meet Madhu)
+- CTAs: **"Try Madhu — Free"** → `/ai`, **"Start Your Journey with AI"** → `/yoga`
+- Scrolling marquee taglines below hero
+- Eyebrow badge: "OorjaKull Yoga Platform - Powered by AI · Madhu · Now Live"
+
+---
+
+## AI Sequence Cards (Homepage)
+
+4 AI-guided sequence cards replacing YouTube embeds:
+
+| Sequence | Tag | Duration | Level |
+|---|---|---|---|
+| Hip Opening Flow | Mobility | 20 min | All Levels |
+| Relaxation & Recovery | Restorative | 25 min | All Levels |
+| Back Body Strength | Strength | 30 min | Intermediate |
+| Seated Flexibility Flow | Flexibility | 20 min | Beginner |
+
+- Each card uses a local yoga photo (`/public/*.png`)
+- Hover overlay with description and "Start with AI →" CTA
+- All cards link to `/ai`
 
 ---
 
@@ -65,8 +99,8 @@ Each course includes: curriculum breakdown, weekly schedule, level indicator, an
 
 ## Yoga Classes
 
-### 7 Yoga Styles
-Beginner Foundations · Hatha · Ashtanga Vinyasa · Vinyasa Flow · Yin Yoga · Strength & Core · Skilled Poses (Advanced)
+### AI Classes (Navbar)
+All Yoga Classes · Beginner Foundation · Yoga Sequences · Strength & Core · Surya Namaskar · Restorative Yoga · Yoga for Back Pain · Yoga for Sciatica
 
 ### 13 Booking Formats
 1:1 Private · Group Classes · Prenatal · Postnatal Recovery · Corporate Wellness · Athletes & Sports · Seniors · Kids · Back Pain · Spondylitis · Knee Pain · Sciatica
@@ -78,7 +112,7 @@ Beginner Foundations · Hatha · Ashtanga Vinyasa · Vinyasa Flow · Yin Yoga ·
 
 ---
 
-## Breathwork & Meditation (6 Programs)
+## Breathwork & Meditation (5 Programs)
 
 | Program | Duration | Focus |
 |---|---|---|
@@ -87,30 +121,28 @@ Beginner Foundations · Hatha · Ashtanga Vinyasa · Vinyasa Flow · Yin Yoga ·
 | Breathwork for Anxiety | 15–25 min | Amygdala & cortisol regulation |
 | Morning Reset | 10–15 min | Energizing morning ritual |
 | Bedtime Breath | 10–20 min | Evening wind-down |
-| Meditation for Stress Relief | 20–30 min | Body scan, mindfulness, loving-kindness |
 
 ### Guided Meditation Series
-- **Sound Meditation** — Himalayan bowls + binaural beats, 12 sessions
-- **Structured Meditation Courses** — 8-week progressive programs with live Q&A
+- **Sound Meditation** — Himalayan bowls + binaural beats
+- **Guided Series** — structured deep inner work sessions
 
 ---
 
-## Blog Content (5 Posts)
+## Blog & Wellness Content
 
-| Post | Tag | Read Time |
+### Homepage Blog Preview (2 cards)
+| Post | Tag | Image |
 |---|---|---|
-| Meet Madhu: Your AI Yoga Companion | AI Innovation | 8 min |
-| Train the Trainer: Teaching Yoga in the AI Era | Career | 7 min |
-| The Science of Adaptive Breathwork | Pranayama | 9 min |
-| Yoga for PCOD: A Complete 12-Week Guide | Women's Health | 10 min |
-| Best Yoga Poses for Sciatica Pain Relief | Therapeutic | 8 min |
+| Meet Madhu: Your AI Yoga Companion | AI Innovation | Photo |
+| The Science of Adaptive Breathwork | Pranayama | Emoji gradient |
 
----
-
-## Free Content
-
-- **4 Free YouTube Sessions** on homepage: Pranayama, Sun Salutation, Yoga Nidra, Foundational Breath
-- Blog articles — publicly accessible, no login required
+### Wellness Page (`/blog`)
+- Paginated blog cards — 3 per page, left/right arrows + dot indicators
+- Keyboard navigation (← →)
+- Dynamic grid centering: 1-post centered, 2-post 2-col, 3-post 3-col
+- Wisdom section: Pose Library, Yoga Philosophy, Daily Nutrition & Rituals
+- Nutrition section: Seasonal Eating, Detox & Digestion, Morning Rituals (video placeholders)
+- Community section: Member Q&A, Monthly Challenges, Transformation Stories
 
 ---
 
@@ -155,7 +187,8 @@ All form submissions are stored in PostgreSQL and handled via Next.js Server Act
 - Custom aura cursor effect (`AuraCursor`)
 - Viewport edge blur effect (`ViewportBlur`)
 - CSS marquee animations
-- Image-optimized background assets
+- Hero background crossfade slideshow
+- Consistent `aspect-[4/3]` image framing across all card types
 - Edge runtime for OG image API route
 
 ---
@@ -181,4 +214,4 @@ All form submissions are stored in PostgreSQL and handled via Next.js Server Act
 
 ---
 
-*Last updated: 2026-04-04*
+*Last updated: 2026-04-05 — reflects Website v1.1 (AI-first redesign) and follow-up polish commits*

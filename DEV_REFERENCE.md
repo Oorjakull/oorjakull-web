@@ -1,7 +1,7 @@
 # OorjaKull — Developer Reference
 
 > Internal reference for development. Updated as the codebase evolves.
-> **Last updated**: 2026-04-04
+> **Last updated**: 2026-04-05
 
 ---
 
@@ -27,7 +27,7 @@
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root layout: fonts, GA4, JSON-LD, global providers
+│   ├── layout.tsx              # Root layout: fonts, GA4, JSON-LD, global providers + MadhuChatbot
 │   ├── template.tsx            # Page transition wrapper (wraps every route)
 │   ├── page.tsx                # Homepage: Hero + VideoGrid + BlogPreview
 │   ├── actions.ts              # Server Actions: submitRegistration, submitContact
@@ -38,7 +38,7 @@ src/
 │   │   ├── page.tsx            # 11-course catalog grid
 │   │   └── [id]/page.tsx       # Dynamic course detail page
 │   ├── blog/
-│   │   ├── page.tsx            # Blog listing
+│   │   ├── page.tsx            # Wellness/blog listing page (uses BlogCardsClient)
 │   │   └── [slug]/page.tsx     # Blog post renderer (markdown)
 │   ├── book-trial/page.tsx     # Trial registration form
 │   ├── register/page.tsx       # 200H YTT application
@@ -50,9 +50,11 @@ src/
 ├── components/
 │   ├── Navbar.tsx              # Mega-menu, auth state, responsive
 │   ├── Footer.tsx              # Brand, links, social
-│   ├── Hero.tsx                # Rotating phrase hero with CTAs
-│   ├── VideoGrid.tsx           # 4 YouTube free sessions
-│   ├── BlogPreview.tsx         # 3-card blog preview
+│   ├── Hero.tsx                # Crossfade hero slideshow + rotating phrase + CTAs
+│   ├── VideoGrid.tsx           # 4 AI sequence cards (Hip Opening, Relaxation, Back Strength, Seated Flex)
+│   ├── BlogPreview.tsx         # 2-card blog preview (homepage), aspect-[4/3] image framing
+│   ├── BlogCardsClient.tsx     # Paginated blog cards (Wellness page) — 3/page, keyboard nav, dot indicators
+│   ├── MadhuChatbot.tsx        # Floating bottom-right chatbot FAB → /ai
 │   ├── RegistrationForm.tsx    # Course lead form
 │   ├── ContactForm.tsx         # Contact form
 │   ├── Providers.tsx           # NextAuth SessionProvider
@@ -63,12 +65,12 @@ src/
 │   └── ViewportBlur.tsx        # Edge blur effect
 ├── lib/
 │   ├── prisma.ts               # Prisma singleton (dev cache)
-│   ├── db.ts                   # Alternative Prisma singleton
+│   ├── db.ts                   # Alternative Prisma singleton (used in actions.ts)
 │   ├── blog.ts                 # BlogPost type + 5 hardcoded posts + helpers
 │   ├── cms.ts                  # Program/Testimonial/Instructor mock data
 │   └── utils.ts                # cn() = clsx + tailwind-merge
 └── data/
-    └── blogPosts.ts            # Blog metadata array (3 posts, for preview cards)
+    └── blogPosts.ts            # Blog preview metadata (2 posts: AI Companion + Breathwork)
 ```
 
 ---
@@ -157,13 +159,21 @@ Both use `useFormState`-compatible signatures: `(prevState, formData) => Promise
 
 ### Blog Posts
 - **Full content**: `src/lib/blog.ts` — `BLOG_POSTS[]` (5 posts, hardcoded markdown-like body)
-- **Preview metadata**: `src/data/blogPosts.ts` — (3 posts, used on homepage cards)
-- **Adding a post**: Add to both files; `getAllBlogSlugs()` drives static generation
+- **Preview metadata**: `src/data/blogPosts.ts` — **2 posts** (AI Companion + Adaptive Breathwork), each with an `image` field pointing to `/public/*.png`
+- **Homepage**: renders 2 cards via `BlogPreview.tsx` in a 2-column grid
+- **Wellness page**: renders paginated cards via `BlogCardsClient.tsx` (3 per page, keyboard nav)
+- **Adding a post**: add to `src/lib/blog.ts` AND `src/data/blogPosts.ts`; static generation uses `getAllBlogSlugs()`
+
+### AI Sequences (homepage VideoGrid)
+- Defined in `src/components/VideoGrid.tsx` — `AI_SEQUENCES[]` array (4 entries)
+- Each has: `id`, `title`, `description`, `duration`, `level`, `tag`, `image` (local `/public/*.png`)
+- All cards link to `/ai`
+- To update: edit the array directly in `VideoGrid.tsx`
 
 ### Courses
 - **Catalog grid**: hardcoded array in `src/app/courses/page.tsx`
 - **Detail data (CMS mock)**: `src/lib/cms.ts` — `getProgram(id)` with 100ms simulated delay
-- **Adding a course**: Add to `courses/page.tsx` array, add a matching entry in `cms.ts`
+- **Adding a course**: add to `courses/page.tsx` array, add a matching entry in `cms.ts`
 
 ### Yoga Classes / Instructors / Breathwork
 - Hardcoded directly in their respective page files (`yoga/page.tsx`, `about/page.tsx`)
@@ -177,7 +187,7 @@ Both use `useFormState`-compatible signatures: `(prevState, formData) => Promise
 /ai/*   →  https://oorjakull-six.vercel.app/ai/*       (AI companion backend)
 /api/*  →  https://oorjakull-backend.vercel.app/api/*  (General backend API)
 ```
-> Note: The `/api/auth` and `/api/og` routes are local — they are NOT proxied because the rewrite pattern `/api/*` in Next.js rewrites applies only to paths not matched by local API routes (Next.js local routes take precedence).
+> Note: `/api/auth` and `/api/og` are local routes — Next.js local routes always take precedence over rewrites.
 
 ---
 
@@ -216,6 +226,7 @@ Both use `useFormState`-compatible signatures: `(prevState, formData) => Promise
 - **Color palette**: Earth tones, warm parchment (#f5eedd in OG), emerald accents
 - **Gradients**: `from-primary/20 to-emerald-900/20`
 - **Border radius**: `2xl`, `3xl` for cards/sections
+- **Image framing**: Cards use `aspect-[4/3]` with `object-cover object-center` (not fixed heights)
 - **Animations**:
   - Scroll reveal: `<Reveal>` component (Framer Motion)
   - Page transitions: `template.tsx` + `PageTransition` component
@@ -239,8 +250,9 @@ Both use `useFormState`-compatible signatures: `(prevState, formData) => Promise
 
 ### Adding a Blog Post
 1. Add full post object to `BLOG_POSTS` array in `src/lib/blog.ts`
-2. Add preview metadata to `src/data/blogPosts.ts` (for homepage cards)
-3. No deployment config needed — `generateStaticParams` uses `getAllBlogSlugs()`
+2. Add preview entry (with `image` field) to `src/data/blogPosts.ts`
+3. Place image in `public/` and reference as `/filename.png`
+4. No deployment config needed — `generateStaticParams` uses `getAllBlogSlugs()`
 
 ### Form Handling Pattern
 ```tsx
@@ -286,9 +298,10 @@ npx prisma db seed          # Run prisma/seed.ts
 ## Known Architecture Notes
 
 - **Two Prisma singleton files** exist: `src/lib/prisma.ts` and `src/lib/db.ts`. Both serve the same purpose. `db.ts` is used in `actions.ts`; `prisma.ts` may be legacy. Consolidate to one if refactoring.
-- **Blog data is split** across `src/lib/blog.ts` (full content, 5 posts) and `src/data/blogPosts.ts` (preview metadata, 3 posts). They are not in sync — keep this in mind when adding posts.
+- **Blog data is split**: `src/lib/blog.ts` (full post content, 5 posts) and `src/data/blogPosts.ts` (preview metadata, currently 2 posts). Keep both in sync when adding posts.
 - **CMS is mocked** in `src/lib/cms.ts` — no real CMS integration yet. All course content is static.
 - **AI companion (Madhu)** functionality lives in the external backend at `oorjakull-six.vercel.app` — proxied via Next.js rewrites, not in this repo.
+- **`pdf_imgs/`** in project root — working reference folder, excluded from git.
 
 ---
 
@@ -296,7 +309,12 @@ npx prisma db seed          # Run prisma/seed.ts
 
 | Date | Change |
 |---|---|
-| 2026-04-04 | Initial reference document created from full codebase audit |
+| 2026-04-05 | Updated DEV_REFERENCE & FEATURES to reflect v1.1 and follow-up commits |
+| 2026-04-04 | `BlogCardsClient.tsx` — paginated blog cards (3/page, keyboard nav, dot indicators) on Wellness page |
+| 2026-04-04 | Blog card image framing standardised to `aspect-[4/3] object-center` across homepage + Wellness page |
+| 2026-04-04 | Hero badge updated; "OorjaKull School of Yoga" sub-tagline removed; relaxation image refreshed |
+| 2026-04-04 | VideoGrid card aspect ratio changed from 16:9 to 4:3 with `object-center` |
+| 2026-04-04 | Website v1.1 — AI-first redesign: Navbar, Hero slideshow, AI sequence cards, Madhu chatbot FAB, Footer, blog trimmed to 2 posts |
 
 ---
 
