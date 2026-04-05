@@ -6,7 +6,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import AuraCursor from "@/components/AuraCursor";
 import SmoothScroll from "@/components/SmoothScroll";
-import Providers from "@/components/Providers";
 import ViewportBlur from "@/components/ViewportBlur";
 import MadhuChatbot from "@/components/MadhuChatbot";
 
@@ -99,14 +98,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${cormorant.variable} antialiased font-sans`}
       >
-        <Providers>
           <ViewportBlur />
           <SmoothScroll>
             <AuraCursor />
             {children}
           </SmoothScroll>
           <MadhuChatbot />
-        </Providers>
         <Analytics />
         <SpeedInsights />
       </body>
