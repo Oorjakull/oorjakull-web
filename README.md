@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OorjaKull — India's First AI Yoga Platform
+
+> Ancient wisdom, modern intelligence. AI-powered yoga, real-time pose guidance, adaptive breathwork, and personalised wellness — powered by Madhu, your AI yoga companion.
+
+---
+
+## Overview
+
+OorjaKull is a Next.js marketing and content platform for India's first AI-driven yoga experience. The Madhu AI companion app is a separate backend proxied at `/ai` — login and user accounts are handled there, not in this repo.
+
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS 4 |
+| Animation | Framer Motion + Lenis smooth scroll |
+| Database | PostgreSQL (Vercel Postgres) + Prisma ORM |
+| Deployment | Vercel |
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local`:
 
-## Learn More
+```env
+DATABASE_URL=        # Vercel Postgres pooled connection
+DIRECT_URL=          # Vercel Postgres direct connection
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                    # Next.js App Router pages & API routes
+│   ├── page.tsx            # Homepage (Hero + AI Sequences + Blog preview)
+│   ├── yoga/               # Yoga classes, styles & instructors
+│   ├── about/              # Breathwork & meditation (Breath & Beyond)
+│   ├── blog/               # Wellness articles + paginated listing
+│   ├── courses/            # 11-course catalog + detail pages
+│   ├── contact/            # Contact form & FAQs
+│   ├── book-trial/         # Trial session registration
+│   ├── register/           # 200H YTT application
+│   ├── actions.ts          # Server Actions: submitRegistration, submitContact
+│   └── api/og/             # Dynamic OG image generation (Edge runtime)
+├── components/
+│   ├── Hero.tsx            # Crossfade hero slideshow (responsive per breakpoint)
+│   ├── Navbar.tsx          # Mega-menu navigation (desktop pill + mobile drawer)
+│   ├── Footer.tsx          # Footer with social links
+│   ├── MadhuChatbot.tsx    # Floating AI companion button (links to /ai)
+│   ├── VideoGrid.tsx       # AI sequence cards grid
+│   ├── BlogPreview.tsx     # 2-post homepage blog preview
+│   └── ...
+├── data/                   # Static content (blog post metadata)
+└── lib/                    # Prisma client, blog utilities, CMS mock
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Branches & Workflow
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Branch | Purpose |
+|---|---|
+| `dev` | Active development — work here |
+| `main` | Production — auto-deployed to Vercel |
+
+All work goes to `dev`. When ready to ship, merge/push to `main`.
+
+---
+
+## Database
+
+Prisma + Vercel Postgres. Two models relevant to this site:
+
+| Model | Purpose |
+|---|---|
+| `Registration` | Course & trial sign-up leads |
+| `ContactSubmission` | Contact form inquiries |
+
+```bash
+npx prisma studio        # Browse data locally
+npx prisma migrate dev   # Run migrations in dev
+```
+
+---
+
+## AI App (`/ai`)
+
+The Madhu AI companion is proxied from an external Vercel backend via `next.config.ts` rewrites. It is **not** part of this repo. All authentication and user account management live there.
+
+---
+
+## Deployment
+
+Pushes to `main` trigger automatic Vercel deployments. Environment variables are managed in the Vercel dashboard.
+
+For detailed architecture, component patterns, and change history — see [DEV_REFERENCE.md](DEV_REFERENCE.md).
