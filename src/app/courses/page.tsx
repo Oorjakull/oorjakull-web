@@ -6,40 +6,18 @@ import { ArrowRight, Clock, Target, CheckCircle2, Sparkles } from "lucide-react"
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "AI Wellness Programs & Yoga Teacher Training — 200H, 300H YTT",
-    description: "Certified 200H & 300H Yoga Teacher Training, 12-week PCOD yoga, weight loss, sciatica, IBS and stress relief programs. AI-guided and Yoga Alliance certified at OorjaKull.",
+    title: "AI Wellness Programs & Yoga Courses — OorjaKull",
+    description: "12-week PCOD yoga, weight loss, sciatica, IBS, stress relief and therapeutic programs. AI-guided wellness at OorjaKull.",
     alternates: { canonical: "https://www.oorjakull.com/courses" },
     openGraph: {
-        title: "Yoga Programs & Teacher Training at OorjaKull",
-        description: "200H & 300H YTT, therapeutic yoga, AI-guided wellness programs. Certified by Yoga Alliance.",
+        title: "Yoga Wellness Programs at OorjaKull",
+        description: "Therapeutic yoga, AI-guided wellness programs for weight loss, PCOD, stress, sleep and more.",
         url: "https://www.oorjakull.com/courses",
-        images: [{ url: "/api/og?title=Yoga%20Programs%20%26%20Teacher%20Training&subtitle=200H%20%26%20300H%20YTT%2C%20therapeutic%20yoga%2C%20AI-guided%20wellness.&tag=COURSES", width: 1200, height: 630 }],
+        images: [{ url: "/api/og?title=Yoga%20Wellness%20Programs&subtitle=Therapeutic%20yoga%20and%20AI-guided%20wellness.&tag=COURSES", width: 1200, height: 630 }],
     },
 };
 
 const GOALS = [
-    {
-        emoji: "🏅",
-        title: "200-Hour Teacher Training",
-        description: "The foundational certification that launches yoga careers. Deep dive into asana, pranayama, philosophy and teaching methodology — Yoga Alliance certified.",
-        duration: "200H YTT",
-        durationColor: "bg-primary/15 text-primary",
-        tag: "Certification",
-        tagColor: "bg-emerald-400/15 text-emerald-700",
-        gradient: "from-primary/18 to-emerald-900/10",
-        curriculum: ["Asana & Alignment (60H)", "Pranayama & Breathwork (20H)", "Yoga Philosophy & Sutras (30H)", "Anatomy & Physiology (20H)", "Teaching Methodology (40H)", "Practicum & Observation (30H)"],
-    },
-    {
-        emoji: "🌟",
-        title: "300-Hour Advanced TTC",
-        description: "For certified teachers ready to deepen their practice. Advanced asana, specialisations, business of yoga and mentorship with senior Acharyas.",
-        duration: "300H YTT",
-        durationColor: "bg-secondary/15 text-secondary",
-        tag: "Advanced",
-        tagColor: "bg-amber-400/15 text-amber-700",
-        gradient: "from-secondary/18 to-amber-900/10",
-        curriculum: ["Advanced Asana & Adjustments (80H)", "Yoga Nidra & Meditation (40H)", "Specialisation elective (60H)", "Mentorship & Clinic hours (60H)", "Business of Yoga (30H)", "Research & Thesis (30H)"],
-    },
     {
         emoji: "⚖️",
         title: "12-Week Weight Loss",

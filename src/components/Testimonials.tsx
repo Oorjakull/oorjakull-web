@@ -14,11 +14,11 @@ const TESTIMONIALS = [
     },
     {
         name: "Arjun Mehta",
-        role: "Certified Yoga Teacher, Mumbai",
-        text: "The combination of traditional Ashtanga scholarship and AI-assisted teaching methodology sets OorjaKull apart. I now teach hybrid classes — in-person sessions enriched by AI-generated flows. My students love the personalised experience.",
+        role: "Yoga Teacher, Mumbai",
+        text: "The combination of traditional Ashtanga scholarship and AI-assisted practice sets OorjaKull apart. I now run hybrid classes — in-person sessions enriched by AI-generated flows via Madhu. My students love the personalised experience.",
         rating: 5,
         initials: "AM",
-        batch: "2025 YTT Graduate",
+        batch: "AI Platform User",
     },
     {
         name: "Keerthana Nair",
@@ -31,10 +31,10 @@ const TESTIMONIALS = [
     {
         name: "Rohan Tiwari",
         role: "Corporate Wellness Trainer",
-        text: "What I value most is that the AI never loses the soul of yoga. Madhu respects the philosophy while giving me data-driven insights. I graduated from the teacher training and now run AI-powered corporate wellness programmes.",
+        text: "What I value most is that the AI never loses the soul of yoga. Madhu respects the philosophy while giving me data-driven insights. I now run AI-powered corporate wellness programmes that my clients love.",
         rating: 5,
         initials: "RT",
-        batch: "2025 YTT Graduate",
+        batch: "AI Platform User",
     },
 ];
 
@@ -53,7 +53,7 @@ export default function Testimonials() {
                         Student Stories
                     </p>
                     <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
-                        Words from Our Graduates
+                        Words from Our Community
                     </h2>
                 </Reveal>
 

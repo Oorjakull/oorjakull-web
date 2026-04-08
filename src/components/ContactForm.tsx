@@ -64,9 +64,10 @@ export default function ContactForm() {
                 </label>
                 <select id="subject" name="subject" className={inputClass}>
                     <option value="">Select a topic...</option>
-                    <option>200H Teacher Training</option>
-                    <option>300H Advanced Training</option>
-                    <option>Weekend Workshops</option>
+                    <option>AI Platform & Madhu</option>
+                    <option>Yoga Classes</option>
+                    <option>Wellness Programs</option>
+                    <option>Corporate Wellness</option>
                     <option>Other Inquiry</option>
                 </select>
             </div>

@@ -58,50 +58,6 @@ Madhu is available now on the OorjaKull AI platform. Whether you're a beginner l
 Ancient wisdom, modern intelligence — that's the OorjaKull way.`,
     },
     {
-        slug: "train-the-trainer-ai-era",
-        title: "Train the Trainer: Teaching Yoga in the AI Era",
-        excerpt:
-            "Why the world needs certified yoga teachers who understand AI — and how OorjaKull's 200H programme prepares you for hybrid studios.",
-        date: "2026-03-12",
-        tag: "Career",
-        emoji: "🎓",
-        color: "from-secondary/20 to-amber-900/20",
-        readingTime: "7 min read",
-        content: `The yoga industry is changing. Studios are integrating screens, apps are offering AI-generated flows, and students are arriving with more questions about technology than ever before. As a yoga teacher, you can either resist this shift — or lead it.
-
-## Why AI Literacy Matters for Yoga Teachers
-
-If you're training to become a certified yoga teacher in 2026, understanding AI is no longer optional. Your students will ask: "Is this app correcting my alignment properly?" or "Can I trust AI for breathwork pacing?" You need to know the answer.
-
-OorjaKull's 200H Yoga Teacher Training is designed for this reality. It doesn't just teach you classical Ashtanga Vinyasa — it prepares you to teach in a world where AI and human instruction coexist. You'll learn how tools like Madhu work, when to recommend them, and when to insist on hands-on correction.
-
-## The Hybrid Studio Model
-
-The most successful yoga studios in the coming years will be hybrid: part human-led, part AI-assisted. Imagine a large group class where Madhu runs on a screen, giving real-time alignment feedback to 20 students while the instructor walks the room, offering hands-on adjustments and emotional support.
-
-This isn't science fiction. OorjaKull's partner studios are already piloting this format — and the feedback has been overwhelmingly positive.
-
-## What the 200H Programme Covers
-
-The course is structured around the traditional Yoga Alliance syllabus with AI-specific additions:
-
-- **100 hours of AI-guided asana, pranayama and meditation** — you'll practise with Madhu daily, understanding both its strengths and limitations
-- **25 hours of AI-assisted teaching methodology** — learn how to sequence classes that integrate technology without losing the soul of yoga
-- **20 hours of anatomy, physiology and biomechanics** — essential for understanding why certain poses trigger AI corrections
-- **30 hours of yoga philosophy** — the Sutras, Upanishads and ethical frameworks that no AI can teach
-- **15 hours of adaptive breathwork workshops** — design sessions that combine human cues with AI pacing
-
-## Certification and Career Outcomes
-
-Graduates receive a Yoga Alliance certified 200H RYT credential — recognised internationally. But beyond the certificate, you'll leave with a skillset that most teachers don't have: the ability to teach effectively in both a traditional shala and a tech-enabled studio.
-
-## Is This Right for You?
-
-If you have at least one year of consistent personal practice and a genuine desire to teach — whether in-person, online, or hybrid — OorjaKull's programme is designed for you. Batches are limited to 15 students for deep, personalised mentorship.
-
-The future of yoga teaching is hybrid. Be ready.`,
-    },
-    {
         slug: "adaptive-breathwork-science",
         title: "The Science of Adaptive Breathwork",
         excerpt:
