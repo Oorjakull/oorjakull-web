@@ -2,7 +2,6 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import YogaStylesClient from "@/components/YogaStylesClient";
-import { ArrowRight, BookOpen, Star } from "lucide-react";
 
 import type { Metadata } from "next";
 
@@ -78,35 +77,6 @@ const YOGA_STYLES = [
     },
 ];
 
-const INSTRUCTORS = [
-    {
-        name: "Acharya Priya Nair",
-        photo: "🧘‍♀️",
-        style: "Hatha & Yin",
-        bio: "With 18 years of dedicated practice under Mysore lineage teachers, Priya weaves anatomy, philosophy and breathwork into every class.",
-        certifications: ["E-RYT 500 (Yoga Alliance)", "Yin Yoga (YACEP)", "Ayurvedic Lifestyle Counsellor"],
-        signature: ["Morning Hatha Flow", "Yin for Deep Release", "Pranayama Intensive"],
-        gradient: "from-primary/15 to-emerald-800/10",
-    },
-    {
-        name: "Guru Rohan Mehta",
-        photo: "🧘‍♂️",
-        style: "Ashtanga & Strength",
-        bio: "Rohan trained for 8 years in Mysore with Sharath Jois. His classes are precise, energising and grounded in the original lineage.",
-        certifications: ["E-RYT 500 Ashtanga", "NSCA Strength Coach", "Sports Yoga Specialist"],
-        signature: ["Mysore Ashtanga", "Strength & Core", "Athlete Recovery"],
-        gradient: "from-secondary/15 to-amber-900/10",
-    },
-    {
-        name: "Shanti Krishnaswamy",
-        photo: "🪷",
-        style: "Vinyasa & Prenatal",
-        bio: "A perinatal yoga specialist and Vinyasa artist, Shanti's classes feel like elegant choreography — uplifting yet deeply therapeutic.",
-        certifications: ["E-RYT 200 Vinyasa", "Prenatal & Postnatal RPYT", "Mindfulness Teacher (MBSR)"],
-        signature: ["Vinyasa Flow", "Prenatal Journey", "Mindful Movement"],
-        gradient: "from-accent/15 to-rose-900/10",
-    },
-];
 
 // ── Page ──────────────────────────────────────────────────────────
 export default function YogaPage() {
@@ -158,7 +128,7 @@ export default function YogaPage() {
 
                         {/* Quick trust row */}
                         <div className="flex flex-wrap justify-center gap-6 pt-6 border-t border-foreground/8 w-full max-w-xl">
-                            {["8 Yoga Styles", "3 Expert Instructors", "Small Batch Promise"].map((item) => (
+                            {["8 Yoga Styles", "AI-Guided Practice", "Small Batch Promise"].map((item) => (
                                 <span key={item} className="text-xs text-foreground/45 uppercase tracking-widest font-medium">{item}</span>
                             ))}
                         </div>
@@ -190,98 +160,6 @@ export default function YogaPage() {
                 </section>
 
 
-                {/* ══════════════════════════════════════════════
-                    4. INSTRUCTOR SECTION
-                ══════════════════════════════════════════════ */}
-                <section className="py-24 bg-background">
-                    <div className="container mx-auto px-4 md:px-8">
-                        <div className="text-center mb-14">
-                            <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">Your Guides</p>
-                            <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">Meet the Instructors</h2>
-                            <p className="text-foreground/55 mt-4 max-w-xl mx-auto font-light leading-relaxed">
-                                Each Acharya brings a unique lineage, depth of training and genuine passion for the tradition.
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col gap-8">
-                            {INSTRUCTORS.map((instr, idx) => (
-                                <div
-                                    key={instr.name}
-                                    className={`group flex flex-col md:flex-row gap-0 bg-card rounded-3xl border border-muted overflow-hidden hover:border-primary/25 hover:shadow-2xl hover:shadow-primary/6 transition-all duration-400 ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
-                                >
-                                    {/* Photo panel — Left (or Right on alt rows) */}
-                                    <div className={`md:w-72 lg:w-80 shrink-0 bg-gradient-to-br ${instr.gradient} flex flex-col items-center justify-center gap-4 py-12 px-8 relative overflow-hidden`}>
-                                        {/* Background orbs */}
-                                        <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-                                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/8 rounded-full blur-2xl" />
-                                        {/* Avatar */}
-                                        <div className="relative z-10 w-32 h-32 rounded-full bg-white/25 border-2 border-white/30 flex items-center justify-center text-6xl shadow-xl">
-                                            {instr.photo}
-                                        </div>
-                                        <div className="relative z-10 text-center">
-                                            <h3 className="text-xl font-serif font-semibold text-foreground">{instr.name}</h3>
-                                            <p className="text-sm text-primary font-semibold mt-1 uppercase tracking-wider">{instr.style}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Content panel */}
-                                    <div className="flex-1 p-8 lg:p-10 flex flex-col gap-6">
-                                        {/* Bio */}
-                                        <p className="text-foreground/70 text-base leading-relaxed max-w-xl">
-                                            {instr.bio}
-                                        </p>
-
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                            {/* Certifications */}
-                                            <div>
-                                                <div className="flex items-center gap-2 mb-3">
-                                                    <BookOpen className="w-4 h-4 text-primary/60" />
-                                                    <h4 className="text-xs font-semibold text-foreground/40 uppercase tracking-[0.2em]">Certifications</h4>
-                                                </div>
-                                                <ul className="space-y-2">
-                                                    {instr.certifications.map((cert) => (
-                                                        <li key={cert} className="text-sm text-foreground/65 flex items-start gap-2">
-                                                            <span className="text-primary mt-1 shrink-0">·</span>
-                                                            {cert}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-
-                                            {/* Signature classes */}
-                                            <div>
-                                                <div className="flex items-center gap-2 mb-3">
-                                                    <Star className="w-4 h-4 text-secondary/60" />
-                                                    <h4 className="text-xs font-semibold text-foreground/40 uppercase tracking-[0.2em]">Signature Classes</h4>
-                                                </div>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {instr.signature.map((cls) => (
-                                                        <span
-                                                            key={cls}
-                                                            className="text-xs font-medium px-3 py-1.5 rounded-full bg-primary/10 border border-primary/15 text-primary"
-                                                        >
-                                                            {cls}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Book CTA */}
-                                        <div className="mt-auto pt-2">
-                                            <Link
-                                                href="/book-trial"
-                                                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
-                                            >
-                                                Book with {instr.name.split(" ")[1]} <ArrowRight className="w-3.5 h-3.5" />
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
 
             </main>
 
