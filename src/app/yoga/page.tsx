@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ArrowRight, Calendar, Clock, User, Star, BookOpen, Dumbbell, Heart, Baby, Briefcase, Users, Leaf } from "lucide-react";
+import YogaStylesClient from "@/components/YogaStylesClient";
+import { ArrowRight, BookOpen, Star } from "lucide-react";
 
 import type { Metadata } from "next";
 
@@ -20,78 +21,62 @@ export const metadata: Metadata = {
 // ── Data ──────────────────────────────────────────────────────────
 const YOGA_STYLES = [
     {
-        title: "Beginner Foundations",
-        description: "Start your yoga journey with confidence. Learn alignment, breathwork and the foundational poses that underpin all styles.",
+        title: "Gentle Morning Flow",
+        description: "Ease into your day with calm, grounding sequences. Gentle stretches, conscious breath and soft movement to awaken body and mind.",
+        tag: "Gentle",
+        image: "/yoga_gentle_morning_flow.png",
+        objectPosition: "center 18%",
+    },
+    {
+        title: "Surya Namaskar",
+        description: "Master the Sun Salutation — the cornerstone of yoga practice. Build heat, rhythm and full-body coordination through this timeless sequence.",
         tag: "Foundation",
-        icon: "🌱",
-        gradient: "from-emerald-500/20 to-primary/10",
-        color: "text-primary",
+        image: "/yoga_surya_namaskar.png",
+        objectPosition: "center 5%",
     },
     {
-        title: "Hatha Yoga",
-        description: "Classical posture sequences held with steady breath — building strength, flexibility and inner stillness simultaneously.",
-        tag: "Classical",
-        icon: "☀️",
-        gradient: "from-amber-400/20 to-secondary/10",
-        color: "text-secondary",
-    },
-    {
-        title: "Ashtanga Vinyasa",
-        description: "A dynamic, sequenced practice linking breath to movement. Builds heat, discipline and transformative body awareness.",
-        tag: "Dynamic",
-        icon: "🔥",
-        gradient: "from-orange-500/20 to-accent/10",
-        color: "text-accent",
-    },
-    {
-        title: "Vinyasa Flow",
-        description: "Creative, music-guided flows that celebrate movement. Each class is unique — expect variety, challenge and joy.",
-        tag: "Creative",
-        icon: "🌊",
-        gradient: "from-sky-400/15 to-primary/10",
-        color: "text-primary",
-    },
-    {
-        title: "Yin Yoga",
-        description: "Deep, meditative holds targeting connective tissue. Cultivate patience, release stored tension, restore energy.",
-        tag: "Restorative",
-        icon: "🌙",
-        gradient: "from-violet-400/15 to-accent/10",
-        color: "text-accent",
-    },
-    {
-        title: "Strength & Core",
-        description: "Yoga fused with functional strength training — build a resilient, injury-resistant body without sacrificing softness.",
+        title: "Standing Strength Flow",
+        description: "Dynamic standing poses that build leg strength, balance and stability. Warrior sequences and transitions that ground and energise.",
         tag: "Strength",
-        icon: "💪",
-        gradient: "from-rose-400/15 to-secondary/10",
-        color: "text-secondary",
+        image: "/yoga_standing_strength_flow.png",
+        objectPosition: "42% 25%",
     },
     {
-        title: "Skilled Poses",
-        description: "Advanced asana mastery — handstands, drop-backs, arm balances. Progressive coaching in a safe, encouraging environment.",
-        tag: "Advanced",
-        icon: "🤸",
-        gradient: "from-fuchsia-400/15 to-primary/10",
-        color: "text-primary",
+        title: "Core & Balance",
+        description: "Targeted core activation and balance training through functional yoga postures. Build a strong, stable foundation from the inside out.",
+        tag: "Core",
+        image: "/yoga_core_balance.png",
+        objectPosition: "center 40%",
+    },
+    {
+        title: "Back Body Strength",
+        description: "Strengthen the posterior chain — spine, glutes and hamstrings — through backbends and extension poses. Counteract desk posture and tension.",
+        tag: "Strength",
+        image: "/yoga_back_body_strength.png",
+        objectPosition: "center 45%",
+    },
+    {
+        title: "Hip Opening Flow",
+        description: "Deep, sustained hip openers to release stored tension, improve mobility and cultivate emotional ease. Great for runners and desk workers.",
+        tag: "Restorative",
+        image: "/yoga_hip_opening_flow.png",
+        objectPosition: "center 50%",
+    },
+    {
+        title: "Relaxation & Recovery",
+        description: "A gentle, restorative practice for rest days and stress relief. Supported poses, long holds and conscious breathing to restore the nervous system.",
+        tag: "Restorative",
+        image: "/yoga_relaxation_recovery.png",
+        objectPosition: "center 45%",
+    },
+    {
+        title: "Seated Flexibility Flow",
+        description: "Floor-based sequences targeting hamstrings, hips and spine flexibility. Accessible, focused and deeply effective for long-term mobility.",
+        tag: "Flexibility",
+        image: "/yoga_seated_flexibility_flow.png",
+        objectPosition: "center 35%",
     },
 ];
-
-const SCHEDULE_ITEMS = [
-    { icon: User, label: "1:1 Private Sessions", desc: "Fully personalised — your pace, your goals", tag: "Private", tagColor: "bg-primary/15 text-primary", charge: "From ₹2,000/session" },
-    { icon: Users, label: "Group Classes", desc: "Community practice in small batches of max 12", tag: "Group", tagColor: "bg-secondary/15 text-secondary", charge: "From ₹500/class" },
-    { icon: Heart, label: "Prenatal Yoga", desc: "Safe, nurturing movement for expecting mothers", tag: "Specialist", tagColor: "bg-rose-400/15 text-rose-700", charge: "From ₹1,200/session" },
-    { icon: Baby, label: "Postnatal Recovery", desc: "Gentle restoration and core rebuilding post-birth", tag: "Specialist", tagColor: "bg-pink-400/15 text-pink-700", charge: "From ₹1,200/session" },
-    { icon: Briefcase, label: "Corporate Wellness", desc: "On-site or virtual yoga for teams and offices", tag: "Corporate", tagColor: "bg-sky-400/15 text-sky-700", charge: "Custom pricing" },
-    { icon: Dumbbell, label: "Athletes & Sports Yoga", desc: "Mobility, recovery and injury prevention for athletes", tag: "Sport", tagColor: "bg-orange-400/15 text-orange-700", charge: "From ₹1,500/session" },
-    { icon: Leaf, label: "Seniors Yoga", desc: "Chair-assisted and gentle movement for all ages", tag: "Inclusive", tagColor: "bg-green-400/15 text-green-700", charge: "From ₹600/class" },
-    { icon: Star, label: "Kids Yoga", desc: "Playful, story-based yoga for ages 5–14", tag: "Kids", tagColor: "bg-violet-400/15 text-violet-700", charge: "From ₹500/class" },
-    { icon: Heart, label: "Back Pain Yoga", desc: "Therapeutic sequences to decompress the spine and relieve chronic back pain", tag: "Therapeutic", tagColor: "bg-amber-400/15 text-amber-700", charge: "From ₹1,500/session" },
-    { icon: BookOpen, label: "Yoga for Spondylitis", desc: "Gentle, evidence-based poses to ease cervical and ankylosing spondylitis", tag: "Therapeutic", tagColor: "bg-amber-400/15 text-amber-700", charge: "From ₹1,500/session" },
-    { icon: Leaf, label: "Yoga for Knee Pain", desc: "Strengthen and stabilise the knee joint — reduce inflammation and improve mobility", tag: "Therapeutic", tagColor: "bg-teal-400/15 text-teal-700", charge: "From ₹1,500/session" },
-    { icon: Dumbbell, label: "Yoga for Sciatica", desc: "Targeted stretches and breath-work to relieve sciatic nerve compression and pain", tag: "Therapeutic", tagColor: "bg-teal-400/15 text-teal-700", charge: "From ₹1,500/session" },
-];
-
 
 const INSTRUCTORS = [
     {
@@ -173,7 +158,7 @@ export default function YogaPage() {
 
                         {/* Quick trust row */}
                         <div className="flex flex-wrap justify-center gap-6 pt-6 border-t border-foreground/8 w-full max-w-xl">
-                            {["7 Active Styles", "3 Expert Instructors", "Small Batch Promise"].map((item) => (
+                            {["8 Yoga Styles", "3 Expert Instructors", "Small Batch Promise"].map((item) => (
                                 <span key={item} className="text-xs text-foreground/45 uppercase tracking-widest font-medium">{item}</span>
                             ))}
                         </div>
@@ -196,102 +181,11 @@ export default function YogaPage() {
                             <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">What We Teach</p>
                             <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">Yoga Styles</h2>
                             <p className="text-foreground/55 mt-4 max-w-xl mx-auto font-light leading-relaxed">
-                                Seven distinct approaches — from your first class to mastery. Find your practice.
+                                Eight focused flows — from gentle mornings to deep recovery. Find the practice that fits your day.
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                            {YOGA_STYLES.map((style) => (
-                                <div
-                                    key={style.title}
-                                    className="group flex flex-col bg-card rounded-2xl border border-muted overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300"
-                                >
-                                    {/* Colour header */}
-                                    <div className={`h-28 bg-gradient-to-br ${style.gradient} flex items-center justify-center text-5xl relative`}>
-                                        <span className="group-hover:scale-110 transition-transform duration-300">{style.icon}</span>
-                                        <span className={`absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/80 ${style.color}`}>
-                                            {style.tag}
-                                        </span>
-                                    </div>
-
-                                    <div className="p-5 flex flex-col flex-1 gap-3">
-                                        <h3 className="font-serif font-semibold text-lg text-foreground group-hover:text-primary transition-colors leading-snug">
-                                            {style.title}
-                                        </h3>
-                                        <p className="text-sm text-foreground/60 leading-relaxed flex-1">
-                                            {style.description}
-                                        </p>
-                                        <Link
-                                            href="/book-trial"
-                                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-1 hover:gap-2.5 transition-all"
-                                        >
-                                            Learn More <ArrowRight className="w-3.5 h-3.5" />
-                                        </Link>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-
-                {/* ══════════════════════════════════════════════
-                    3. SCHEDULE SECTION
-                ══════════════════════════════════════════════ */}
-                <section className="py-24 bg-muted/50">
-                    <div className="container mx-auto px-4 md:px-8">
-                        <div className="text-center mb-14">
-                            <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">Schedule & Booking</p>
-                            <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">Find Your Session</h2>
-                            <p className="text-foreground/55 mt-4 max-w-xl mx-auto font-light leading-relaxed">
-                                From private 1:1 coaching to specialist programs — every format links directly to our registration page.
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                            {SCHEDULE_ITEMS.map(({ icon: Icon, label, desc, tag, tagColor, charge }) => (
-                                <Link
-                                    key={label}
-                                    href="/book-trial"
-                                    className="group flex flex-col gap-4 bg-card rounded-2xl border border-muted p-6 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/8 transition-all duration-300"
-                                >
-                                    <div className="flex items-start justify-between">
-                                        <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                                            <Icon className="w-5 h-5 text-primary" />
-                                        </div>
-                                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${tagColor}`}>{tag}</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-foreground text-base group-hover:text-primary transition-colors leading-snug">
-                                            {label}
-                                        </h3>
-                                        <p className="text-sm text-foreground/55 mt-1.5 leading-relaxed">{desc}</p>
-                                        <p className="text-xs text-secondary font-semibold mt-2">{charge}</p>
-                                    </div>
-                                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary mt-auto">
-                                        Register <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                                    </span>
-                                </Link>
-                            ))}
-                        </div>
-
-                        {/* Master CTA row */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link
-                                href="/book-trial"
-                                className="group inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/30 transition-all"
-                            >
-                                Book Your First Class
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <Link
-                                href="/contact"
-                                className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full border border-foreground/20 text-foreground/70 font-medium hover:border-primary/60 hover:text-primary transition-all"
-                            >
-                                <Calendar className="w-4 h-4" />
-                                Talk to an Instructor
-                            </Link>
-                        </div>
+                        <YogaStylesClient styles={YOGA_STYLES} />
                     </div>
                 </section>
 

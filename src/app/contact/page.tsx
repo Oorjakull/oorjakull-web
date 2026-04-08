@@ -24,10 +24,8 @@ export const metadata: Metadata = {
 
 const FAQS = [
     { q: "I'm a complete beginner — where should I start?", a: "Start with our Beginner Foundations classes on the Yoga page. They run twice a week and require no prior experience — just comfortable clothing and an open mind." },
-    { q: "When does the next batch start?", a: "Our next 200H YTT batch commences June 2026. Applications are open now — seats are limited to 15 students per batch." },
-    { q: "Do you offer online programs?", a: "Yes! We offer a hybrid format for most modules. Theory, philosophy and pranayama can be completed remotely via live Zoom sessions." },
-    { q: "Is prior yoga experience required for TTC?", a: "A minimum of 1 year of consistent personal practice is recommended for the 200H program. For therapeutic programs, no prior experience is needed." },
-    { q: "Can I pay in installments?", a: "Yes, we offer flexible installment plans for all certification programs. Reach out to us to discuss a payment schedule that works for you." },
+    { q: "Do you offer online programs?", a: "Yes! Most of our wellness programs are available in a hybrid format — live sessions, self-paced modules and AI-guided practice via Madhu." },
+    { q: "Can I pay in installments?", a: "Yes, we offer flexible installment plans for all programs. Reach out to us to discuss a payment schedule that works for you." },
 ];
 
 const CLASS_RECOMMENDATIONS = [

@@ -28,11 +28,6 @@ const PILLARS = [
         title: "Personalised Wellness",
         description: "Dosha-aware daily rituals and lifestyle guidance, surfaced intelligently by Madhu based on your active session data.",
     },
-    {
-        emoji: "🎓",
-        title: "Train the Trainer",
-        description: "Become a certified yoga teacher equipped to teach both in-person and AI-assisted classes — sequencing, ethics, cueing and community.",
-    },
 ];
 
 export default function PillarsSection() {
@@ -44,10 +39,10 @@ export default function PillarsSection() {
                         What You&apos;ll Experience
                     </p>
                     <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground mb-4">
-                        Six Pillars of AI-Enhanced Yoga
+                        Five Pillars of AI-Enhanced Yoga
                     </h2>
                     <p className="text-muted-foreground text-lg font-light">
-                        Ancient wisdom amplified by modern intelligence — built for practitioners and future teachers alike.
+                        Ancient wisdom amplified by modern intelligence — built for every level of practitioner.
                     </p>
                 </Reveal>
 
