@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import YogaStylesClient from "@/components/YogaStylesClient";
 import { ArrowRight, BookOpen, Star } from "lucide-react";
 
 import type { Metadata } from "next";
@@ -20,60 +21,60 @@ export const metadata: Metadata = {
 // ── Data ──────────────────────────────────────────────────────────
 const YOGA_STYLES = [
     {
-        title: "Beginner Foundations",
-        description: "Start your yoga journey with confidence. Learn alignment, breathwork and the foundational poses that underpin all styles.",
+        title: "Gentle Morning Flow",
+        description: "Ease into your day with calm, grounding sequences. Gentle stretches, conscious breath and soft movement to awaken body and mind.",
+        tag: "Gentle",
+        image: "/yoga_gentle_morning_flow.png",
+        objectPosition: "center 18%",
+    },
+    {
+        title: "Surya Namaskar",
+        description: "Master the Sun Salutation — the cornerstone of yoga practice. Build heat, rhythm and full-body coordination through this timeless sequence.",
         tag: "Foundation",
-        icon: "🌱",
-        gradient: "from-emerald-500/20 to-primary/10",
-        color: "text-primary",
+        image: "/yoga_surya_namaskar.png",
+        objectPosition: "center 5%",
     },
     {
-        title: "Hatha Yoga",
-        description: "Classical posture sequences held with steady breath — building strength, flexibility and inner stillness simultaneously.",
-        tag: "Classical",
-        icon: "☀️",
-        gradient: "from-amber-400/20 to-secondary/10",
-        color: "text-secondary",
-    },
-    {
-        title: "Ashtanga Vinyasa",
-        description: "A dynamic, sequenced practice linking breath to movement. Builds heat, discipline and transformative body awareness.",
-        tag: "Dynamic",
-        icon: "🔥",
-        gradient: "from-orange-500/20 to-accent/10",
-        color: "text-accent",
-    },
-    {
-        title: "Vinyasa Flow",
-        description: "Creative, music-guided flows that celebrate movement. Each class is unique — expect variety, challenge and joy.",
-        tag: "Creative",
-        icon: "🌊",
-        gradient: "from-sky-400/15 to-primary/10",
-        color: "text-primary",
-    },
-    {
-        title: "Yin Yoga",
-        description: "Deep, meditative holds targeting connective tissue. Cultivate patience, release stored tension, restore energy.",
-        tag: "Restorative",
-        icon: "🌙",
-        gradient: "from-violet-400/15 to-accent/10",
-        color: "text-accent",
-    },
-    {
-        title: "Strength & Core",
-        description: "Yoga fused with functional strength training — build a resilient, injury-resistant body without sacrificing softness.",
+        title: "Standing Strength Flow",
+        description: "Dynamic standing poses that build leg strength, balance and stability. Warrior sequences and transitions that ground and energise.",
         tag: "Strength",
-        icon: "💪",
-        gradient: "from-rose-400/15 to-secondary/10",
-        color: "text-secondary",
+        image: "/yoga_standing_strength_flow.png",
+        objectPosition: "42% 25%",
     },
     {
-        title: "Skilled Poses",
-        description: "Advanced asana mastery — handstands, drop-backs, arm balances. Progressive coaching in a safe, encouraging environment.",
-        tag: "Advanced",
-        icon: "🤸",
-        gradient: "from-fuchsia-400/15 to-primary/10",
-        color: "text-primary",
+        title: "Core & Balance",
+        description: "Targeted core activation and balance training through functional yoga postures. Build a strong, stable foundation from the inside out.",
+        tag: "Core",
+        image: "/yoga_core_balance.png",
+        objectPosition: "center 40%",
+    },
+    {
+        title: "Back Body Strength",
+        description: "Strengthen the posterior chain — spine, glutes and hamstrings — through backbends and extension poses. Counteract desk posture and tension.",
+        tag: "Strength",
+        image: "/yoga_back_body_strength.png",
+        objectPosition: "center 45%",
+    },
+    {
+        title: "Hip Opening Flow",
+        description: "Deep, sustained hip openers to release stored tension, improve mobility and cultivate emotional ease. Great for runners and desk workers.",
+        tag: "Restorative",
+        image: "/yoga_hip_opening_flow.png",
+        objectPosition: "center 50%",
+    },
+    {
+        title: "Relaxation & Recovery",
+        description: "A gentle, restorative practice for rest days and stress relief. Supported poses, long holds and conscious breathing to restore the nervous system.",
+        tag: "Restorative",
+        image: "/yoga_relaxation_recovery.png",
+        objectPosition: "center 45%",
+    },
+    {
+        title: "Seated Flexibility Flow",
+        description: "Floor-based sequences targeting hamstrings, hips and spine flexibility. Accessible, focused and deeply effective for long-term mobility.",
+        tag: "Flexibility",
+        image: "/yoga_seated_flexibility_flow.png",
+        objectPosition: "center 35%",
     },
 ];
 
@@ -157,7 +158,7 @@ export default function YogaPage() {
 
                         {/* Quick trust row */}
                         <div className="flex flex-wrap justify-center gap-6 pt-6 border-t border-foreground/8 w-full max-w-xl">
-                            {["7 Active Styles", "3 Expert Instructors", "Small Batch Promise"].map((item) => (
+                            {["8 Yoga Styles", "3 Expert Instructors", "Small Batch Promise"].map((item) => (
                                 <span key={item} className="text-xs text-foreground/45 uppercase tracking-widest font-medium">{item}</span>
                             ))}
                         </div>
@@ -180,41 +181,11 @@ export default function YogaPage() {
                             <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">What We Teach</p>
                             <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">Yoga Styles</h2>
                             <p className="text-foreground/55 mt-4 max-w-xl mx-auto font-light leading-relaxed">
-                                Seven distinct approaches — from your first class to mastery. Find your practice.
+                                Eight focused flows — from gentle mornings to deep recovery. Find the practice that fits your day.
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                            {YOGA_STYLES.map((style) => (
-                                <div
-                                    key={style.title}
-                                    className="group flex flex-col bg-card rounded-2xl border border-muted overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300"
-                                >
-                                    {/* Colour header */}
-                                    <div className={`h-28 bg-gradient-to-br ${style.gradient} flex items-center justify-center text-5xl relative`}>
-                                        <span className="group-hover:scale-110 transition-transform duration-300">{style.icon}</span>
-                                        <span className={`absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/80 ${style.color}`}>
-                                            {style.tag}
-                                        </span>
-                                    </div>
-
-                                    <div className="p-5 flex flex-col flex-1 gap-3">
-                                        <h3 className="font-serif font-semibold text-lg text-foreground group-hover:text-primary transition-colors leading-snug">
-                                            {style.title}
-                                        </h3>
-                                        <p className="text-sm text-foreground/60 leading-relaxed flex-1">
-                                            {style.description}
-                                        </p>
-                                        <Link
-                                            href="/book-trial"
-                                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-1 hover:gap-2.5 transition-all"
-                                        >
-                                            Learn More <ArrowRight className="w-3.5 h-3.5" />
-                                        </Link>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <YogaStylesClient styles={YOGA_STYLES} />
                     </div>
                 </section>
 
