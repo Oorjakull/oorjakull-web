@@ -16,7 +16,15 @@ export const metadata: Metadata = {
 const FAQS = [
     {
         q: "How do AI Credits work?",
-        a: "Each yoga pose detected by Madhu uses 1 credit. A typical 10-pose flow consumes 10 credits. Free users get 20 credits. Practitioners get 600/month, and Devotees get unlimited.",
+        a: "Each yoga pose detected by Madhu consumes credits. A typical 10-pose flow in English uses 10 credits. Free users get 20 credits, Practitioners get 600/month, and Devotees get unlimited.",
+    },
+    {
+        q: "Why do non-English languages cost 2 credits per pose?",
+        a: "Indic and international languages run through an additional translation + neural voice synthesis pipeline so Madhu can guide you naturally in your own tongue. The 2-credit rate covers that extra inference cost. English remains the base 1 credit per pose.",
+    },
+    {
+        q: "What is Pay-as-you-go and when should I use it?",
+        a: "Pay-as-you-go lets you buy AI credits in one-time top-ups (minimum 10) without any subscription. It's ideal if you only practice occasionally, want to try Madhu without committing, or need a few extra credits on top of your monthly plan. PAYG credits never expire.",
     },
     {
         q: "Can I switch plans anytime?",
@@ -24,15 +32,15 @@ const FAQS = [
     },
     {
         q: "Is there a refund policy?",
-        a: "We offer a 7-day money-back guarantee on all paid plans. If Madhu isn't right for you, write to us within 7 days for a full refund — no questions asked.",
+        a: "We offer a 7-day money-back guarantee on all paid subscription plans. If Madhu isn't right for you, write to us within 7 days for a full refund — no questions asked. Pay-as-you-go top-ups are non-refundable once credits are used.",
     },
     {
         q: "What payment methods are supported?",
         a: "We accept all major credit and debit cards, UPI, net banking and popular wallets via Razorpay. All payments are securely processed and PCI-DSS compliant.",
     },
     {
-        q: "Do unused credits roll over?",
-        a: "Practitioner credits reset every month and don't roll over. Devotee plans are unlimited so this doesn't apply.",
+        q: "Do unused subscription credits roll over?",
+        a: "Practitioner credits reset every month and don't roll over. Devotee plans are unlimited so this doesn't apply. Pay-as-you-go credits never expire.",
     },
 ];
 
@@ -104,7 +112,7 @@ export default function SubscriptionPage() {
 
                 {/* ── How credits work ── */}
                 <section className="py-24 bg-background">
-                    <div className="container mx-auto px-4 md:px-8 max-w-4xl">
+                    <div className="container mx-auto px-4 md:px-8 max-w-5xl">
                         <div className="text-center mb-12">
                             <p className="text-primary text-sm font-semibold uppercase tracking-[0.3em] mb-3">
                                 How It Works
@@ -112,23 +120,63 @@ export default function SubscriptionPage() {
                             <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground">
                                 AI Credits, simply explained
                             </h2>
+                            <p className="text-foreground/55 mt-4 max-w-xl mx-auto font-light leading-relaxed">
+                                Credits power every pose Madhu detects, corrects and guides you through.
+                                The rate depends on the language you choose.
+                            </p>
                         </div>
+
+                        {/* Language pricing — primary explanation */}
+                        <div className="grid sm:grid-cols-2 gap-5 mb-10 max-w-3xl mx-auto">
+                            <div className="bg-card border border-muted rounded-2xl p-7 hover:border-primary/30 transition-colors">
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span className="text-5xl font-serif font-light text-primary">1</span>
+                                    <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                                        credit / pose
+                                    </span>
+                                </div>
+                                <p className="font-serif text-lg font-semibold text-foreground mb-1">English</p>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    Madhu&apos;s native voice — fastest inference, lowest cost.
+                                </p>
+                            </div>
+                            <div className="bg-card border-2 border-secondary/30 rounded-2xl p-7 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-2xl pointer-events-none" />
+                                <div className="relative">
+                                    <div className="flex items-baseline gap-2 mb-2">
+                                        <span className="text-5xl font-serif font-light text-secondary">2</span>
+                                        <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                                            credits / pose
+                                        </span>
+                                    </div>
+                                    <p className="font-serif text-lg font-semibold text-foreground mb-1">
+                                        Indic & International
+                                    </p>
+                                    <p className="text-sm text-muted-foreground leading-relaxed">
+                                        Hindi, Tamil, Telugu, Spanish & more — translation + neural voice
+                                        synthesis included.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Three-step micro-explainer */}
                         <div className="grid md:grid-cols-3 gap-6">
                             {[
                                 {
                                     n: "01",
-                                    title: "1 credit per pose",
-                                    desc: "Every pose Madhu detects and corrects in real time consumes one credit.",
+                                    title: "Flows = sum of poses",
+                                    desc: "A 10-pose Surya Namaskar in English uses 10 credits. The same flow in Tamil uses 20.",
                                 },
                                 {
                                     n: "02",
-                                    title: "Flows = sum of poses",
-                                    desc: "A 10-pose Surya Namaskar uses 10 credits. A 20-pose strength flow uses 20.",
+                                    title: "Refill monthly",
+                                    desc: "Subscription credits reset on your billing date. Devotee tier never runs out.",
                                 },
                                 {
                                     n: "03",
-                                    title: "Refill monthly",
-                                    desc: "Paid plans reset on your billing date. Devotee tier never runs out.",
+                                    title: "Top up anytime",
+                                    desc: "Out of credits? Use Pay-as-you-go to add more in one tap. PAYG credits never expire.",
                                 },
                             ].map((step) => (
                                 <div key={step.n} className="bg-card rounded-2xl border border-muted p-7">

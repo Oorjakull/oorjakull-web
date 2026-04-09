@@ -1,7 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Sparkles, Zap, Crown, Loader2, CheckCircle2 } from "lucide-react";
+import {
+    Check,
+    Sparkles,
+    Zap,
+    Crown,
+    Loader2,
+    CheckCircle2,
+    Coins,
+    Languages,
+} from "lucide-react";
 
 // Razorpay loads via <Script> tag in the page; declare on window
 declare global {
@@ -35,7 +44,7 @@ const TIERS: Tier[] = [
         monthly: 0,
         yearly: 0,
         credits: "20 AI Credits",
-        creditsNote: "1 credit per pose · ~2 short flows",
+        creditsNote: "Try ~20 English poses or ~10 in your language",
         features: [
             "20 AI pose-detection credits",
             "Access to 8 yoga style libraries",
@@ -53,7 +62,7 @@ const TIERS: Tier[] = [
         monthly: 499,
         yearly: 4790, // ~₹399/mo, 20% off
         credits: "600 AI Credits / month",
-        creditsNote: "Roughly 20–25 full sessions",
+        creditsNote: "~600 English poses or ~300 in Indic languages",
         highlight: true,
         features: [
             "600 AI pose-detection credits monthly",
@@ -73,27 +82,51 @@ const TIERS: Tier[] = [
         monthly: 999,
         yearly: 9590, // ~₹799/mo, 20% off
         credits: "Unlimited AI Credits",
-        creditsNote: "No per-pose limits, ever",
+        creditsNote: "Any language, any pose — no limits",
         features: [
             "Unlimited AI pose detection",
+            "All Indic & international languages",
             "Generative meditation & Yoga Nidra",
             "1:1 monthly Acharya consult (virtual)",
             "Family sharing — up to 4 members",
-            "Early access to new features",
             "Priority chat support",
         ],
         cta: "Go Unlimited",
     },
 ];
 
+// ── Pay-as-you-go config ────────────────────────────────────
+const PAYG_RATE = 1;          // ₹1 per credit
+const PAYG_MIN = 10;
+const PAYG_MAX = 1000;
+const PAYG_PRESETS = [10, 25, 50, 100];
+
+// ── Types ─────────────────────────────────────────────────────
 type Status = "idle" | "loading" | "success" | "error";
+
+type SuccessState = {
+    title: string;
+    headline: string;
+    detail: string;
+    sub: string;
+};
+
+type PaymentRequest = {
+    id: string;
+    amount: number;
+    label: string;
+    description: string;
+    notes: Record<string, string | number>;
+    onSuccess: (paymentId: string) => SuccessState;
+};
 
 export default function SubscriptionTiers() {
     const [cycle, setCycle] = useState<BillingCycle>("monthly");
-    const [pendingTier, setPendingTier] = useState<string | null>(null);
+    const [paygCredits, setPaygCredits] = useState<number>(50);
+    const [pendingId, setPendingId] = useState<string | null>(null);
     const [status, setStatus] = useState<Status>("idle");
     const [statusMsg, setStatusMsg] = useState<string>("");
-    const [successTier, setSuccessTier] = useState<Tier | null>(null);
+    const [success, setSuccess] = useState<SuccessState | null>(null);
 
     const priceFor = (tier: Tier) =>
         cycle === "monthly" ? tier.monthly : Math.round(tier.yearly / 12);
@@ -101,29 +134,23 @@ export default function SubscriptionTiers() {
     const billingAmount = (tier: Tier) =>
         cycle === "monthly" ? tier.monthly : tier.yearly;
 
-    const handleSelect = async (tier: Tier) => {
-        setStatus("idle");
-        setStatusMsg("");
-
-        // Free tier — no payment, just acknowledge
-        if (tier.monthly === 0) {
-            setSuccessTier(tier);
-            setStatus("success");
-            setStatusMsg("You're on the free Seeker plan. Open the AI app to start.");
-            return;
-        }
-
-        setPendingTier(tier.id);
+    // ── Generic Razorpay flow ─────────────────────────────────
+    const processPayment = async (req: PaymentRequest) => {
         setStatus("loading");
+        setStatusMsg("");
+        setPendingId(req.id);
 
         try {
-            const amount = billingAmount(tier);
-
-            // 1. Create order on the server
+            // 1. Create order
             const orderRes = await fetch("/api/razorpay/order", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ tierId: tier.id, amount }),
+                body: JSON.stringify({
+                    tierId: req.id,
+                    amount: req.amount,
+                    label: req.label,
+                    credits: req.notes.credits,
+                }),
             });
 
             if (!orderRes.ok) {
@@ -143,32 +170,30 @@ export default function SubscriptionTiers() {
                 amount: orderAmount,
                 currency,
                 name: "OorjaKull",
-                description: `${tier.name} — ${cycle === "monthly" ? "Monthly" : "Annual"} subscription`,
+                description: req.description,
                 order_id: orderId,
-                theme: { color: "#1f5f4a" }, // matches primary
+                theme: { color: "#1f5f4a" },
                 prefill: {
                     name: "Test User",
                     email: "test@oorjakull.com",
                     contact: "9999999999",
                 },
-                notes: { tierId: tier.id, cycle },
+                notes: req.notes,
                 handler: async (response: {
                     razorpay_order_id: string;
                     razorpay_payment_id: string;
                     razorpay_signature: string;
                 }) => {
-                    // 3. Verify on server
                     try {
                         const verifyRes = await fetch("/api/razorpay/verify", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ ...response, tierId: tier.id }),
+                            body: JSON.stringify({ ...response, tierId: req.id }),
                         });
                         const data = await verifyRes.json();
                         if (data.verified) {
-                            setSuccessTier(tier);
+                            setSuccess(req.onSuccess(data.paymentId));
                             setStatus("success");
-                            setStatusMsg(`Payment verified · ${data.paymentId}`);
                         } else {
                             setStatus("error");
                             setStatusMsg(data.error || "Verification failed.");
@@ -177,12 +202,12 @@ export default function SubscriptionTiers() {
                         setStatus("error");
                         setStatusMsg("Could not verify payment.");
                     } finally {
-                        setPendingTier(null);
+                        setPendingId(null);
                     }
                 },
                 modal: {
                     ondismiss: () => {
-                        setPendingTier(null);
+                        setPendingId(null);
                         setStatus("idle");
                     },
                 },
@@ -193,27 +218,75 @@ export default function SubscriptionTiers() {
             const msg = err instanceof Error ? err.message : "Something went wrong.";
             setStatus("error");
             setStatusMsg(msg);
-            setPendingTier(null);
+            setPendingId(null);
         }
     };
 
-    if (status === "success" && successTier) {
+    // ── Tier purchase handler ─────────────────────────────────
+    const handleTierSelect = (tier: Tier) => {
+        // Free tier — instant success, no payment
+        if (tier.monthly === 0) {
+            setSuccess({
+                title: tier.name,
+                headline: `Welcome to ${tier.name}`,
+                detail: "You're on the free plan. Open the AI app to redeem your 20 credits.",
+                sub: `${tier.credits} · ${tier.creditsNote}`,
+            });
+            setStatus("success");
+            return;
+        }
+
+        const amount = billingAmount(tier);
+        processPayment({
+            id: tier.id,
+            amount,
+            label: `OorjaKull ${tier.name}`,
+            description: `${tier.name} — ${cycle === "monthly" ? "Monthly" : "Annual"} subscription`,
+            notes: { tierId: tier.id, cycle },
+            onSuccess: (paymentId) => ({
+                title: tier.name,
+                headline: `Welcome to ${tier.name}`,
+                detail: `Payment verified · ${paymentId}`,
+                sub: `${tier.credits} · ${tier.creditsNote}`,
+            }),
+        });
+    };
+
+    // ── PAYG purchase handler ─────────────────────────────────
+    const handlePaygPurchase = () => {
+        const credits = clampPayg(paygCredits);
+        const amount = credits * PAYG_RATE;
+        processPayment({
+            id: `payg-${credits}`,
+            amount,
+            label: `${credits} AI Credits`,
+            description: `${credits} AI Credits top-up`,
+            notes: { tierId: "payg", credits },
+            onSuccess: (paymentId) => ({
+                title: "Top-up successful",
+                headline: `${credits} credits added`,
+                detail: `Payment verified · ${paymentId}`,
+                sub: `Use them anytime — credits never expire on Pay-as-you-go.`,
+            }),
+        });
+    };
+
+    // ── Success screen ────────────────────────────────────────
+    if (status === "success" && success) {
         return (
             <div className="max-w-xl mx-auto bg-card border border-primary/20 rounded-3xl p-10 text-center shadow-xl">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
                     <CheckCircle2 className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-3xl font-serif font-medium text-foreground mb-3">
-                    Welcome to {successTier.name}
+                    {success.headline}
                 </h3>
-                <p className="text-foreground/65 leading-relaxed mb-2">{statusMsg}</p>
-                <p className="text-sm text-muted-foreground">
-                    {successTier.credits} · {successTier.creditsNote}
-                </p>
+                <p className="text-foreground/65 leading-relaxed mb-2">{success.detail}</p>
+                <p className="text-sm text-muted-foreground">{success.sub}</p>
                 <button
                     onClick={() => {
                         setStatus("idle");
-                        setSuccessTier(null);
+                        setSuccess(null);
                         setStatusMsg("");
                     }}
                     className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors"
@@ -223,6 +296,9 @@ export default function SubscriptionTiers() {
             </div>
         );
     }
+
+    const paygTotal = clampPayg(paygCredits) * PAYG_RATE;
+    const isPaygPending = pendingId?.startsWith("payg-") ?? false;
 
     return (
         <div className="flex flex-col items-center gap-12">
@@ -258,7 +334,7 @@ export default function SubscriptionTiers() {
                 {TIERS.map((tier) => {
                     const Icon = tier.icon;
                     const price = priceFor(tier);
-                    const isPending = pendingTier === tier.id;
+                    const isPending = pendingId === tier.id;
 
                     return (
                         <div
@@ -341,7 +417,7 @@ export default function SubscriptionTiers() {
 
                             {/* CTA */}
                             <button
-                                onClick={() => handleSelect(tier)}
+                                onClick={() => handleTierSelect(tier)}
                                 disabled={isPending}
                                 className={`w-full py-3.5 rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
                                     tier.highlight
@@ -362,6 +438,110 @@ export default function SubscriptionTiers() {
                 })}
             </div>
 
+            {/* ── Pay-as-you-go card ─────────────────────────────────── */}
+            <div className="w-full max-w-4xl">
+                <div className="relative bg-gradient-to-br from-secondary/8 via-card to-primary/5 border border-secondary/20 rounded-3xl p-8 md:p-10 overflow-hidden">
+                    {/* Ambient glow */}
+                    <div className="absolute top-0 right-0 w-72 h-72 bg-secondary/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4 pointer-events-none" />
+
+                    <div className="relative grid md:grid-cols-2 gap-8 md:gap-10 items-center">
+                        {/* Left — copy */}
+                        <div>
+                            <div className="flex items-center gap-2 mb-3">
+                                <Coins className="w-4 h-4 text-secondary" />
+                                <p className="text-secondary text-xs font-bold uppercase tracking-[0.25em]">
+                                    Pay as you go
+                                </p>
+                            </div>
+                            <h3 className="text-3xl md:text-4xl font-serif font-medium text-foreground mb-3 leading-tight">
+                                Just need a few sessions?
+                            </h3>
+                            <p className="text-foreground/65 text-sm leading-relaxed mb-4">
+                                Top up AI credits whenever you want. No subscription, no commitment.
+                                Credits never expire.
+                            </p>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <Languages className="w-3.5 h-3.5" />
+                                <span>1 credit · English pose &nbsp;·&nbsp; 2 credits · Indic / Intl</span>
+                            </div>
+                        </div>
+
+                        {/* Right — interactive credit picker */}
+                        <div className="bg-card/80 backdrop-blur border border-muted rounded-2xl p-6">
+                            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                How many credits?
+                            </label>
+
+                            {/* Preset chips */}
+                            <div className="flex flex-wrap gap-2 mt-3 mb-4">
+                                {PAYG_PRESETS.map((n) => {
+                                    const active = paygCredits === n;
+                                    return (
+                                        <button
+                                            key={n}
+                                            type="button"
+                                            onClick={() => setPaygCredits(n)}
+                                            className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${
+                                                active
+                                                    ? "bg-primary text-white border-primary"
+                                                    : "bg-transparent border-foreground/15 text-foreground/70 hover:border-primary/40 hover:text-primary"
+                                            }`}
+                                        >
+                                            {n}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Custom input */}
+                            <div className="flex items-center gap-3 border border-muted rounded-xl px-4 py-2.5 bg-background">
+                                <input
+                                    type="number"
+                                    min={PAYG_MIN}
+                                    max={PAYG_MAX}
+                                    value={paygCredits}
+                                    onChange={(e) => {
+                                        const v = parseInt(e.target.value, 10);
+                                        setPaygCredits(Number.isNaN(v) ? PAYG_MIN : v);
+                                    }}
+                                    onBlur={() => setPaygCredits((v) => clampPayg(v))}
+                                    className="flex-1 bg-transparent text-foreground font-semibold text-lg focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                />
+                                <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                                    credits
+                                </span>
+                            </div>
+                            <p className="text-[11px] text-muted-foreground mt-1.5">
+                                Min {PAYG_MIN} · Max {PAYG_MAX} credits
+                            </p>
+
+                            {/* Total + CTA */}
+                            <div className="mt-5 pt-5 border-t border-muted flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-xs text-muted-foreground">Total</p>
+                                    <p className="text-2xl font-serif font-medium text-foreground">
+                                        ₹{paygTotal.toLocaleString("en-IN")}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={handlePaygPurchase}
+                                    disabled={isPaygPending}
+                                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                                >
+                                    {isPaygPending ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 animate-spin" /> Processing
+                                        </>
+                                    ) : (
+                                        <>Buy credits</>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Inline error */}
             {status === "error" && (
                 <div className="max-w-md text-center text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-5 py-3">
@@ -379,4 +559,9 @@ export default function SubscriptionTiers() {
             </div>
         </div>
     );
+}
+
+function clampPayg(n: number): number {
+    if (Number.isNaN(n)) return PAYG_MIN;
+    return Math.max(PAYG_MIN, Math.min(PAYG_MAX, Math.round(n)));
 }

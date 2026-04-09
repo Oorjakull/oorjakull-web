@@ -3,14 +3,19 @@ import Razorpay from "razorpay";
 
 /**
  * POST /api/razorpay/order
- * Creates a Razorpay order for a subscription tier purchase.
+ * Creates a Razorpay order for a subscription tier purchase OR a PAYG credit top-up.
  *
- * Body: { tierId: string, amount: number, currency?: string }
- *  - amount is in major units (e.g. 499 means ₹499). We convert to paise here.
+ * Body: {
+ *   tierId: string,        // e.g. "practitioner" or "payg"
+ *   amount: number,        // in major units (₹). Converted to paise here.
+ *   currency?: string,     // defaults to INR
+ *   credits?: number,      // optional — for PAYG top-ups
+ *   label?: string,        // optional — human-readable product name for receipt
+ * }
  */
 export async function POST(req: Request) {
     try {
-        const { tierId, amount, currency = "INR" } = await req.json();
+        const { tierId, amount, currency = "INR", credits, label } = await req.json();
 
         if (!tierId || typeof amount !== "number" || amount <= 0) {
             return NextResponse.json(
@@ -37,10 +42,11 @@ export async function POST(req: Request) {
         const order = await razorpay.orders.create({
             amount: Math.round(amount * 100), // → paise
             currency,
-            receipt: `ok_${tierId}_${Date.now()}`,
+            receipt: `ok_${tierId}_${Date.now()}`.slice(0, 40),
             notes: {
                 tierId,
-                product: "OorjaKull AI Subscription",
+                product: label || "OorjaKull AI Subscription",
+                ...(typeof credits === "number" ? { credits: String(credits) } : {}),
             },
         });
 
