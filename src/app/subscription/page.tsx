@@ -36,7 +36,11 @@ const FAQS = [
     },
     {
         q: "What payment methods are supported?",
-        a: "We accept all major credit and debit cards, UPI, net banking and popular wallets via Razorpay. All payments are securely processed and PCI-DSS compliant.",
+        a: "Indian users pay via Razorpay — all major credit/debit cards, UPI, net banking and popular wallets. International users pay via Stripe — cards in 180+ countries with full 3DS support. All payments are securely processed and PCI-DSS compliant.",
+    },
+    {
+        q: "How is currency determined?",
+        a: "Use the India / Global toggle at the top of the pricing section. India is billed in INR via Razorpay, Global is billed in USD via Stripe. Pick the one matching your card-issuing country to avoid forex fees.",
     },
     {
         q: "Do unused subscription credits roll over?",

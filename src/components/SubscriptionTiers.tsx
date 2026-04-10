@@ -11,6 +11,7 @@ import {
     Coins,
     Languages,
 } from "lucide-react";
+import StripeCheckoutModal from "./StripeCheckoutModal";
 
 // Razorpay loads via <Script> tag in the page; declare on window
 declare global {
@@ -19,6 +20,7 @@ declare global {
     }
 }
 
+type Region = "in" | "global";
 type BillingCycle = "monthly" | "yearly";
 
 type Tier = {
@@ -26,8 +28,12 @@ type Tier = {
     name: string;
     tagline: string;
     icon: typeof Sparkles;
-    monthly: number; // INR per month
-    yearly: number;  // INR per year (effective)
+    /** INR pricing for India region */
+    monthly: number;
+    yearly: number;
+    /** USD pricing for global region */
+    monthlyUsd: number;
+    yearlyUsd: number;
     credits: string;
     creditsNote: string;
     highlight?: boolean;
@@ -43,6 +49,8 @@ const TIERS: Tier[] = [
         icon: Sparkles,
         monthly: 0,
         yearly: 0,
+        monthlyUsd: 0,
+        yearlyUsd: 0,
         credits: "20 AI Credits",
         creditsNote: "Try ~20 English poses or ~10 in your language",
         features: [
@@ -60,7 +68,9 @@ const TIERS: Tier[] = [
         tagline: "For your daily practice",
         icon: Zap,
         monthly: 499,
-        yearly: 4790, // ~₹399/mo, 20% off
+        yearly: 4790, // ~₹399/mo
+        monthlyUsd: 7.99,
+        yearlyUsd: 76.90, // ~$6.41/mo
         credits: "600 AI Credits / month",
         creditsNote: "~600 English poses or ~300 in Indic languages",
         highlight: true,
@@ -80,7 +90,9 @@ const TIERS: Tier[] = [
         tagline: "Unlimited, uncompromised",
         icon: Crown,
         monthly: 999,
-        yearly: 9590, // ~₹799/mo, 20% off
+        yearly: 9590,
+        monthlyUsd: 14.99,
+        yearlyUsd: 143.90,
         credits: "Unlimited AI Credits",
         creditsNote: "Any language, any pose — no limits",
         features: [
@@ -96,52 +108,80 @@ const TIERS: Tier[] = [
 ];
 
 // ── Pay-as-you-go config ────────────────────────────────────
-const PAYG_RATE = 1;          // ₹1 per credit
+const PAYG_RATE: Record<Region, number> = { in: 1, global: 0.10 };
 const PAYG_MIN = 10;
 const PAYG_MAX = 1000;
 const PAYG_PRESETS = [10, 25, 50, 100];
+
+// ── Currency helpers ────────────────────────────────────────
+const fmtPrice = (n: number, region: Region): string =>
+    region === "in"
+        ? `₹${n.toLocaleString("en-IN")}`
+        : `$${n.toFixed(2)}`;
+
+const currencyCode = (region: Region) => (region === "in" ? "INR" : "USD");
 
 // ── Types ─────────────────────────────────────────────────────
 type Status = "idle" | "loading" | "success" | "error";
 
 type SuccessState = {
-    title: string;
     headline: string;
     detail: string;
     sub: string;
 };
 
-type PaymentRequest = {
-    id: string;
+type StripeModalState = {
+    open: boolean;
+    tierId: string;
+    productLabel: string;
     amount: number;
-    label: string;
-    description: string;
-    notes: Record<string, string | number>;
+    credits?: number;
     onSuccess: (paymentId: string) => SuccessState;
-};
+} | null;
 
 export default function SubscriptionTiers() {
+    const [region, setRegion] = useState<Region>("in");
     const [cycle, setCycle] = useState<BillingCycle>("monthly");
     const [paygCredits, setPaygCredits] = useState<number>(50);
     const [pendingId, setPendingId] = useState<string | null>(null);
     const [status, setStatus] = useState<Status>("idle");
     const [statusMsg, setStatusMsg] = useState<string>("");
     const [success, setSuccess] = useState<SuccessState | null>(null);
+    const [stripeModal, setStripeModal] = useState<StripeModalState>(null);
 
-    const priceFor = (tier: Tier) =>
-        cycle === "monthly" ? tier.monthly : Math.round(tier.yearly / 12);
+    // ── Pricing helpers ───────────────────────────────────────
+    const monthlyPriceFor = (tier: Tier) =>
+        region === "in"
+            ? cycle === "monthly"
+                ? tier.monthly
+                : Math.round(tier.yearly / 12)
+            : cycle === "monthly"
+                ? tier.monthlyUsd
+                : +(tier.yearlyUsd / 12).toFixed(2);
 
-    const billingAmount = (tier: Tier) =>
-        cycle === "monthly" ? tier.monthly : tier.yearly;
+    const billingTotalFor = (tier: Tier) =>
+        region === "in"
+            ? cycle === "monthly"
+                ? tier.monthly
+                : tier.yearly
+            : cycle === "monthly"
+                ? tier.monthlyUsd
+                : tier.yearlyUsd;
 
-    // ── Generic Razorpay flow ─────────────────────────────────
-    const processPayment = async (req: PaymentRequest) => {
+    // ── Razorpay flow (India) ─────────────────────────────────
+    const processRazorpay = async (req: {
+        id: string;
+        amount: number;
+        label: string;
+        description: string;
+        notes: Record<string, string | number>;
+        onSuccess: (paymentId: string) => SuccessState;
+    }) => {
         setStatus("loading");
         setStatusMsg("");
         setPendingId(req.id);
 
         try {
-            // 1. Create order
             const orderRes = await fetch("/api/razorpay/order", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -160,7 +200,6 @@ export default function SubscriptionTiers() {
 
             const { orderId, amount: orderAmount, currency, keyId } = await orderRes.json();
 
-            // 2. Open Razorpay Checkout
             if (typeof window === "undefined" || !window.Razorpay) {
                 throw new Error("Razorpay SDK not loaded. Refresh and try again.");
             }
@@ -222,12 +261,25 @@ export default function SubscriptionTiers() {
         }
     };
 
+    // ── Stripe flow (Global) ──────────────────────────────────
+    const openStripeModal = (modal: NonNullable<StripeModalState>) => {
+        setStatusMsg("");
+        setStatus("idle");
+        setStripeModal(modal);
+    };
+
+    const handleStripeSuccess = (paymentId: string) => {
+        if (!stripeModal) return;
+        setSuccess(stripeModal.onSuccess(paymentId));
+        setStatus("success");
+        setStripeModal(null);
+    };
+
     // ── Tier purchase handler ─────────────────────────────────
     const handleTierSelect = (tier: Tier) => {
-        // Free tier — instant success, no payment
+        // Free tier — instant success
         if (tier.monthly === 0) {
             setSuccess({
-                title: tier.name,
                 headline: `Welcome to ${tier.name}`,
                 detail: "You're on the free plan. Open the AI app to redeem your 20 credits.",
                 sub: `${tier.credits} · ${tier.creditsNote}`,
@@ -236,39 +288,66 @@ export default function SubscriptionTiers() {
             return;
         }
 
-        const amount = billingAmount(tier);
-        processPayment({
-            id: tier.id,
-            amount,
-            label: `OorjaKull ${tier.name}`,
-            description: `${tier.name} — ${cycle === "monthly" ? "Monthly" : "Annual"} subscription`,
-            notes: { tierId: tier.id, cycle },
-            onSuccess: (paymentId) => ({
-                title: tier.name,
-                headline: `Welcome to ${tier.name}`,
-                detail: `Payment verified · ${paymentId}`,
-                sub: `${tier.credits} · ${tier.creditsNote}`,
-            }),
+        const amount = billingTotalFor(tier);
+        const cycleLabel = cycle === "monthly" ? "Monthly" : "Annual";
+        const productLabel = `${tier.name} — ${cycleLabel}`;
+
+        const onSuccess = (paymentId: string): SuccessState => ({
+            headline: `Welcome to ${tier.name}`,
+            detail: `Payment verified · ${paymentId}`,
+            sub: `${tier.credits} · ${tier.creditsNote}`,
         });
+
+        if (region === "in") {
+            processRazorpay({
+                id: tier.id,
+                amount,
+                label: `OorjaKull ${tier.name}`,
+                description: `${tier.name} — ${cycleLabel} subscription`,
+                notes: { tierId: tier.id, cycle },
+                onSuccess,
+            });
+        } else {
+            openStripeModal({
+                open: true,
+                tierId: tier.id,
+                productLabel,
+                amount,
+                onSuccess,
+            });
+        }
     };
 
     // ── PAYG purchase handler ─────────────────────────────────
     const handlePaygPurchase = () => {
         const credits = clampPayg(paygCredits);
-        const amount = credits * PAYG_RATE;
-        processPayment({
-            id: `payg-${credits}`,
-            amount,
-            label: `${credits} AI Credits`,
-            description: `${credits} AI Credits top-up`,
-            notes: { tierId: "payg", credits },
-            onSuccess: (paymentId) => ({
-                title: "Top-up successful",
-                headline: `${credits} credits added`,
-                detail: `Payment verified · ${paymentId}`,
-                sub: `Use them anytime — credits never expire on Pay-as-you-go.`,
-            }),
+        const amount = +(credits * PAYG_RATE[region]).toFixed(2);
+
+        const onSuccess = (paymentId: string): SuccessState => ({
+            headline: `${credits} credits added`,
+            detail: `Payment verified · ${paymentId}`,
+            sub: `Use them anytime — credits never expire on Pay-as-you-go.`,
         });
+
+        if (region === "in") {
+            processRazorpay({
+                id: `payg-${credits}`,
+                amount,
+                label: `${credits} AI Credits`,
+                description: `${credits} AI Credits top-up`,
+                notes: { tierId: "payg", credits },
+                onSuccess,
+            });
+        } else {
+            openStripeModal({
+                open: true,
+                tierId: `payg-${credits}`,
+                productLabel: `${credits} AI Credits Top-up`,
+                amount,
+                credits,
+                onSuccess,
+            });
+        }
     };
 
     // ── Success screen ────────────────────────────────────────
@@ -297,43 +376,82 @@ export default function SubscriptionTiers() {
         );
     }
 
-    const paygTotal = clampPayg(paygCredits) * PAYG_RATE;
+    const paygCreditsClamped = clampPayg(paygCredits);
+    const paygTotal = +(paygCreditsClamped * PAYG_RATE[region]).toFixed(2);
     const isPaygPending = pendingId?.startsWith("payg-") ?? false;
+    const gatewayLabel = region === "in" ? "Razorpay" : "Stripe";
 
     return (
         <div className="flex flex-col items-center gap-12">
-            {/* Billing toggle */}
-            <div className="inline-flex items-center gap-1 bg-card border border-muted rounded-full p-1 shadow-sm">
-                <button
-                    onClick={() => setCycle("monthly")}
-                    className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                        cycle === "monthly"
-                            ? "bg-primary text-white shadow-md"
-                            : "text-foreground/60 hover:text-foreground"
-                    }`}
-                >
-                    Monthly
-                </button>
-                <button
-                    onClick={() => setCycle("yearly")}
-                    className={`relative px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                        cycle === "yearly"
-                            ? "bg-primary text-white shadow-md"
-                            : "text-foreground/60 hover:text-foreground"
-                    }`}
-                >
-                    Yearly
-                    <span className="ml-2 text-[10px] font-bold uppercase tracking-wider bg-secondary/20 text-secondary px-2 py-0.5 rounded-full">
-                        Save 20%
-                    </span>
-                </button>
+            {/* Region + Billing toggles */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+                {/* Region */}
+                <div className="inline-flex items-center gap-1 bg-card border border-muted rounded-full p-1 shadow-sm">
+                    <button
+                        onClick={() => setRegion("in")}
+                        className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${
+                            region === "in"
+                                ? "bg-foreground text-background shadow-md"
+                                : "text-foreground/60 hover:text-foreground"
+                        }`}
+                    >
+                        <span aria-hidden>🇮🇳</span> India
+                    </button>
+                    <button
+                        onClick={() => setRegion("global")}
+                        className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${
+                            region === "global"
+                                ? "bg-foreground text-background shadow-md"
+                                : "text-foreground/60 hover:text-foreground"
+                        }`}
+                    >
+                        <span aria-hidden>🌍</span> Global
+                    </button>
+                </div>
+
+                {/* Billing cycle */}
+                <div className="inline-flex items-center gap-1 bg-card border border-muted rounded-full p-1 shadow-sm">
+                    <button
+                        onClick={() => setCycle("monthly")}
+                        className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                            cycle === "monthly"
+                                ? "bg-primary text-white shadow-md"
+                                : "text-foreground/60 hover:text-foreground"
+                        }`}
+                    >
+                        Monthly
+                    </button>
+                    <button
+                        onClick={() => setCycle("yearly")}
+                        className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                            cycle === "yearly"
+                                ? "bg-primary text-white shadow-md"
+                                : "text-foreground/60 hover:text-foreground"
+                        }`}
+                    >
+                        Yearly
+                        <span className="ml-2 text-[10px] font-bold uppercase tracking-wider bg-secondary/20 text-secondary px-2 py-0.5 rounded-full">
+                            Save 20%
+                        </span>
+                    </button>
+                </div>
             </div>
+
+            {/* Gateway hint */}
+            <p className="text-xs text-muted-foreground -mt-8">
+                Paying via <strong className="text-foreground/80">{gatewayLabel}</strong>
+                {region === "in"
+                    ? " · Cards, UPI, Netbanking, Wallets"
+                    : " · International cards across 180+ countries"}
+            </p>
 
             {/* Tiers grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
                 {TIERS.map((tier) => {
                     const Icon = tier.icon;
-                    const price = priceFor(tier);
+                    const monthlyPrice = monthlyPriceFor(tier);
+                    const billingTotal = billingTotalFor(tier);
+                    const isFree = tier.monthly === 0;
                     const isPending = pendingId === tier.id;
 
                     return (
@@ -370,21 +488,21 @@ export default function SubscriptionTiers() {
 
                             {/* Price */}
                             <div className="mb-2">
-                                {tier.monthly === 0 ? (
+                                {isFree ? (
                                     <span className="text-5xl font-serif font-light text-foreground">Free</span>
                                 ) : (
                                     <div className="flex items-baseline gap-1.5">
                                         <span className="text-5xl font-serif font-light text-foreground">
-                                            ₹{price.toLocaleString("en-IN")}
+                                            {fmtPrice(monthlyPrice, region)}
                                         </span>
                                         <span className="text-sm text-muted-foreground">/month</span>
                                     </div>
                                 )}
                             </div>
                             <p className="text-xs text-muted-foreground h-4 mb-6">
-                                {tier.monthly > 0 && cycle === "yearly"
-                                    ? `Billed ₹${tier.yearly.toLocaleString("en-IN")} annually`
-                                    : tier.monthly > 0
+                                {!isFree && cycle === "yearly"
+                                    ? `Billed ${fmtPrice(billingTotal, region)} ${currencyCode(region)} annually`
+                                    : !isFree
                                         ? "Billed monthly · cancel anytime"
                                         : "No card required"}
                             </p>
@@ -441,7 +559,6 @@ export default function SubscriptionTiers() {
             {/* ── Pay-as-you-go card ─────────────────────────────────── */}
             <div className="w-full max-w-4xl">
                 <div className="relative bg-gradient-to-br from-secondary/8 via-card to-primary/5 border border-secondary/20 rounded-3xl p-8 md:p-10 overflow-hidden">
-                    {/* Ambient glow */}
                     <div className="absolute top-0 right-0 w-72 h-72 bg-secondary/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4 pointer-events-none" />
 
                     <div className="relative grid md:grid-cols-2 gap-8 md:gap-10 items-center">
@@ -466,13 +583,12 @@ export default function SubscriptionTiers() {
                             </div>
                         </div>
 
-                        {/* Right — interactive credit picker */}
+                        {/* Right — credit picker */}
                         <div className="bg-card/80 backdrop-blur border border-muted rounded-2xl p-6">
                             <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                 How many credits?
                             </label>
 
-                            {/* Preset chips */}
                             <div className="flex flex-wrap gap-2 mt-3 mb-4">
                                 {PAYG_PRESETS.map((n) => {
                                     const active = paygCredits === n;
@@ -493,7 +609,6 @@ export default function SubscriptionTiers() {
                                 })}
                             </div>
 
-                            {/* Custom input */}
                             <div className="flex items-center gap-3 border border-muted rounded-xl px-4 py-2.5 bg-background">
                                 <input
                                     type="number"
@@ -515,12 +630,11 @@ export default function SubscriptionTiers() {
                                 Min {PAYG_MIN} · Max {PAYG_MAX} credits
                             </p>
 
-                            {/* Total + CTA */}
                             <div className="mt-5 pt-5 border-t border-muted flex items-center justify-between gap-4">
                                 <div>
                                     <p className="text-xs text-muted-foreground">Total</p>
                                     <p className="text-2xl font-serif font-medium text-foreground">
-                                        ₹{paygTotal.toLocaleString("en-IN")}
+                                        {fmtPrice(paygTotal, region)}
                                     </p>
                                 </div>
                                 <button
@@ -551,12 +665,34 @@ export default function SubscriptionTiers() {
 
             {/* Test mode notice */}
             <div className="text-center max-w-2xl">
-                <p className="text-xs text-muted-foreground/80 leading-relaxed">
-                    🔒 <strong>Test mode</strong> · Use card{" "}
-                    <code className="bg-muted px-1.5 py-0.5 rounded font-mono">4111 1111 1111 1111</code>{" "}
-                    with any future expiry and any 3-digit CVV. No real charges.
-                </p>
+                {region === "in" ? (
+                    <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                        🔒 <strong>Razorpay test mode</strong> · Use card{" "}
+                        <code className="bg-muted px-1.5 py-0.5 rounded font-mono">5267 3181 8797 5449</code>{" "}
+                        with any future expiry and any 3-digit CVV. No real charges.
+                    </p>
+                ) : (
+                    <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                        🔒 <strong>Stripe test mode</strong> · Card details prefilled with{" "}
+                        <code className="bg-muted px-1.5 py-0.5 rounded font-mono">4242 4242 4242 4242</code>.
+                        Powered by stripe-mock — no real charges.
+                    </p>
+                )}
             </div>
+
+            {/* Stripe modal */}
+            {stripeModal && (
+                <StripeCheckoutModal
+                    open={stripeModal.open}
+                    amount={stripeModal.amount}
+                    currency={currencyCode(region).toLowerCase()}
+                    tierId={stripeModal.tierId}
+                    productLabel={stripeModal.productLabel}
+                    credits={stripeModal.credits}
+                    onClose={() => setStripeModal(null)}
+                    onSuccess={handleStripeSuccess}
+                />
+            )}
         </div>
     );
 }
