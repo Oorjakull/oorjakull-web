@@ -28,14 +28,14 @@ const NAV_LINKS: NavItem[] = [
                 heading: "AI CLASSES",
                 description: "AI-guided sessions for every level.",
                 links: [
-                    { label: "All Yoga Classes", href: "/ai" },
-                    { label: "Beginner Foundation", href: "/ai" },
-                    { label: "Yoga Sequences", href: "/ai" },
-                    { label: "Strength & Core", href: "/ai" },
-                    { label: "Surya Namaskar", href: "/ai" },
-                    { label: "Restorative Yoga", href: "/ai" },
-                    { label: "Yoga for Back Pain", href: "/ai" },
-                    { label: "Yoga for Sciatica", href: "/ai" },
+                    { label: "All Yoga Classes", href: "https://ai.oorjakull.com" },
+                    { label: "Beginner Foundation", href: "https://ai.oorjakull.com" },
+                    { label: "Yoga Sequences", href: "https://ai.oorjakull.com" },
+                    { label: "Strength & Core", href: "https://ai.oorjakull.com" },
+                    { label: "Surya Namaskar", href: "https://ai.oorjakull.com" },
+                    { label: "Restorative Yoga", href: "https://ai.oorjakull.com" },
+                    { label: "Yoga for Back Pain", href: "https://ai.oorjakull.com" },
+                    { label: "Yoga for Sciatica", href: "https://ai.oorjakull.com" },
                 ],
             },
         ],
@@ -278,7 +278,7 @@ export default function Navbar() {
                         {/* CTA */}
                         <div className="flex items-center gap-2 shrink-0">
                             <Link
-                                href="/ai"
+                                href="https://ai.oorjakull.com"
                                 onClick={() => setActiveMenu(null)}
                                 className="px-5 py-2 rounded-full text-sm font-semibold bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 transition-all whitespace-nowrap"
                             >
@@ -417,7 +417,7 @@ export default function Navbar() {
                         ))}
                         <div className="p-4">
                             <Link
-                                href="/ai"
+                                href="https://ai.oorjakull.com"
                                 className="block text-center px-6 py-3 rounded-full text-base font-semibold bg-primary text-white hover:bg-primary/90 transition-all"
                                 onClick={() => setIsOpen(false)}
                             >

@@ -52,7 +52,7 @@ const TAG_COLORS: Record<string, string> = {
 
 function SequenceCard({ sequence }: { sequence: typeof AI_SEQUENCES[number] }) {
     return (
-        <Link href="/ai" className="group block">
+        <Link href="https://ai.oorjakull.com" className="group block">
             <div className="relative rounded-2xl overflow-hidden border border-muted shadow-lg hover:shadow-2xl hover:shadow-foreground/10 hover:-translate-y-1 transition-all duration-500 cursor-pointer">
                 {/* Image */}
                 <div className="relative aspect-[4/3] w-full bg-muted overflow-hidden">
@@ -123,7 +123,7 @@ export default function VideoGrid() {
                             </p>
                         </div>
                         <Link
-                            href="/ai"
+                            href="https://ai.oorjakull.com"
                             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors shrink-0"
                         >
                             <Sparkles className="w-4 h-4" />

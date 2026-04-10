@@ -32,7 +32,7 @@ export default function MadhuChatbot() {
 
             {/* Button */}
             <Link
-                href="/ai"
+                href="https://ai.oorjakull.com"
                 onMouseEnter={() => setTooltipVisible(true)}
                 onMouseLeave={() => setTooltipVisible(false)}
                 onFocus={() => setTooltipVisible(true)}
@@ -85,7 +85,7 @@ export function MadhuChatbotDismissible() {
             </AnimatePresence>
 
             <Link
-                href="/ai"
+                href="https://ai.oorjakull.com"
                 onMouseEnter={() => setTooltipVisible(true)}
                 onMouseLeave={() => setTooltipVisible(false)}
                 aria-label="Chat with Madhu — your AI Yoga Companion"

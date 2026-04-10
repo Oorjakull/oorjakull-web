@@ -72,7 +72,7 @@ export default function YogaStylesClient({ styles }: { styles: YogaStyle[] }) {
                                 {style.description}
                             </p>
                             <Link
-                                href="/ai"
+                                href="https://ai.oorjakull.com"
                                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-1 hover:gap-2.5 transition-all"
                             >
                                 Start with AI <ArrowRight className="w-3.5 h-3.5" />

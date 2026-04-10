@@ -59,9 +59,9 @@ export default function Footer() {
                         <h4 className="text-xs font-semibold text-foreground/40 uppercase tracking-[0.25em]">Quick Links</h4>
                         <ul className="space-y-3 text-sm">
                             {[
-                                ["Breath & Beyond", "/ai"],
-                                ["Program", "/ai"],
-                                ["Try a Free AI Session", "/ai"],
+                                ["Breath & Beyond", "https://ai.oorjakull.com"],
+                                ["Program", "https://ai.oorjakull.com"],
+                                ["Try a Free AI Session", "https://ai.oorjakull.com"],
                             ].map(([label, href]) => (
                                 <li key={label}>
                                     <Link href={href} className="text-foreground/55 hover:text-primary transition-colors inline-flex items-center gap-1 group">
